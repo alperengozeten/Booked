@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/primaryBackgroundColor">
+
+    <Button
+        android:id="@+id/profileBtn"
+        style="@android:style/Widget.Holo.Light.Button"
+        android:layout_width="144dp"
+        android:layout_height="68dp"
+        android:text="Profile"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/profileImageBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.782" />
+
+    <Button
+        android:id="@+id/myPostsBtn"
+        style="@android:style/Widget.Holo.Light.Button"
+        android:layout_width="144dp"
+        android:layout_height="68dp"
+        android:text="My Posts"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/myPostsImageBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.499" />
+
+    <ImageButton
+        android:id="@+id/showroomImageBtn"
+        android:layout_width="103dp"
+        android:layout_height="114dp"
+        android:background="@color/primaryBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.233"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.194"
+        app:srcCompat="@drawable/ic_showroom" />
+
+    <ImageButton
+        android:id="@+id/myPostsImageBtn"
+        android:layout_width="94dp"
+        android:layout_height="85dp"
+        android:background="@color/primaryBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.247"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showroomImageBtn"
+        app:layout_constraintVertical_bias="0.205"
+        app:srcCompat="@drawable/ic_iconfinder_send_online_post_start_launch_2205231_1" />
+
+    <ImageButton
+        android:id="@+id/profileImageBtn"
+        android:layout_width="103dp"
+        android:layout_height="94dp"
+        android:background="@color/primaryBackgroundColor"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.247"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/myPostsImageBtn"
+        app:layout_constraintVertical_bias="0.458"
+        app:srcCompat="@drawable/ic_user" />
+
+    <Button
+        android:id="@+id/showroomBtn"
+        style="@android:style/Widget.Holo.Light.Button"
+        android:layout_width="144dp"
+        android:layout_height="68dp"
+        android:text="Showroom"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
+        app:layout_constraintStart_toEndOf="@+id/showroomImageBtn"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.214" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

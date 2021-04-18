@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Booked</string>
+    <string name="settings_title">Settings</string>
+    <string name="book_title">Main Menu</string>
+</resources>
