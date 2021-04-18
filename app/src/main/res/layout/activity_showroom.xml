@@ -88,10 +88,11 @@
 
     <SearchView
         android:id="@+id/showroomSearchView"
-        android:layout_width="248dp"
-        android:layout_height="34dp"
+        android:layout_width="247dp"
+        android:layout_height="51dp"
         android:layout_marginStart="80dp"
         android:queryHint="Search Here"
+        android:searchIcon="@drawable/ic_icons8_search"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent" />
 
