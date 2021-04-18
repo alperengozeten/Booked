@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.inputmethod.EditorInfo;
+import android.widget.SearchView;
 
 import java.util.ArrayList;
 
@@ -18,6 +20,7 @@ public class Showroom extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,22 @@ public class Showroom extends AppCompatActivity {
 
         mAdapter = new MyShowroomPostAdapter(names, this);
         recyclerView.setAdapter(mAdapter);
+
+        searchView = (SearchView) findViewById(R.id.showroomSearchView);
+        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                ((MyShowroomPostAdapter) mAdapter).getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     @Override

@@ -87,6 +87,7 @@
         app:layout_constraintStart_toEndOf="@+id/button3" />
 
     <SearchView
+        android:id="@+id/showroomSearchView"
         android:layout_width="248dp"
         android:layout_height="34dp"
         android:layout_marginStart="80dp"

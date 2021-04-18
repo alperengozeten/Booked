@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,13 +16,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAdapter.ShowroomPostViewHolder> {
+public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAdapter.ShowroomPostViewHolder> implements Filterable {
 
-    ArrayList<String> names;
-    Context context;
+    private ArrayList<String> names;
+    private ArrayList<String> namesFull;
+    private Context context;
 
     public MyShowroomPostAdapter(ArrayList<String> names, Context context) {
         this.names = names;
+        namesFull = new ArrayList<>(names);
         this.context = context;
     }
 
@@ -54,6 +58,41 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
         return names.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return showroomFilter;
+    }
+
+    private Filter showroomFilter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            ArrayList<String> filteredList = new ArrayList<>();
+
+            if ( constraint == null || constraint.length() == 0 ) {
+                filteredList.addAll(namesFull);
+            }
+            else {
+                String filterPattern = constraint.toString().toLowerCase().trim();
+
+                for ( String name: namesFull ) {
+                    if ( name.toLowerCase().contains(filterPattern) ) {
+                        filteredList.add(name);
+                    }
+                }
+            }
+
+            FilterResults results = new FilterResults();
+            results.values = filteredList;
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            names.clear();
+            names.addAll((ArrayList) results.values);
+            notifyDataSetChanged();
+        }
+    };
 
     public class ShowroomPostViewHolder extends RecyclerView.ViewHolder {
         ImageView showroomPostPictureImageView;
