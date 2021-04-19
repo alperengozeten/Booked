@@ -25,6 +25,9 @@ public class MyPosts extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_posts);
 
+        //getSupportActionBar().setTitle("My Posts");
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         recyclerView = (RecyclerView) findViewById(R.id.postList);
 
@@ -57,7 +60,7 @@ public class MyPosts extends AppCompatActivity {
                 Intent settingsIntent = new Intent(getApplicationContext(),Settings.class);
                 startActivity( settingsIntent);
                 return true;
-            case R.id.book_icon:
+            case android.R.id.home:
                 Intent bookIntent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(bookIntent);
                 return true;

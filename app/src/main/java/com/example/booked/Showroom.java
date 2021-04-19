@@ -34,6 +34,9 @@ public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.Sh
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showroom);
 
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         recyclerView = (RecyclerView) findViewById(R.id.showroomPostList);
 
         recyclerView.setHasFixedSize(true);
@@ -91,7 +94,7 @@ public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.Sh
                 Intent settingsIntent = new Intent(getApplicationContext(),Settings.class);
                 startActivity( settingsIntent);
                 return true;
-            case R.id.book_icon:
+            case android.R.id.home:
                 Intent bookIntent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(bookIntent);
                 return true;

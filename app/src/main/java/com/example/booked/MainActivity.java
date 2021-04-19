@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent settingsIntent = new Intent(getApplicationContext(),Settings.class);
                 startActivity( settingsIntent);
                 return true;
-            case R.id.book_icon:
+            case android.R.id.home:
                 Intent bookIntent = new Intent(getApplicationContext(),MainActivity.class);
                 startActivity(bookIntent);
                 return true;
@@ -49,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         showroomImageBtn = (ImageButton) findViewById(R.id.showroomImageBtn);
         myPostsImageBtn = (ImageButton) findViewById(R.id.myPostsImageBtn);
