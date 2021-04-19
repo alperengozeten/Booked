@@ -10,17 +10,24 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Showroom extends AppCompatActivity {
+public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener, AdapterView.OnItemSelectedListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
+
     private SearchView searchView;
+
+    private ImageButton menuImageBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +66,15 @@ public class Showroom extends AppCompatActivity {
                 return false;
             }
         });
+
+        menuImageBtn = (ImageButton) findViewById(R.id.menuImageBtn);
+
+        menuImageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMenuDialog();
+            }
+        });
     }
 
     @Override
@@ -81,5 +97,26 @@ public class Showroom extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void openMenuDialog() {
+        ShowroomMenuDialog menuDialog = new ShowroomMenuDialog();
+        menuDialog.show(getSupportFragmentManager(),"menu dialog");
+    }
+
+    @Override
+    public void applyTexts(String firstPrice, String secondPrice) {
+        //Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        String text = parent.getItemAtPosition(position).toString();
+        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

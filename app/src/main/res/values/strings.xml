@@ -2,4 +2,30 @@
     <string name="app_name">Booked</string>
     <string name="settings_title">Settings</string>
     <string name="book_title">Main Menu</string>
+    
+    <string-array name="universities">
+        <item>Bilkent University</item>
+        <item>ODTU University</item>
+        <item>Boğazici University</item>
+        <item>Yıldız Teknik University</item>
+        <item>Sabancı University</item>
+        <item>Koc University</item>
+        <item>Istanbul Teknik University</item>
+        <item>TOBB University</item>
+        <item>Cankaya University</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="courses">
+        <item>Math-101</item>
+        <item>Math-102</item>
+        <item>Math-132</item>
+        <item>Phys-101</item>
+        <item>Phys-102</item>
+        <item>Eng-101</item>
+        <item>Eng-102</item>
+        <item>Cs-115</item>
+        <item>Cs-101</item>
+        <item>Cs-102</item>
+    </string-array>
 </resources>

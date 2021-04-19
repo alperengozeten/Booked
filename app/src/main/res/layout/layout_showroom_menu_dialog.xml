@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/enterUniversityTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        tools:text="Filter By University" />
+
+    <Spinner
+        android:id="@+id/universitySpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp" />
+
+    <TextView
+        android:id="@+id/enterCourseTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        tools:text="Filter By Course" />
+
+    <Spinner
+        android:id="@+id/courseSpinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="95dp" />
+
+    <EditText
+        android:id="@+id/firstPriceEditText"
+        android:layout_width="78dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="125dp"
+        android:ems="10"
+        android:hint="0 TL"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/secondPriceEditText"
+        android:layout_width="78dp"
+        android:layout_height="61dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="125dp"
+        android:ems="10"
+        android:hint="100 TL"
+        android:inputType="number"
+        android:textAlignment="center" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="21dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="150dp" />
+
+</RelativeLayout>

@@ -13,6 +13,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -25,6 +29,8 @@ public class MyProfile extends AppCompatActivity {
     ImageButton instagramBtn;
     ImageButton mailBtn;
     ImageButton phoneBtn;
+
+    ImageView profilePhotoImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +46,10 @@ public class MyProfile extends AppCompatActivity {
         instagramBtn = (ImageButton) findViewById(R.id.instagramBtn);
         mailBtn = (ImageButton) findViewById(R.id.mailBtn);
         phoneBtn = (ImageButton) findViewById(R.id.phoneBtn);
+
+        profilePhotoImageView = (ImageView) findViewById(R.id.profilePhotoImageView);
+
+        Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).resize(223,244).centerCrop().into(profilePhotoImageView);
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override

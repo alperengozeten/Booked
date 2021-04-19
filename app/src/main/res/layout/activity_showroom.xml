@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="16dp"
         android:background="@color/primaryBackgroundColor"
         app:layout_constraintStart_toEndOf="@+id/textView12"
         app:layout_constraintTop_toTopOf="parent"
@@ -88,12 +88,23 @@
 
     <SearchView
         android:id="@+id/showroomSearchView"
-        android:layout_width="247dp"
+        android:layout_width="300dp"
         android:layout_height="51dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginStart="36dp"
+        android:background="@drawable/search_box"
         android:queryHint="Search Here"
         android:searchIcon="@drawable/ic_icons8_search"
         app:layout_constraintBottom_toTopOf="@+id/button2"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/menuImageBtn"
+        android:layout_width="69dp"
+        android:layout_height="61dp"
+        android:layout_marginEnd="4dp"
+        android:background="@color/primaryBackgroundColor"
+        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
