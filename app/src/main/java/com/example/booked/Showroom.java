@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener, AdapterView.OnItemSelectedListener {
+public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -105,18 +105,8 @@ public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.Sh
     }
 
     @Override
-    public void applyTexts(String firstPrice, String secondPrice) {
-        //Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice, Toast.LENGTH_SHORT).show();
+    public void applyTexts(String filteredUniversity, String filteredCourse, String firstPrice, String secondPrice) {
+        //Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice + "Filtered Uni: " +filteredUniversity, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        String text = parent.getItemAtPosition(position).toString();
-        Toast.makeText(parent.getContext(),text,Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }

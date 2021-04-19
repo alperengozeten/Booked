@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ShowroomMenuDialog extends AppCompatDialogFragment {
+public class ShowroomMenuDialog extends AppCompatDialogFragment implements AdapterView.OnItemSelectedListener{
 
     private EditText firstPriceEditText;
     private EditText secondPriceEditText;
@@ -32,6 +32,9 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment {
     private ShowroomMenuDialogListener listener;
 
     private Context parentContext;
+
+    private String filteredUniversity;
+    private String filteredCourse;
 
     @NonNull
     @Override
@@ -55,7 +58,7 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment {
             public void onClick(DialogInterface dialog, int which) {
                 String firstPrice = firstPriceEditText.getText().toString();
                 String secondPrice = secondPriceEditText.getText().toString();
-                listener.applyTexts(firstPrice, secondPrice);
+                listener.applyTexts(filteredUniversity, filteredCourse, firstPrice, secondPrice);
             }
         });
 
@@ -78,7 +81,7 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment {
         universitySpinner.setAdapter(universityAdapter);
         courseSpinner.setAdapter(courseAdapter);
 
-        universitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) parentContext);
+        universitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
         return builder.create();
     }
 
@@ -95,7 +98,22 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment {
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if ( parent.getId() == universitySpinner.getId() ) {
+            filteredUniversity = parent.getItemAtPosition(position).toString();
+        }
+        else if ( parent.getId() == courseSpinner.getId() ) {
+            filteredCourse = parent.getItemAtPosition(position).toString();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
     public interface ShowroomMenuDialogListener {
-        void applyTexts(String firstPrice, String secondPrice);
+        void applyTexts(String filteredUniversity, String filteredCourse, String firstPrice, String secondPrice);
     }
 }
