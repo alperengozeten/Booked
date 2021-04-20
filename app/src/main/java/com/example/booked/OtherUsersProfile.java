@@ -6,15 +6,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -25,6 +30,15 @@ public class OtherUsersProfile extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     private TextView otherUsersProfilePostTextView;
+    private TextView otherUsersProfileUsernameTextView;
+    private TextView otherUsersProfileUniversityNameTextView;
+
+    private ImageButton otherUsersProfileFacebookBtn;
+    private ImageButton otherUsersProfileTwitterBtn;
+    private ImageButton otherUsersProfileInstagramBtn;
+    private ImageButton otherUsersProfileMailBtn;
+    private ImageButton otherUsersProfilePhoneBtn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,14 @@ public class OtherUsersProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         otherUsersProfilePostTextView = (TextView) findViewById(R.id.otherUsersProfilePostTextView);
+        otherUsersProfileUsernameTextView = (TextView) findViewById(R.id.otherUsersProfileUsernameTextView);
+        otherUsersProfileUniversityNameTextView = (TextView) findViewById(R.id.otherUsersProfileUniversityNameTextView);
+
+        otherUsersProfileFacebookBtn = (ImageButton) findViewById(R.id.otherUsersProfileFacebookBtn);
+        otherUsersProfileTwitterBtn = (ImageButton) findViewById(R.id.otherUsersProfileTwitterBtn);
+        otherUsersProfileInstagramBtn = (ImageButton) findViewById(R.id.otherUsersProfileInstagramBtn);
+        otherUsersProfileMailBtn = (ImageButton) findViewById(R.id.otherUsersProfileMailBtn);
+        otherUsersProfilePhoneBtn = (ImageButton) findViewById(R.id.otherUsersProfilePhoneBtn);
 
         recyclerView = (RecyclerView) findViewById(R.id.otherUserPostList);
 
@@ -56,7 +78,49 @@ public class OtherUsersProfile extends AppCompatActivity {
         mAdapter = new OtherUsersPostAdapter(posts, this);
         recyclerView.setAdapter(mAdapter);
 
+        otherUsersProfileUsernameTextView.setText(currentUser.getName().toString());
+        otherUsersProfileUniversityNameTextView.setText(currentUser.getUniversity().toString());
         otherUsersProfilePostTextView.setText(currentUser.getName().toString() + "'s Posts");
+
+        otherUsersProfileFacebookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog("No Info");
+            }
+        });
+
+        otherUsersProfileTwitterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog("No Info");
+            }
+        });
+
+        otherUsersProfileInstagramBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog("No Info");
+            }
+        });
+
+        otherUsersProfileMailBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog("No Info");
+            }
+        });
+
+        otherUsersProfilePhoneBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog(currentUser.getPhoneNumber().toString());
+            }
+        });
+    }
+
+    public void openDialog(String socialMedia) {
+        SocialMediaDialog dialog = new SocialMediaDialog(socialMedia);
+        dialog.show(getSupportFragmentManager(),"social media dialog");
     }
 
     @Override

@@ -26,6 +26,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
     private SearchView searchView;
 
     private ImageButton menuImageBtn;
+    private ImageButton showroomAddPostBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +72,21 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         });
 
         menuImageBtn = (ImageButton) findViewById(R.id.menuImageBtn);
+        showroomAddPostBtn = (ImageButton) findViewById(R.id.showroomAddPostBtn);
 
         menuImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openMenuDialog();
+            }
+        });
+
+        showroomAddPostBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO
+                Intent intent = new Intent(getApplicationContext(),AddPost2.class);
+                startActivity(intent);
             }
         });
     }
