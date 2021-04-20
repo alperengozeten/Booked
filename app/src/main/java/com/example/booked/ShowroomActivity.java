@@ -12,10 +12,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -49,6 +47,8 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         names.add("Alperen");
         names.add("Alpozo");
         names.add("Alponzo");
+        names.add("Safa");
+        names.add("LOLO");
 
         mAdapter = new MyShowroomPostAdapter(names, this);
         recyclerView.setAdapter(mAdapter);
@@ -91,7 +91,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(),Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

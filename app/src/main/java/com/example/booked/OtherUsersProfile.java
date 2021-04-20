@@ -10,8 +10,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.Post;
@@ -19,35 +18,25 @@ import com.example.booked.models.User;
 
 import java.util.ArrayList;
 
-public class MyPosts extends AppCompatActivity {
+public class OtherUsersProfile extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    private User currentUser;
-
-    private ImageButton myPostsAddPostBtn;
+    private TextView otherUsersProfilePostTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_posts);
+        setContentView(R.layout.activity_other_users_profile);
 
-        //getSupportActionBar().setTitle("My Posts");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        myPostsAddPostBtn = (ImageButton) findViewById(R.id.myPostsAddPostBtn);
-        myPostsAddPostBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AddPost2.class);
-                startActivity(intent);
-            }
-        });
+        otherUsersProfilePostTextView = (TextView) findViewById(R.id.otherUsersProfilePostTextView);
 
-        recyclerView = (RecyclerView) findViewById(R.id.postList);
+        recyclerView = (RecyclerView) findViewById(R.id.otherUserPostList);
 
         recyclerView.setHasFixedSize(true);
 
@@ -64,15 +53,10 @@ public class MyPosts extends AppCompatActivity {
         posts.add(new Post("Math book", "In good state", "Math-101",60,"No pic", book, currentUser));
         posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, currentUser));
 
-        /*
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Alperen");
-        names.add("Alpozo");
-        names.add("Alponzo");
-         */
-
-        mAdapter = new MyPostAdapter(posts, this);
+        mAdapter = new OtherUsersPostAdapter(posts, this);
         recyclerView.setAdapter(mAdapter);
+
+        otherUsersProfilePostTextView.setText(currentUser.getName().toString() + "'s Posts");
     }
 
     @Override

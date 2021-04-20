@@ -13,6 +13,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class SocialMediaDialog extends AppCompatDialogFragment {
+
+    String socialMedia;
+
+    public SocialMediaDialog(String socialMedia) {
+        this.socialMedia = socialMedia;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -32,7 +39,7 @@ public class SocialMediaDialog extends AppCompatDialogFragment {
         );
 
         TextView socialMediaInfo = (TextView) view.findViewById(R.id.socialMediaInfo);
-        socialMediaInfo.setText("Social Media Info Here");
+        socialMediaInfo.setText(socialMedia);
 
         return builder.create();
     }
