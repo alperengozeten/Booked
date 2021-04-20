@@ -10,13 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
         <activity android:name=".EditPost"></activity>
-        <activity android:name=".Post" />
+        <activity android:name=".PostActivity" />
         <activity android:name=".ChangePassword" />
         <activity android:name=".EditProfile" />
         <activity android:name=".MyProfile" />
         <activity android:name=".Settings" />
         <activity android:name=".MyPosts" />
-        <activity android:name=".Showroom" />
+        <activity android:name=".ShowroomActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

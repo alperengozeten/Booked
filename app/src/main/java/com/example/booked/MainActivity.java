@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -65,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent( getApplicationContext(), Showroom.class);
+                Intent intent = new Intent( getApplicationContext(), ShowroomActivity.class);
                 startActivity(intent);
             }
         });
@@ -73,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
         showroomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent( getApplicationContext(), Showroom.class);
+                Intent intent = new Intent( getApplicationContext(), ShowroomActivity.class);
                 startActivity(intent);
             }
         });

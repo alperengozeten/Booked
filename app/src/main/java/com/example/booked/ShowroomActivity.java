@@ -19,7 +19,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
-public class Showroom extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
+public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter mAdapter;
