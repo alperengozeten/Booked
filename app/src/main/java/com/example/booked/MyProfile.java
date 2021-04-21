@@ -57,6 +57,9 @@ public class MyProfile extends AppCompatActivity {
         if ( resultCode == Activity.RESULT_OK && data != null ) {
             Uri uri = data.getData();
 
+            //profilePhotoImageView.setImageURI(uri);
+
+
             try {
                 ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(uri,"r");
                 FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();

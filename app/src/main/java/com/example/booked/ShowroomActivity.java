@@ -181,11 +181,14 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
 
     @Override
     public void applyTexts(String filteredUniversity, String filteredCourse, String firstPrice, String secondPrice) {
-        Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice + "Filtered Uni: " +filteredUniversity + " Filtered Course:" + filteredCourse, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice + "Filtered Uni: " +filteredUniversity + " Filtered Course:" + filteredCourse, Toast.LENGTH_SHORT).show();
         int intFirstPrice = Integer.parseInt(firstPrice);
         int intSecondPrice = Integer.parseInt(secondPrice);
 
         ((MyShowroomPostAdapter) mAdapter).filter(filteredUniversity, filteredCourse, intFirstPrice, intSecondPrice);
     }
 
+    public void resetFilters() {
+        ((MyShowroomPostAdapter) mAdapter).resetFilters();
+    }
 }

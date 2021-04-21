@@ -55,7 +55,8 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
         holder.postEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
+                Booked book = new Booked();
+                book.setCurrentPost(posts.get(position));
                 Intent intent = new Intent(context, EditPost2.class);
                 context.startActivity(intent);
             }

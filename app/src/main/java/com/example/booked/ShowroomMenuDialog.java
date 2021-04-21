@@ -19,6 +19,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.example.booked.models.Showroom;
+
 public class ShowroomMenuDialog extends AppCompatDialogFragment implements AdapterView.OnItemSelectedListener{
 
     private EditText firstPriceEditText;
@@ -60,6 +62,13 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
                 String firstPrice = firstPriceEditText.getText().toString();
                 String secondPrice = secondPriceEditText.getText().toString();
                 listener.applyTexts(filteredUniversity, filteredCourse, firstPrice, secondPrice);
+            }
+        });
+
+        builder.setNeutralButton("Clear Filters", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ((ShowroomActivity) listener).resetFilters();
             }
         });
 

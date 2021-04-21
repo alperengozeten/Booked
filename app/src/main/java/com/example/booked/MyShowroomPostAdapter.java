@@ -73,9 +73,14 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
         Showroom filteredShowroom = showroom;
 
         Log.e("CHECK", "Uni:" + filteredUniversity);
-        filteredShowroom.filterByUniversity(filteredUniversity).filterByCourse(filteredCourse).filterByPrice(firstPrice,secondPrice);
+        filteredShowroom = filteredShowroom.filterByUniversity(filteredUniversity).filterByCourse(filteredCourse).filterByPrice(firstPrice,secondPrice);
 
         posts = new ArrayList<>(filteredShowroom.getPosts());
+        notifyDataSetChanged();
+    }
+
+    public void resetFilters() {
+        posts = postsFull;
         notifyDataSetChanged();
     }
 
