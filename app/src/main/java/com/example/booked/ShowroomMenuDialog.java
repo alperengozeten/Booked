@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -82,6 +83,7 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
         courseSpinner.setAdapter(courseAdapter);
 
         universitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
+        courseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         return builder.create();
     }
 
@@ -101,10 +103,10 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if ( parent.getId() == universitySpinner.getId() ) {
-            filteredUniversity = parent.getItemAtPosition(position).toString();
+            filteredUniversity = universitySpinner.getItemAtPosition(position).toString();
         }
         else if ( parent.getId() == courseSpinner.getId() ) {
-            filteredCourse = parent.getItemAtPosition(position).toString();
+            filteredCourse = courseSpinner.getItemAtPosition(position).toString();
         }
     }
 

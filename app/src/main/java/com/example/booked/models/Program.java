@@ -38,7 +38,7 @@ public class Program {
         User u2 = new User("user2");
 
 
-
+        /*
         a1.addBook(new Book("book1", "pic1"), pro);
         a1.addBook(new Book("book2", "pic2"), pro);
 
@@ -55,7 +55,7 @@ public class Program {
         System.out.println("bookProfiles:" + pro.bookProfiles);
         System.out.println("Showroom: " + pro.showroom.getPosts());
         System.out.println("Results:" + pro.showroom.filterByWord("post1"));
-
+        */
     }
 }
 

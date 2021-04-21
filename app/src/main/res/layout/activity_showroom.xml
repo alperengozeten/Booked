@@ -48,7 +48,7 @@
         app:srcCompat="@drawable/ic_post_add" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/priceLowToHighBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price: Low to High"
@@ -58,7 +58,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/priceHighToLowBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -66,25 +66,25 @@
         android:textAllCaps="false"
         android:textSize="12sp"
         app:layout_constraintBottom_toTopOf="@+id/showroomPostList"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintStart_toEndOf="@+id/priceLowToHighBtn" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/aToZBtn"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:text="A-Z"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/showroomPostList"
-        app:layout_constraintStart_toEndOf="@+id/button2" />
+        app:layout_constraintStart_toEndOf="@+id/priceHighToLowBtn" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/zToABtn"
         android:layout_width="80dp"
         android:layout_height="48dp"
         android:text="Z-A"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/showroomPostList"
-        app:layout_constraintStart_toEndOf="@+id/button3" />
+        app:layout_constraintStart_toEndOf="@+id/aToZBtn" />
 
     <SearchView
         android:id="@+id/showroomSearchView"
@@ -94,7 +94,7 @@
         android:background="@drawable/search_box"
         android:queryHint="Search Here"
         android:searchIcon="@drawable/ic_icons8_search"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintBottom_toTopOf="@+id/priceHighToLowBtn"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
@@ -103,7 +103,7 @@
         android:layout_height="61dp"
         android:layout_marginEnd="4dp"
         android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toTopOf="@+id/button4"
+        app:layout_constraintBottom_toTopOf="@+id/zToABtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_menu" />
 
