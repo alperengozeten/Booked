@@ -13,6 +13,11 @@ public class User{
     boolean notifications;
     boolean isBanned;
 
+    public User(String userName) {
+        this.email = email;
+        this.userName = userName;
+    }
+
     public User(String email, String userName) {
         this.email = email;
         this.userName = userName;
@@ -42,8 +47,8 @@ public class User{
 
     // Accessor Methods
 
-    public String getName() {
-        return this.name;
+    public String getUserName() {
+        return this.userName;
     }
 
     public String getEmail() {
@@ -78,12 +83,7 @@ public class User{
     }
 
     public void changeNotifications() {
-        if ( this.notifications) {
-            this.notifications = false;
-        }
-        else {
-            this.notifications = true;
-        }
+        this.notifications = !this.notifications;
     }
 
     /**  void addPostToMyPosts(Post post)
@@ -94,7 +94,7 @@ public class User{
 
     @Override
     public String toString() {
-        return this.name + " from " + this.university + " University";
+        return this.userName + " from " + this.university + " University";
     }
 
 }
