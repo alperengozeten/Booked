@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class User{
 
-    String name;
+    String userName;
     String email;
     String avatar;
     ArrayList<String> socialMedia;
@@ -13,13 +13,14 @@ public class User{
     boolean notifications;
     boolean isBanned;
 
-    public User(String name) {
-        this.name = name;
+    public User(String email, String userName) {
+        this.email = email;
+        this.userName = userName;
     }
 
-    public User(String name, String email, String avatar, String phoneNumber, String university )
+    public User(String userName, String email, String avatar, String phoneNumber, String university )
     {
-        this.name = name;
+        this.userName = userName;
         this.email = email;
         this.avatar = avatar;
         this.phoneNumber = phoneNumber;

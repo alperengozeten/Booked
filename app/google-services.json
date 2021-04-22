@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "168430868600",
+    "project_id": "booked-a3389",
+    "storage_bucket": "booked-a3389.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:168430868600:android:0abde5faaa8f217bcd358d",
+        "android_client_info": {
+          "package_name": "com.example.booked"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "168430868600-kug9sv2ppkt9haus6hv0acgrtqt3k2aj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvJOgd4p-UtNqtYUGrHPSwUVKPGWLJVic"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "168430868600-kug9sv2ppkt9haus6hv0acgrtqt3k2aj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

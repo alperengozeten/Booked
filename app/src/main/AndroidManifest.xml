@@ -10,7 +10,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
-        <activity android:name=".OtherUsersProfile"></activity>
+        <activity android:name=".SignUpActivity"/>
+        <activity android:name=".MainActivity"/>
+        <activity android:name=".ForgetPasswordActivity"/>
+        <activity android:name=".SuccessfulVerificationActivity"></activity>
+        <activity android:name=".OtherUsersProfile" />
         <activity android:name=".AddPost2" />
         <activity android:name=".EditPost2" />
         <activity android:name=".PostActivity" />
@@ -20,7 +24,7 @@
         <activity android:name=".Settings2" />
         <activity android:name=".MyPosts" />
         <activity android:name=".ShowroomActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
