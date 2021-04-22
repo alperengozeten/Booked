@@ -85,7 +85,7 @@
         android:background="@color/button_color"
         android:hint="Sign up"
         android:textColorHint="@color/white"
-        android:textSize="16dp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginBtn" />

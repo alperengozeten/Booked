@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageButton showroomImageBtn;
@@ -21,6 +23,9 @@ public class MainActivity extends AppCompatActivity {
     Button showroomBtn;
     Button myPostsBtn;
     Button profileBtn;
+    Button mLogOutBtn;
+
+    FirebaseAuth mAuth;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,6 +64,9 @@ public class MainActivity extends AppCompatActivity {
         showroomBtn = (Button) findViewById(R.id.showroomBtn);
         myPostsBtn = (Button) findViewById(R.id.myPostsBtn);
         profileBtn = (Button) findViewById(R.id.profileBtn);
+        mLogOutBtn = (Button) findViewById( R.id.logOutButton);
+
+        mAuth = FirebaseAuth.getInstance();
 
         showroomImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,6 +118,15 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent( getApplicationContext(), MyProfile.class);
                 startActivity(intent);
+            }
+        });
+
+        mLogOutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signOut();
+                startActivity( new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
             }
         });
     }

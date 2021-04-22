@@ -2,15 +2,23 @@ package com.example.booked;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener{
+public class LoginActivity extends AppCompatActivity {
 
     EditText mEmail;
     EditText mPassword;
@@ -30,24 +38,83 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mLoginButton = (Button) findViewById(R.id.loginBtn);
         mSignUpButton = (Button) findViewById(R.id.signUpBtnL);
         mForgetPasswordButton = (Button) findViewById(R.id.forgotYourPasswordBtn);
-    }
 
-    @Override
-    public void onClick(View v) {
-        switch ( v.getId()) {
-            case R.id.loginBtn:
-                loginUser();
-                break;
-            case R.id.signUpBtn:
-                startActivity( new Intent( this, SignUpActivity.class));
-                break;
-            case R.id.forgotYourPasswordBtn:
-                startActivity( new Intent( this, ForgetPasswordActivity.class));
-                break;
+        mAuth = FirebaseAuth.getInstance();
+
+//         if the user already signed in and not logged out it directs the user to main page
+        if (mAuth.getCurrentUser() != null) {
+            startActivity(new Intent(com.example.booked.LoginActivity.this, MainActivity.class));
+            finish();
         }
+
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginUser();
+            }
+        });
+
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( getApplicationContext(), SignUpActivity.class));
+            }
+        });
+
+        mForgetPasswordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent( getApplicationContext(), ForgetPasswordActivity.class));
+            }
+        });
+
+
     }
 
     private void loginUser() {
+        String email = mEmail.getText().toString().trim();
+        String password = mPassword.getText().toString().trim();
+
+        if (email.isEmpty() ) {
+            mEmail.setError("Please enter your email address");
+            mEmail.requestFocus();
+            return;
+        }
+        else {
+            mEmail.setError( null);
+        }
+
+        if (password.isEmpty() ) {
+            mPassword.setError("Please enter a password");
+            mPassword.requestFocus();
+            return;
+        }
+
+        if ( !Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
+            mEmail.setError("Please provide a valid email address!");
+            mEmail.requestFocus();
+            return;
+        }
+
+        if (password.length() < 6 ) {
+            mPassword.setError("Please enter a password minimum 6 characters long");
+            mPassword.requestFocus();
+            return;
+        }
+
+        mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
+                else{
+                    Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
 
     }
 }

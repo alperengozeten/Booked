@@ -47,7 +47,7 @@ public class User{
 
     // Accessor Methods
 
-    public String getUserName() {
+    public String getName() {
         return this.userName;
     }
 

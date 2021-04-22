@@ -18,7 +18,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class SignUpActivity extends AppCompatActivity implements View.OnClickListener {
+public class SignUpActivity extends AppCompatActivity  {
 
     EditText mEmail;
     EditText mUserName;
@@ -42,26 +42,33 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         mAuth = FirebaseAuth.getInstance();
 
+        // delete this later
+        // if the user already signed in and not logged out it directs the user to main page
         if (mAuth.getCurrentUser() != null) {
             startActivity(new Intent(com.example.booked.SignUpActivity.this, MainActivity.class));
             finish();
         }
 
 
-        mSignUpButton.setOnClickListener(this);
+        mSignUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                registerUser();
+            }
+        });
     }
 
-    @Override
-    public void onClick(View v) {
-        switch ( v.getId()) {
-            case R.id.signUpBtn:
-                registerUser();
-                break;
-            //case R.id.buttonBackToLogin:
-            //    startActivity( new Intent( this, MainActivity.class));
-            //    break;
-        }
-    }
+//    @Override
+//    public void onClick(View v) {
+//        switch ( v.getId()) {
+//            case R.id.signUpBtn:
+//                registerUser();
+//                break;
+//            //case R.id.buttonBackToLogin:
+//            //    startActivity( new Intent( this, MainActivity.class));
+//            //    break;
+//        }
+//    }
 
     private void registerUser() {
         String email = mEmail.getText().toString().trim();
@@ -95,11 +102,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             return;
         }
 
-        if (password.length() < 6 ) {
-            mPassword.setError("Please enter a password minimum 6 characters long");
-            mPassword.requestFocus();
-            return;
-        }
+
 
         mAuth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
