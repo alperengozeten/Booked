@@ -8,12 +8,12 @@ public class Showroom implements Filterable, Sortable{
 
     ArrayList<Post> posts;
 
-    Showroom()
+    public Showroom()
     {
         posts = new ArrayList<Post>();
     }
 
-    Showroom(ArrayList<Post> posts)
+    public Showroom(ArrayList<Post> posts)
     {
         this.posts = posts;
     }
@@ -22,17 +22,17 @@ public class Showroom implements Filterable, Sortable{
         return posts;
     }
 
-    void createPost(String title, String description, String course, int price, Book aBook, User seller, Program prog)
+    void createPost(String title, String description, String course, int price, Book aBook, User seller)
     {
         Post aPost = new Post(title, description, course,price, course, aBook, seller);
-        prog.bookProfiles.get(prog.books.indexOf(aBook)).addPost(aPost);
+        //prog.bookProfiles.get(prog.books.indexOf(aBook)).addPost(aPost);
 
         posts.add(aPost);
     }
 
-    boolean deletePost(Post aPost, Program prog)
+    boolean deletePost(Post aPost)
     {
-        prog.bookProfiles.get(prog.books.indexOf(aPost.getBook())).deletePost(aPost);
+        //prog.bookProfiles.get(prog.books.indexOf(aPost.getBook())).deletePost(aPost);
         return posts.remove(aPost);
     }
 
@@ -113,6 +113,11 @@ public class Showroom implements Filterable, Sortable{
     public void sortByLetter(boolean isAToZ) {
 
         Collections.sort(posts, new TitleComparator());
+
+        if(!isAToZ)
+        {
+            Collections.reverse(posts);
+        }
     }
 
     @Override

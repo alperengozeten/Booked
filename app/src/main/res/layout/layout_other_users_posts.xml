@@ -2,14 +2,14 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/postLayout"
+    android:id="@+id/otherUsersPostLayout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/postPictureImageView"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:id="@+id/otherUsersPostPictureImageView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -17,47 +17,38 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/postDescriptionTextView"
+        android:id="@+id/otherUsersPostDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="12dp"
         android:text="TextView"
         android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/postPictureImageView"
-        app:layout_constraintTop_toTopOf="@+id/postPictureImageView" />
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/otherUsersPostPictureImageView"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/postPriceTextView"
+        android:id="@+id/otherUsersPostPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="103dp"
+        android:layout_marginTop="30dp"
         android:text="TextView"
         android:textSize="16sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/postPictureImageView"
-        app:layout_constraintTop_toBottomOf="@+id/postDescriptionTextView" />
+        app:layout_constraintStart_toEndOf="@+id/otherUsersPostPictureImageView"
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersPostDescriptionTextView" />
 
     <View
-        android:id="@+id/divider"
+        android:id="@+id/otherUsersPostDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/postPictureImageView" />
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersPostPictureImageView" />
 
-    <ImageButton
-        android:id="@+id/postEditBtn"
-        android:layout_width="48dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="1dp"
-        android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_set" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,7 +23,7 @@ public class Admin extends User {
 
     public void deletePost( Post aPost, Program prog) {
 
-        prog.showroom.deletePost(aPost, prog);
+        //prog.showroom.deletePost(aPost, prog);
 
     }
 

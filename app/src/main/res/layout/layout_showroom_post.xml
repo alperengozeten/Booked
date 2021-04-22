@@ -23,8 +23,8 @@
         android:layout_marginStart="116dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/showroomPostPictureImageView"
         app:layout_constraintTop_toTopOf="@+id/showroomPostPictureImageView" />
 

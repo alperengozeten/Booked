@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
+
+import com.example.booked.models.Showroom;
 
 public class ShowroomMenuDialog extends AppCompatDialogFragment implements AdapterView.OnItemSelectedListener{
 
@@ -62,6 +65,13 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
             }
         });
 
+        builder.setNeutralButton("Clear Filters", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ((ShowroomActivity) listener).resetFilters();
+            }
+        });
+
         firstPriceEditText = (EditText) view.findViewById(R.id.firstPriceEditText);
         secondPriceEditText = (EditText) view.findViewById(R.id.secondPriceEditText);
         enterUniversityTextView = (TextView) view.findViewById(R.id.enterUniversityTextView);
@@ -82,6 +92,7 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
         courseSpinner.setAdapter(courseAdapter);
 
         universitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
+        courseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
         return builder.create();
     }
 
@@ -101,10 +112,10 @@ public class ShowroomMenuDialog extends AppCompatDialogFragment implements Adapt
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if ( parent.getId() == universitySpinner.getId() ) {
-            filteredUniversity = parent.getItemAtPosition(position).toString();
+            filteredUniversity = universitySpinner.getItemAtPosition(position).toString();
         }
         else if ( parent.getId() == courseSpinner.getId() ) {
-            filteredCourse = parent.getItemAtPosition(position).toString();
+            filteredCourse = courseSpinner.getItemAtPosition(position).toString();
         }
     }
 

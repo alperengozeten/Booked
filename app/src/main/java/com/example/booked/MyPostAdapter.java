@@ -13,15 +13,18 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booked.models.Post;
+
 import java.util.ArrayList;
 
 public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Adapter<MyPostAdapter.PostViewHolder> {
 
-    ArrayList<String> names;
+    //ArrayList<String> nam;
+    ArrayList<Post> posts;
     Context context;
 
-    public MyPostAdapter(ArrayList<String> names, Context context) {
-        this.names = names;
+    public MyPostAdapter(ArrayList<Post> posts, Context context) {
+        this.posts = posts;
         this.context = context;
     }
 
@@ -37,12 +40,13 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
 
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
-        holder.postDescriptionTextView.setText(names.get(position));
-        holder.postPriceTextView.setText("80 TL");
+        holder.postDescriptionTextView.setText(posts.get(position).getTitle().toString());
+        holder.postPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) +" TL");
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO
                 Intent intent = new Intent(context, PostActivity.class);
                 context.startActivity(intent);
             }
@@ -51,7 +55,9 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
         holder.postEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context,EditPost.class);
+                Booked book = new Booked();
+                book.setCurrentPost(posts.get(position));
+                Intent intent = new Intent(context, EditPost2.class);
                 context.startActivity(intent);
             }
         });
@@ -59,7 +65,7 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return posts.size();
     }
 
 

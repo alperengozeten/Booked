@@ -3,18 +3,21 @@
     package="com.example.booked">
 
     <application
+        android:name=".Booked"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
-        <activity android:name=".EditPost"></activity>
+        <activity android:name=".OtherUsersProfile"></activity>
+        <activity android:name=".AddPost2" />
+        <activity android:name=".EditPost2" />
         <activity android:name=".PostActivity" />
-        <activity android:name=".ChangePassword" />
-        <activity android:name=".EditProfile" />
+        <activity android:name=".ChangePassword2" />
+        <activity android:name=".EditProfile2" />
         <activity android:name=".MyProfile" />
-        <activity android:name=".Settings" />
+        <activity android:name=".Settings2" />
         <activity android:name=".MyPosts" />
         <activity android:name=".ShowroomActivity" />
         <activity android:name=".MainActivity">

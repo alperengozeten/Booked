@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyProfile"
-    android:background="@color/primaryBackgroundColor">
+    android:background="@color/primaryBackgroundColor"
+    tools:context=".MyProfile">
 
 
     <TextView
@@ -25,44 +25,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.329" />
 
-    <Button
-        android:id="@+id/editProfileBtn"
-        android:layout_width="146sp"
-        android:layout_height="47sp"
-        android:layout_marginTop="12dp"
-        android:background="@color/button_color"
-        android:text="EDIT PROFILE"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfilePhoneBtn" />
-
-    <Button
-        android:id="@+id/changePasswordBtn"
-        android:layout_width="146sp"
-        android:layout_height="47sp"
-        android:layout_marginTop="12dp"
-        android:background="@color/button_color"
-        android:text="Change Password"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileBtn" />
-
-    <Button
-        android:id="@+id/postsBtn"
-        android:layout_width="146sp"
-        android:layout_height="47sp"
-        android:layout_marginTop="71dp"
-        android:background="@color/button_color"
-        android:text="MY POSTS"
-        android:textColor="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editProfileBtn" />
 
     <TextView
         android:id="@+id/otherUsersProfileUsernameTextView"
@@ -150,7 +112,6 @@
         android:id="@+id/otherUsersProfilePhoneBtn"
         android:layout_width="114dp"
         android:layout_height="76dp"
-        android:layout_marginTop="13dp"
         android:background="@color/primaryBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -159,19 +120,6 @@
         app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileInstagramBtn"
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/ic_phone" />
-
-    <ImageButton
-        android:id="@+id/imageEditBtn"
-        android:layout_width="39dp"
-        android:layout_height="32dp"
-        android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.642"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.423"
-        app:srcCompat="@drawable/ic_edit" />
 
     <TextView
         android:id="@+id/otherUsersProfileTextView"
@@ -192,14 +140,39 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <Button
-        android:id="@+id/transientBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
-        android:text="Button"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/otherUserPostList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileFacebookBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfilePhoneBtn"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="match_parent"
+        android:layout_height="7dp"
+        android:layout_marginTop="1dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#043B70"
+        android:backgroundTintMode="screen"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfilePhoneBtn" />
+
+    <TextView
+        android:id="@+id/otherUsersProfilePostTextView"
+        android:layout_width="141dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginBottom="1dp"
+        android:text="TextView"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/divider3"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

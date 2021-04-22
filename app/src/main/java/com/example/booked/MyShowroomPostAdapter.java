@@ -2,6 +2,7 @@ package com.example.booked;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,18 +15,73 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booked.models.Post;
+import com.example.booked.models.Showroom;
+
 import java.util.ArrayList;
 
 public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAdapter.ShowroomPostViewHolder> implements Filterable {
 
-    private ArrayList<String> names;
-    private ArrayList<String> namesFull;
-    private Context context;
+    //private ArrayList<String> name;
+    //private ArrayList<String> nameFull;
 
-    public MyShowroomPostAdapter(ArrayList<String> names, Context context) {
-        this.names = names;
-        namesFull = new ArrayList<>(names);
+    private ArrayList<Post> posts;
+    private ArrayList<Post> postsFull;
+    private Context context;
+    private Showroom showroom;
+
+    public MyShowroomPostAdapter(Showroom showroom, Context context) {
+        this.showroom = showroom;
+        this.posts = this.showroom.getPosts();
+        postsFull = new ArrayList<>(posts);
         this.context = context;
+    }
+
+    public void updateData( ArrayList<Post> newPosts) {
+        posts.clear();
+        posts.addAll(newPosts);
+        Log.e("CHECK4", String.valueOf(newPosts.size()));
+        Log.e("CHECK", String.valueOf(posts.size()));
+        Log.e("CHECK2", String.valueOf(newPosts.size()));
+
+    }
+
+    public void sort( View view) {
+        Showroom filteredShowroom = showroom;
+
+        if ( view.getId() == R.id.aToZBtn ) {
+            filteredShowroom.sortByLetter(true);
+        }
+
+        else if ( view.getId() == R.id.zToABtn ) {
+            filteredShowroom.sortByLetter(false);
+        }
+
+        else if ( view.getId() == R.id.priceLowToHighBtn ) {
+            filteredShowroom.sortByPrice(true);
+        }
+
+        else if ( view.getId() == R.id.priceHighToLowBtn ) {
+            filteredShowroom.sortByPrice(false);
+        }
+
+        posts = new ArrayList<>(filteredShowroom.getPosts());
+        notifyDataSetChanged();
+    }
+
+    public void filter(String filteredUniversity, String filteredCourse, int firstPrice, int secondPrice) {
+        Showroom filteredShowroom = showroom;
+
+        Log.e("CHECK", "Uni:" + filteredUniversity);
+        filteredShowroom = filteredShowroom.filterByUniversity(filteredUniversity).filterByCourse(filteredCourse).filterByPrice(firstPrice,secondPrice);
+
+        posts = new ArrayList<>(filteredShowroom.getPosts());
+        notifyDataSetChanged();
+    }
+
+    public void resetFilters() {
+        posts = postsFull;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -40,13 +96,14 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
 
     @Override
     public void onBindViewHolder(@NonNull ShowroomPostViewHolder holder, int position) {
-        holder.showroomPostDescriptionTextView.setText(names.get(position));
-        holder.showroomPostPriceTextView.setText("80 TL");
-        holder.showroomPostSellerTextView.setText("Seller here");
+        holder.showroomPostDescriptionTextView.setText(posts.get(position).getTitle());
+        holder.showroomPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()));
+        holder.showroomPostSellerTextView.setText(posts.get(position).getSeller().getName());
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //TODO
                 Intent intent = new Intent(context, PostActivity.class);
                 context.startActivity(intent);
             }
@@ -55,7 +112,7 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
 
     @Override
     public int getItemCount() {
-        return names.size();
+        return posts.size();
     }
 
     @Override
@@ -66,17 +123,17 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
     private Filter showroomFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            ArrayList<String> filteredList = new ArrayList<>();
+            ArrayList<Post> filteredList = new ArrayList<>();
 
             if ( constraint == null || constraint.length() == 0 ) {
-                filteredList.addAll(namesFull);
+                filteredList.addAll(postsFull);
             }
             else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for ( String name: namesFull ) {
-                    if ( name.toLowerCase().contains(filterPattern) ) {
-                        filteredList.add(name);
+                for ( Post aPost: posts ) {
+                    if ( aPost.getTitle().toLowerCase().contains(filterPattern) ) {
+                        filteredList.add(aPost);
                     }
                 }
             }
@@ -88,8 +145,8 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            names.clear();
-            names.addAll((ArrayList) results.values);
+            posts.clear();
+            posts.addAll((ArrayList) results.values);
             notifyDataSetChanged();
         }
     };
