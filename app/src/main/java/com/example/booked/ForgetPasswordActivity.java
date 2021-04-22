@@ -17,8 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
 
-    EditText mEmail = findViewById( R.id.emailAddressEditTextF);
-    Button mSendResetEmailBtn = findViewById( R.id.sendResetEmailButton);
+    EditText mEmail;
+    Button mSendResetEmailBtn;
 
     FirebaseAuth mAuth;
 
@@ -53,8 +53,9 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ForgetPasswordActivity.this, "Password reset ink has been sent to your email address: " + email, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ForgetPasswordActivity.this, "Password reset link has been sent to your email address: " + email, Toast.LENGTH_LONG).show();
                             startActivity( new Intent(getApplicationContext(), LoginActivity.class));
+                            finish();
 
                         }
                         else{
