@@ -25,8 +25,6 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     private Spinner changeUniversitySpinner;
     private Spinner changeCourseSpinner;
 
-    private Context parentContext;
-
     private Button applyChangesBtn;
 
     private String selectedUniversity;
@@ -72,8 +70,8 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
         applyChangesBtn = (Button) findViewById(R.id.applyChangePostBtn);
 
-        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(parentContext,R.array.universities, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(parentContext,R.array.courses, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(this,R.array.universities, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this,R.array.courses, android.R.layout.simple_spinner_item);
 
         universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

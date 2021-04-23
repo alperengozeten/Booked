@@ -25,8 +25,6 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
     private Spinner selectUniversitySpinner;
     private Spinner selectCourseSpinner;
 
-    private Context parentContext;
-
     private Button submitPostBtn;
 
     private String selectedUniversity;
@@ -68,8 +66,8 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
 
         submitPostBtn = (Button) findViewById(R.id.submitPostBtn);
 
-        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(parentContext,R.array.universities, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(parentContext,R.array.courses, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(this,R.array.universities, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this,R.array.courses, android.R.layout.simple_spinner_item);
 
         universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

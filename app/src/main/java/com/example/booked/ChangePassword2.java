@@ -101,7 +101,7 @@ public class ChangePassword2 extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Log.d(TAG, "User password updated.");
+                            Log.d("password","User password updated.");
                         }
                     }
                 });
