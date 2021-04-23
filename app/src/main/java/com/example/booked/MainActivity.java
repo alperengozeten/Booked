@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         showroomBtn = (Button) findViewById(R.id.showroomBtn);
         myPostsBtn = (Button) findViewById(R.id.myPostsBtn);
         profileBtn = (Button) findViewById(R.id.profileBtn);
-        mLogOutBtn = (Button) findViewById( R.id.logOutButton);
+        mLogOutBtn = (Button) findViewById( R.id.logOutButton1);
 
         mAuth = FirebaseAuth.getInstance();
 
