@@ -12,15 +12,30 @@ public class User{
     String university;
     boolean notifications;
     boolean isBanned;
+    ArrayList<Book> wishlist;
 
     public User(String userName) {
         this.email = email;
         this.userName = userName;
+        this.avatar = "";
+        this.socialMedia = new ArrayList<>();
+        this.phoneNumber = "";
+        this.university = "";
+        this.wishlist = new ArrayList<>();
+        this.notifications = true;
+        this.isBanned = false;
     }
 
     public User(String email, String userName) {
         this.email = email;
         this.userName = userName;
+        this.avatar = "";
+        this.socialMedia = new ArrayList<>();
+        this.phoneNumber = "";
+        this.university = "";
+        this.wishlist = new ArrayList<>();
+        this.notifications = true;
+        this.isBanned = false;
     }
 
     public User(String userName, String email, String avatar, String phoneNumber, String university )
@@ -33,7 +48,7 @@ public class User{
         this.socialMedia = new ArrayList<>();
         this.notifications = true;
         this.isBanned = false;
-
+        this.wishlist = new ArrayList<>();
     }
 
     public void addSocialMedia( String socialMediaProfileLink ) {
@@ -84,6 +99,18 @@ public class User{
 
     public void changeNotifications() {
         this.notifications = !this.notifications;
+    }
+
+    public void addBookToWishlist(Book b) {
+        this.wishlist.add(b);
+    }
+
+    public boolean removeBookFromWishlist(Book b) {
+        return this.wishlist.remove(b);
+    }
+
+    public ArrayList<Book> getWishlist() {
+        return wishlist;
     }
 
     /**  void addPostToMyPosts(Post post)

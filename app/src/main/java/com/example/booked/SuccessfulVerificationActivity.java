@@ -13,6 +13,7 @@ public class SuccessfulVerificationActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_successful_verification);
 
+        getSupportActionBar().hide();
     }
 
     @Override
