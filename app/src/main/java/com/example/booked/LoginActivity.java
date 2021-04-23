@@ -46,7 +46,7 @@ public class LoginActivity extends AppCompatActivity {
 //         if the user already signed in and not logged out it directs the user to main page
         if (mAuth.getCurrentUser() != null) {
             if ( mAuth.getCurrentUser().isEmailVerified() ) {
-                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+//                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }

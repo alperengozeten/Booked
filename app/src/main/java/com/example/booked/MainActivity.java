@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (mAuth.getCurrentUser() != null) {
             if ( mAuth.getCurrentUser().isEmailVerified() ) {
-                Toast.makeText(MainActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+//                Toast.makeText(MainActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
 //                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //                finish();
             }
@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity {
         myPostsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent( getApplicationContext(), MyPosts.class);
                 startActivity(intent);
             }
