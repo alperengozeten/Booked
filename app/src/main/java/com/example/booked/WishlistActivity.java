@@ -36,9 +36,11 @@ public class WishlistActivity extends AppCompatActivity {
 
         Book b1 = new Book("Sefiller", "");
         Book b2 = new Book("Savaş ve Barış", "");
+        Book b3 = new Book("Suç ve Ceza","");
 
         currentUser.addBookToWishlist(b1);
         currentUser.addBookToWishlist(b2);
+        currentUser.addBookToWishlist(b3);
 
         recyclerView = (RecyclerView) findViewById(R.id.wishList);
 
@@ -49,7 +51,7 @@ public class WishlistActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Set tbe Adapter
-        mAdapter = new MyWishlistAdapter( currentUser.getWishlist(), this);
+        mAdapter = new MyWishlistAdapter( currentUser, currentUser.getWishlist(), this);
         recyclerView.setAdapter(mAdapter);
     }
 
