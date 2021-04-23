@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity  {
 
         mAuth = FirebaseAuth.getInstance();
 
-        // delete this later
+        //delete this later
         // if the user already signed in and not logged out it directs the user to main page
 //        if (mAuth.getCurrentUser() != null) {
 ////            startActivity(new Intent(com.example.booked.SignUpActivity.this, MainActivity.class));
@@ -62,7 +62,6 @@ public class SignUpActivity extends AppCompatActivity  {
 ////            }
 //        }
 
-
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,9 +76,6 @@ public class SignUpActivity extends AppCompatActivity  {
                 finish();
             }
         });
-
-
-
     }
 
     public void registerUser() {
@@ -114,8 +110,6 @@ public class SignUpActivity extends AppCompatActivity  {
             return;
         }
 
-
-
         mAuth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -139,12 +133,6 @@ public class SignUpActivity extends AppCompatActivity  {
                         }
                     });
 
-//
-//
-//                    fUser.isEmailVerified()
-
-//
-//
                     User user = new User( email, userName);
 
                     FirebaseDatabase.getInstance().getReference("Users")
@@ -168,11 +156,5 @@ public class SignUpActivity extends AppCompatActivity  {
                 }
             }
         });
-
-
-
-
-
-
     }
 }
