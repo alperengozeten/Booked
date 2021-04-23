@@ -15,7 +15,7 @@ public class User{
     ArrayList<Book> wishlist;
 
     public User(String userName) {
-        this.email = email;
+        this.email = "";
         this.userName = userName;
         this.avatar = "";
         this.socialMedia = new ArrayList<>();
