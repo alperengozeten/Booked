@@ -39,6 +39,7 @@ public class OtherUsersProfile extends AppCompatActivity {
     private ImageButton otherUsersProfileMailBtn;
     private ImageButton otherUsersProfilePhoneBtn;
 
+    User currentSeller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +68,21 @@ public class OtherUsersProfile extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // TO BE REPLACED WITH THE DATABASE
-        User currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University");
+        // buraya iki yerden geliniyo 1)visit button in book profile 2) visit sellerProfile in postpage gitmeden: önce current sellerı (global) eşitlersek olur
+        currentSeller = Booked.getCurrentSeller();
         Book book = new Book("Introduction to Python", "No pic");
 
         ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Cs book", "In good state", "Cs-115",70,"No pic", book, currentUser));
-        posts.add(new Post("Math book", "In good state", "Math-101",60,"No pic", book, currentUser));
-        posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, currentUser));
+        posts.add(new Post("Cs book", "In good state", "Cs-115",70,"No pic", book, currentSeller));
+        posts.add(new Post("Math book", "In good state", "Math-101",60,"No pic", book, currentSeller));
+        posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, currentSeller));
 
         mAdapter = new OtherUsersPostAdapter(posts, this);
         recyclerView.setAdapter(mAdapter);
 
-        otherUsersProfileUsernameTextView.setText(currentUser.getName().toString());
-        otherUsersProfileUniversityNameTextView.setText(currentUser.getUniversity().toString());
-        otherUsersProfilePostTextView.setText(currentUser.getName().toString() + "'s Posts");
+        otherUsersProfileUsernameTextView.setText(currentSeller.getName().toString());
+        otherUsersProfileUniversityNameTextView.setText(currentSeller.getUniversity().toString());
+        otherUsersProfilePostTextView.setText(currentSeller.getName().toString() + "'s Posts");
 
         otherUsersProfileFacebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +115,7 @@ public class OtherUsersProfile extends AppCompatActivity {
         otherUsersProfilePhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog(currentUser.getPhoneNumber().toString());
+                openDialog(currentSeller.getPhoneNumber().toString());
             }
         });
     }

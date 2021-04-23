@@ -17,9 +17,11 @@
         <activity android:name=".OtherUsersProfile" />
         <activity android:name=".AddPost2" />
         <activity android:name=".EditPost2" />
+        <activity android:name=".EditProfile" />
+        <activity android:name=".BookProfile" />
+        <activity android:name=".PostPage" />
         <activity android:name=".PostActivity" />
         <activity android:name=".ChangePassword2" />
-        <activity android:name=".EditProfile2" />
         <activity android:name=".MyProfile" />
         <activity android:name=".Settings2" />
         <activity android:name=".MyPosts" />

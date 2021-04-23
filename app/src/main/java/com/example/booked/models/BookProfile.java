@@ -24,7 +24,7 @@ public class BookProfile implements Sortable{
         this.book = book;
     }
 
-    void addEvalution(Evaluation e)
+    public void addEvalution(Evaluation e)
     {
         evalutions.add(e);
         this.getMeanRate();
@@ -36,7 +36,7 @@ public class BookProfile implements Sortable{
      this.getMeanRate();
      }*/
 
-    void getMeanRate()
+    public void getMeanRate()
     {
         rating = 0;
         for (Evaluation e : evalutions){
@@ -47,7 +47,7 @@ public class BookProfile implements Sortable{
     }
 
 
-    void addPost( Post aPost)
+    public void addPost( Post aPost)
     {
         offers.add(aPost);
     }
