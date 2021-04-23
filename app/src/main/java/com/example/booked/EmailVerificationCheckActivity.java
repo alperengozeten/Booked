@@ -29,34 +29,11 @@ public class EmailVerificationCheckActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
-//        if (mAuth.getCurrentUser() != null) {
-//
-////            if ( mAuth.getCurrentUser().isEmailVerified() ) {
-//////                Toast.makeText(getApplicationContext(), "Logged in Successfully", Toast.LENGTH_LONG).show();
-////                startActivity(new Intent(EmailVerificationCheckActivity.this, SuccessfulVerificationActivity.class));
-////                finish();
-////            }
-////            else {
-////                Toast.makeText(getApplicationContext(), "Please verify your email address!", Toast.LENGTH_LONG).show();
-////            }
-////            startActivity(new Intent(EmailVerificationCheckActivity.this, MainActivity.class));
-////            finish();
-//        }
-
-
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 mAuth.getCurrentUser().reload();
-//                        .addOnSuccessListener(new OnSuccessListener() {
-//                    @Override
-//                    public void onSuccess(Object o) {
-////                        boolean useremailveri = mAuth.getCurrentUser().isEmailVerified();
-////                        String useremailuid = mAuth.getCurrentUser().getUid();
-//                    }
-//
-//                });
 
                 if ( mAuth.getCurrentUser().isEmailVerified() ) {
                     Toast.makeText(getApplicationContext(), "Logged in Successfully", Toast.LENGTH_SHORT).show();
@@ -64,7 +41,7 @@ public class EmailVerificationCheckActivity extends AppCompatActivity {
                     finish();
                 }
                 else {
-                    Toast.makeText(EmailVerificationCheckActivity.this, "Please check your email address", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EmailVerificationCheckActivity.this, "Please verify your email address!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -70,12 +70,13 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         if (mAuth.getCurrentUser() != null) {
-            if ( mAuth.getCurrentUser().isEmailVerified() ) {
+//            if ( mAuth.getCurrentUser().isEmailVerified() ) {
 //                Toast.makeText(MainActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
 //                startActivity(new Intent(getApplicationContext(), MainActivity.class));
 //                finish();
-            }
-            else {
+//            }
+//            else {
+            if (mAuth.getCurrentUser().isEmailVerified() ) {
                 mAuth.signOut();
                 Toast.makeText(MainActivity.this, "Please log in again!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(com.example.booked.MainActivity.this, LoginActivity.class));
@@ -86,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
         showroomImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent( getApplicationContext(), ShowroomActivity.class);
                 startActivity(intent);
             }
@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity {
         myPostsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent( getApplicationContext(), MyPosts.class);
                 startActivity(intent);
             }
@@ -120,7 +119,6 @@ public class MainActivity extends AppCompatActivity {
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent( getApplicationContext(), MyProfile.class);
                 startActivity(intent);
             }
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
         profileImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 Intent intent = new Intent( getApplicationContext(), MyProfile.class);
                 startActivity(intent);
             }
@@ -138,9 +135,7 @@ public class MainActivity extends AppCompatActivity {
         mLogOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mAuth.getCurrentUser().
                 mAuth.signOut();
-
 
                 startActivity( new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
