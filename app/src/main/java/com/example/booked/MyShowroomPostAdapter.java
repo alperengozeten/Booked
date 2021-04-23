@@ -104,7 +104,8 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
             @Override
             public void onClick(View v) {
                 //TODO
-                Intent intent = new Intent(context, PostActivity.class);
+                Intent intent = new Intent(context, PostPage.class);
+                Booked.setCurrentPost(posts.get(position));
                 context.startActivity(intent);
             }
         });

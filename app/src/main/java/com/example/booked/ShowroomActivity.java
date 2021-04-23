@@ -48,6 +48,10 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showroom);
 
+        // denemek için, sonra silenecek
+        Booked.setExample();
+
+
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

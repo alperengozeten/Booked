@@ -15,7 +15,7 @@ public class User{
     ArrayList<Book> wishlist;
 
     public User(String userName) {
-        this.email = email;
+        this.email = "";
         this.userName = userName;
         this.avatar = "";
         this.socialMedia = new ArrayList<>();
@@ -51,7 +51,11 @@ public class User{
         this.wishlist = new ArrayList<>();
     }
 
-    public void addSocialMedia( String socialMediaProfileLink ) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void addSocialMedia(String socialMediaProfileLink ) {
         socialMedia.add( socialMediaProfileLink);
     }
 

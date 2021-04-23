@@ -47,7 +47,8 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
             @Override
             public void onClick(View v) {
                 //TODO
-                Intent intent = new Intent(context, PostActivity.class);
+                Booked.setCurrentPost(posts.get(position));
+                Intent intent = new Intent(context, PostPage.class);
                 context.startActivity(intent);
             }
         });

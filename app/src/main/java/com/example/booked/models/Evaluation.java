@@ -3,10 +3,10 @@ package com.example.booked.models;
 public class Evaluation {
 
     String comment;
-    int rate;
+    double rate;
     User evaluater;
 
-    Evaluation(String comment, int rate, User evaluater)
+    public Evaluation(String comment, double rate, User evaluater)
     {
         this.comment = comment;
         this.rate = rate;
@@ -22,7 +22,7 @@ public class Evaluation {
         return evaluater;
     }
 
-    public int getRate() {
+    public double getRate() {
         return rate;
     }
 

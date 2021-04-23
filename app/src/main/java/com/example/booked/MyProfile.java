@@ -117,7 +117,7 @@ public class MyProfile extends AppCompatActivity {
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), EditProfile2.class);
+                Intent intent = new Intent(getApplicationContext(), EditProfile.class);
                 startActivity(intent);
             }
         });
