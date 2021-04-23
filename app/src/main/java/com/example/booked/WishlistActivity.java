@@ -2,6 +2,8 @@ package com.example.booked;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +11,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
+import com.example.booked.models.Book;
+import com.example.booked.models.User;
+
 public class WishlistActivity extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager layoutManager;
+
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +29,28 @@ public class WishlistActivity extends AppCompatActivity {
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        //SİLİNECEK
+        Booked.setExample();
+        currentUser = Booked.getCurrentUser();
+
+        Book b1 = new Book("Sefiller", "");
+        Book b2 = new Book("Savaş ve Barış", "");
+
+        currentUser.addBookToWishlist(b1);
+        currentUser.addBookToWishlist(b2);
+
+        recyclerView = (RecyclerView) findViewById(R.id.wishList);
+
+        recyclerView.setHasFixedSize(true);
+
+        // Set the layout manager
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
+        // Set tbe Adapter
+        mAdapter = new MyWishlistAdapter( currentUser.getWishlist(), this);
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

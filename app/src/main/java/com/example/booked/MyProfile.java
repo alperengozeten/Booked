@@ -33,6 +33,7 @@ public class MyProfile extends AppCompatActivity {
     private Button changePasswordBtn;
     private Button postsBtn;
     private Button transientBtn;
+    private Button goWishlistBtn;
 
     private ImageButton facebookBtn;
     private ImageButton twitterBtn;
@@ -82,6 +83,15 @@ public class MyProfile extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),OtherUsersProfile.class);
+                startActivity(intent);
+            }
+        });
+
+        goWishlistBtn = (Button) findViewById(R.id.goWishlistBtn);
+        goWishlistBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),WishlistActivity.class);
                 startActivity(intent);
             }
         });
