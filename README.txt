@@ -20,11 +20,11 @@ What's Left: Database storage connection in some activities, notifications, and 
 Halil Alperen Gözeten: XML designs and Activity (Controller) implementations of Showroom, Main Activity, Profile, Other User's Profile, Wishlist, and My Posts pages. Also provided
 Recycler Views and adapters for Showroom, My Posts, Wishlist, and Other Users Profile Pages. Contributed to Model Classes also.
 
-Berkay Akkuş: Berkay has implemented model classes with Safa, login, register, logout, email verification and logout controller classes, has connected Firebase Authentication
+Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity controller classes and has integrated Firebase Authentication
 
 Ömer Asım Doğan: Xml classes of login page, sign up page, verification pages. Also helping with the some other xml classes and with the firebase database
 
 Safa Eren Kuday:  Written down the Model Classes. XML designs and Activity (Controller) implementations of Book Profile, Edit Profile, Post Page, Admin Page pages. Also provided 
 Recycler Views and adapters for Book Profile. 
 
-Hasan Yarkın Kurt: Implemented add post page, edit post page, settings page, change password page controller classes and their respective layouts
+Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts.
