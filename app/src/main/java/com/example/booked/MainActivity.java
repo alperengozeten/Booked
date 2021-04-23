@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
 //                finish();
 //            }
 //            else {
-            if (mAuth.getCurrentUser().isEmailVerified() ) {
+            if (!(mAuth.getCurrentUser().isEmailVerified() )) {
                 mAuth.signOut();
                 Toast.makeText(MainActivity.this, "Please log in again!", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(com.example.booked.MainActivity.this, LoginActivity.class));
