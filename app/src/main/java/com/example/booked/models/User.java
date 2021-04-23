@@ -51,7 +51,11 @@ public class User{
         this.wishlist = new ArrayList<>();
     }
 
-    public void addSocialMedia( String socialMediaProfileLink ) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void addSocialMedia(String socialMediaProfileLink ) {
         socialMedia.add( socialMediaProfileLink);
     }
 
