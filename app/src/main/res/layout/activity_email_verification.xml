@@ -11,79 +11,28 @@
         android:id="@+id/verified"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="Verify your email adress"
+        android:lineSpacingExtra="30dp"
+        android:text="Verification link has been sent\nPlease check your email address"
         android:textColor="@color/black"
-        android:textSize="32dp"
+        android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.448"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/successfullyVerified"
-        android:layout_width="350dp"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:lineSpacingExtra="15dp"
-        android:text="Please enter the 4 digit code sent to example@xxx.edu.tr"
-        android:textColor="@color/black"
-        android:textSize="25dp"
+    <ImageView
+        android:id="@+id/mailLogo"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/app_name"
+        android:src="@drawable/mail_received_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/verified" />
-
-    <EditText
-        android:id="@+id/blankNumberEditText"
-        android:layout_width="350dp"
-        android:layout_height="80dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="50dp"
-        android:background="@color/textBackground"
-        android:gravity="center"
-        android:inputType="number"
-        android:letterSpacing="0.9"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="60dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/successfullyVerified" />
-
-    <ImageView
-        android:id="@+id/lineBetweenNumbers1"
-        android:layout_width="10dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="80dp"
-        android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/blankNumberEditText"
-        app:layout_constraintStart_toStartOf="@+id/blankNumberEditText"
-        app:layout_constraintTop_toTopOf="@+id/blankNumberEditText" />
-
-    <ImageView
-        android:id="@+id/lineBetweenNumbers3"
-        android:layout_width="10dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="80dp"
-        android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/blankNumberEditText"
-        app:layout_constraintStart_toEndOf="@+id/lineBetweenNumbers2"
-        app:layout_constraintTop_toTopOf="@+id/blankNumberEditText"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/lineBetweenNumbers2"
-        android:layout_width="10dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="80dp"
-        android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/blankNumberEditText"
-        app:layout_constraintStart_toEndOf="@+id/lineBetweenNumbers1"
-        app:layout_constraintTop_toTopOf="@+id/blankNumberEditText"
-        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/resendCodeBtn"
@@ -91,44 +40,45 @@
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
-        android:background="@color/button_color"
+        android:layout_marginTop="60dp"
+        android:background="@color/forgot_password"
         android:hint="Resend Code"
         android:textColorHint="@color/white"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirmBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/goToMainPageBtn" />
 
     <Button
-        android:id="@+id/confirmBtn"
+        android:id="@+id/goToMainPageBtn"
         android:layout_width="170dp"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="60dp"
         android:background="@color/blue_button"
         android:hint="Go to main page"
         android:textColorHint="@color/white"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changeEmailBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/changeVerificationBtn" />
 
     <Button
-        android:id="@+id/changeEmailBtn"
+        android:id="@+id/changeVerificationBtn"
         android:layout_width="170dp"
         android:layout_height="35dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
         android:background="@color/button_color"
-        android:hint="Change Email"
+        android:hint="Check Verification"
         android:textColorHint="@color/white"
         android:textSize="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/blankNumberEditText" />
+        app:layout_constraintTop_toBottomOf="@+id/mailLogo" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
