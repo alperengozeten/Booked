@@ -19,6 +19,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
     EditText mEmail;
     Button mSendResetEmailBtn;
+    Button mGoBackToLoginBtn;
 
     FirebaseAuth mAuth;
 
@@ -29,8 +30,17 @@ public class ForgetPasswordActivity extends AppCompatActivity {
 
         mEmail = (EditText) findViewById(R.id.emailAddressEditTextF);
         mSendResetEmailBtn = (Button) findViewById(R.id.sendResetEmailButton);
+        mGoBackToLoginBtn = (Button) findViewById(R.id.goBackToLoginButton);
 
         mAuth = FirebaseAuth.getInstance();
+
+        mGoBackToLoginBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
 
         mSendResetEmailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,9 +72,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                             Toast.makeText(ForgetPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
+
                 });
-
-
             }
         });
     }

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -68,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        if (mAuth.getCurrentUser() != null) {
+            if ( mAuth.getCurrentUser().isEmailVerified() ) {
+                Toast.makeText(MainActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                finish();
+            }
+            else {
+                mAuth.signOut();
+                Toast.makeText(MainActivity.this, "Please log in again!", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(com.example.booked.MainActivity.this, LoginActivity.class));
+                finish();
+            }
+        }
+
         showroomImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -124,7 +139,10 @@ public class MainActivity extends AppCompatActivity {
         mLogOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                mAuth.getCurrentUser().
                 mAuth.signOut();
+
+
                 startActivity( new Intent(getApplicationContext(), LoginActivity.class));
                 finish();
             }

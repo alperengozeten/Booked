@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class SignUpActivity extends AppCompatActivity  {
@@ -25,6 +26,7 @@ public class SignUpActivity extends AppCompatActivity  {
     EditText mPassword;
     Button mSignUpButton;
     Button mBackToLoginButton;
+    Button mGoBackToLogin;
 
     FirebaseAuth mAuth;
 
@@ -40,16 +42,25 @@ public class SignUpActivity extends AppCompatActivity  {
         mUserName = (EditText) findViewById(R.id.userNameEditText);
         mPassword = (EditText) findViewById(R.id.passwordEditText);
         mSignUpButton = (Button) findViewById(R.id.signUpBtn);
-        //mBackToLoginButton = (Button) findViewById(R.id.buttonBackToLogin);
+        mGoBackToLogin = (Button) findViewById(R.id.goBackToLogin);
 
         mAuth = FirebaseAuth.getInstance();
 
         // delete this later
         // if the user already signed in and not logged out it directs the user to main page
-        if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(com.example.booked.SignUpActivity.this, MainActivity.class));
-            finish();
-        }
+//        if (mAuth.getCurrentUser() != null) {
+////            startActivity(new Intent(com.example.booked.SignUpActivity.this, MainActivity.class));
+////            finish();
+//
+//            if ( mAuth.getCurrentUser().isEmailVerified() ) {
+//                Toast.makeText(getApplicationContext(), "Logged in Successfully", Toast.LENGTH_LONG).show();
+//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+//                finish();
+//            }
+////            else {
+////                Toast.makeText(getApplicationContext(), "Please verify your email address!", Toast.LENGTH_LONG).show();
+////            }
+//        }
 
 
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
@@ -58,21 +69,20 @@ public class SignUpActivity extends AppCompatActivity  {
                 registerUser();
             }
         });
+
+        mGoBackToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity( new Intent(getApplicationContext(), LoginActivity.class));
+                finish();
+            }
+        });
+
+
+
     }
 
-//    @Override
-//    public void onClick(View v) {
-//        switch ( v.getId()) {
-//            case R.id.signUpBtn:
-//                registerUser();
-//                break;
-//            //case R.id.buttonBackToLogin:
-//            //    startActivity( new Intent( this, MainActivity.class));
-//            //    break;
-//        }
-//    }
-
-    private void registerUser() {
+    public void registerUser() {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String userName = mUserName.getText().toString().trim();
@@ -111,12 +121,17 @@ public class SignUpActivity extends AppCompatActivity  {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if ( task.isSuccessful()) {
 
-                    //FirebaseUser fUser = mAuth.getCurrentUser();
-                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                    FirebaseUser fUser = mAuth.getCurrentUser();
+                    fUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_LONG).show();
+                                Intent i =  new Intent( getApplicationContext(), EmailVerificationCheckActivity.class);
+                                i.putExtra("email",email);
+                                i.putExtra("password", password);
+                                startActivity(i);
+//                                finish();
                             }
                             else {
                                 Toast.makeText(com.example.booked.SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -124,7 +139,12 @@ public class SignUpActivity extends AppCompatActivity  {
                         }
                     });
 
+//
+//
+//                    fUser.isEmailVerified()
 
+//
+//
                     User user = new User( email, userName);
 
                     FirebaseDatabase.getInstance().getReference("Users")
@@ -133,8 +153,8 @@ public class SignUpActivity extends AppCompatActivity  {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
-                                Toast.makeText(com.example.booked.SignUpActivity.this, "User has been registered successfully!  Account has been created", Toast.LENGTH_LONG).show();
-                                startActivity( new Intent( com.example.booked.SignUpActivity.this, MainActivity.class));
+//                                Toast.makeText(com.example.booked.SignUpActivity.this, "User has been registered successfully!  Account has been created", Toast.LENGTH_LONG).show();
+//                                startActivity( new Intent( com.example.booked.SignUpActivity.this, MainActivity.class));
                                 finish();
                             }
                             else {

@@ -45,8 +45,16 @@ public class LoginActivity extends AppCompatActivity {
 
 //         if the user already signed in and not logged out it directs the user to main page
         if (mAuth.getCurrentUser() != null) {
-            startActivity(new Intent(com.example.booked.LoginActivity.this, MainActivity.class));
-            finish();
+            if ( mAuth.getCurrentUser().isEmailVerified() ) {
+                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                finish();
+            }
+//            else {
+//                Toast.makeText(LoginActivity.this, "Please verify your email address!", Toast.LENGTH_LONG).show();
+//            }
+//            startActivity(new Intent(com.example.booked.LoginActivity.this, MainActivity.class));
+//            finish();
         }
 
         mLoginButton.setOnClickListener(new View.OnClickListener() {
@@ -60,6 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity( new Intent( getApplicationContext(), SignUpActivity.class));
+                finish();
             }
         });
 
@@ -67,6 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity( new Intent( getApplicationContext(), ForgetPasswordActivity.class));
+                finish();
             }
         });
 
@@ -108,8 +118,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    if ( mAuth.getCurrentUser().isEmailVerified() ) {
+                        Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
+                    }
+                    else {
+                        mAuth.signOut();
+                        Toast.makeText(LoginActivity.this, "Please verify your email address!", Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
