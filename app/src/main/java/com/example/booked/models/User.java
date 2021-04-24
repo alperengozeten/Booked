@@ -66,6 +66,10 @@ public class User{
 
     // Accessor Methods
 
+    public ArrayList<String> getSocialMedia() {
+        return this.socialMedia;
+    }
+
     public String getName() {
         return this.userName;
     }

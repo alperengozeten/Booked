@@ -7,13 +7,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.media.Image;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.Post;
@@ -39,7 +42,9 @@ public class OtherUsersProfile extends AppCompatActivity {
     private ImageButton otherUsersProfileMailBtn;
     private ImageButton otherUsersProfilePhoneBtn;
 
-    User currentSeller;
+    private ImageView otherUsersProfilePhotoImageView;
+
+    private User currentSeller;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +64,8 @@ public class OtherUsersProfile extends AppCompatActivity {
         otherUsersProfileMailBtn = (ImageButton) findViewById(R.id.otherUsersProfileMailBtn);
         otherUsersProfilePhoneBtn = (ImageButton) findViewById(R.id.otherUsersProfilePhoneBtn);
 
+        otherUsersProfilePhotoImageView = (ImageView) findViewById(R.id.otherUsersProfilePhotoImageView);
+
         recyclerView = (RecyclerView) findViewById(R.id.otherUserPostList);
 
         recyclerView.setHasFixedSize(true);
@@ -70,7 +77,10 @@ public class OtherUsersProfile extends AppCompatActivity {
         // TO BE REPLACED WITH THE DATABASE
         // buraya iki yerden geliniyo 1)visit button in book profile 2) visit sellerProfile in postpage gitmeden: önce current sellerı (global) eşitlersek olur
         currentSeller = Booked.getCurrentSeller();
+        Toast.makeText(this,"User photo: " + currentSeller.getAvatar(),Toast.LENGTH_LONG).show();
         Book book = new Book("Introduction to Python", "No pic");
+
+        //otherUsersProfilePhotoImageView.setImageURI(Uri.parse(currentSeller.getAvatar()));
 
         ArrayList<Post> posts = new ArrayList<>();
         posts.add(new Post("Cs book", "In good state", "Cs-115",70,"No pic", book, currentSeller));

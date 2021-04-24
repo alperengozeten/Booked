@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.booked.models.User;
 import com.squareup.picasso.Picasso;
@@ -47,6 +48,7 @@ public class MyProfile extends AppCompatActivity {
 
     private ImageView profilePhotoImageView;
 
+    private Uri imageUri;
     private Bitmap image;
 
     private User currentUser;
@@ -56,13 +58,15 @@ public class MyProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ( resultCode == Activity.RESULT_OK && data != null ) {
-            Uri uri = data.getData();
+            imageUri = data.getData();
+
+            //BURADA URI'ı değiştirip database haline getirip user'a koy
 
             //profilePhotoImageView.setImageURI(uri);
 
 
             try {
-                ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(uri,"r");
+                ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(imageUri,"r");
                 FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
                 image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
                 parcelFileDescriptor.close();
@@ -77,6 +81,17 @@ public class MyProfile extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
+
+        // GET THIS DATA FROM THE DATABASE
+        if ( Booked.getCurrentUser() != null ) {
+            currentUser = Booked.getCurrentUser();
+            //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
+        }
+        else {
+            currentUser = new User("Alperen", "alperengozeten@gmail.com", "", "05392472224", "Bilkent University" );
+            Booked.setCurrentUser(currentUser);
+            //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
+        }
 
         transientBtn = (Button) findViewById(R.id.transientBtn);
         transientBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,9 +114,6 @@ public class MyProfile extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // GET THIS DATA FROM THE DATABASE
-        currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University" );
-
         editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
         changePasswordBtn = (Button) findViewById(R.id.changePasswordBtn);
         postsBtn = (Button) findViewById(R.id.postsBtn);
@@ -118,7 +130,13 @@ public class MyProfile extends AppCompatActivity {
 
         profilePhotoImageView = (ImageView) findViewById(R.id.otherUsersProfilePhotoImageView);
 
-        Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).resize(223,244).centerCrop().into(profilePhotoImageView);
+        if ( currentUser.getAvatar() != "" ) {
+            //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
+            Picasso.get().load(currentUser.getAvatar()).into(profilePhotoImageView);
+        }
+        else {
+            Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).resize(223,244).centerCrop().into(profilePhotoImageView);
+        }
 
         profileUsernameTextView.setText(currentUser.getName().toString());
         profileUniversityNameTextView.setText(currentUser.getUniversity().toString());
@@ -172,7 +190,7 @@ public class MyProfile extends AppCompatActivity {
         mailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog("No Info");
+                openDialog(currentUser.getEmail());
             }
         });
 
