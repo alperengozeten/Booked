@@ -23,6 +23,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.io.FileDescriptor;
@@ -51,6 +56,8 @@ public class MyProfile extends AppCompatActivity {
     private Uri imageUri;
     private Bitmap image;
 
+    private StorageReference storageReference;
+
     private User currentUser;
 
     @Override
@@ -64,6 +71,8 @@ public class MyProfile extends AppCompatActivity {
 
             //profilePhotoImageView.setImageURI(uri);
 
+            // UPLOAD IMAGE
+            uploadFile();
 
             try {
                 ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(imageUri,"r");
@@ -74,6 +83,35 @@ public class MyProfile extends AppCompatActivity {
             } catch (IOException e) {
                 Log.e("Image","Image not found",e);
             }
+        }
+    }
+
+    private void uploadFile() {
+        if ( imageUri != null ) {
+            StorageReference imageReference = storageReference.child("profile_photos/1");
+
+            imageReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(MyProfile.this,"Upload succesful!",Toast.LENGTH_LONG).show();
+                            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // BURADA FIRESTORE'DA GÜNCELLE
+                                    currentUser.setAvatar(uri.toString());
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+
+                        }
+                    });
+        } else {
+            Toast.makeText(this,"No file selected",Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -140,6 +178,9 @@ public class MyProfile extends AppCompatActivity {
 
         profileUsernameTextView.setText(currentUser.getName().toString());
         profileUniversityNameTextView.setText(currentUser.getUniversity().toString());
+
+
+        storageReference = FirebaseStorage.getInstance().getReference("images");
 
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
