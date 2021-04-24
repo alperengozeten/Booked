@@ -97,7 +97,7 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
     @Override
     public void onBindViewHolder(@NonNull ShowroomPostViewHolder holder, int position) {
         holder.showroomPostDescriptionTextView.setText(posts.get(position).getTitle());
-        holder.showroomPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()));
+        holder.showroomPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
         holder.showroomPostSellerTextView.setText(posts.get(position).getSeller().getName());
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

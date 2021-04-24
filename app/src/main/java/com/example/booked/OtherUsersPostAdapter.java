@@ -39,7 +39,7 @@ public class OtherUsersPostAdapter extends RecyclerView.Adapter<OtherUsersPostAd
     @Override
     public void onBindViewHolder(@NonNull OtherUsersPostViewHolder holder, int position) {
         holder.otherUsersPostDescriptionTextView.setText(posts.get(position).getTitle().toString());
-        holder.otherUsersPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) +" TL");
+        holder.otherUsersPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) +" ₺");
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

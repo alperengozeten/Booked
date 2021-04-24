@@ -41,7 +41,7 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
     @Override
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.postDescriptionTextView.setText(posts.get(position).getTitle().toString());
-        holder.postPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) +" TL");
+        holder.postPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
