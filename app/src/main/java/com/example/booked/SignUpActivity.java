@@ -134,6 +134,7 @@ public class SignUpActivity extends AppCompatActivity  {
                     });
 
                     User user = new User( email, userName);
+                    Booked.setCurrentUser(user);
 
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser()
