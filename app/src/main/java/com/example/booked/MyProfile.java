@@ -94,7 +94,7 @@ public class MyProfile extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(MyProfile.this,"Upload succesful!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(MyProfile.this,"Upload succesful!",Toast.LENGTH_SHORT).show();
                             imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -107,7 +107,7 @@ public class MyProfile extends AppCompatActivity {
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-
+                            Toast.makeText(MyProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
