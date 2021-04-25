@@ -1,10 +1,12 @@
 package com.example.booked;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -14,7 +16,16 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -29,6 +40,12 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
     private String selectedUniversity;
     private String selectedCourse;
+
+    private StorageReference storageReference;
+
+    private Uri postImageUri;
+
+    private ImageView editPostPhotoImageView;
 
 
     @Override
@@ -54,12 +71,22 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( requestCode == 1 && resultCode == RESULT_OK && data != null ) {
+            postImageUri = data.getData();
+
+            Picasso.get().load(postImageUri).into(editPostPhotoImageView);
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post2);
-
-
-
 
         changeTitleEditText = (EditText) findViewById(R.id.changeTitleEditText);
         changePriceEditText = (EditText) findViewById(R.id.changePriceEditText);
@@ -82,10 +109,22 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
         changeUniversitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
         changeCourseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
+        editPostPhotoImageView = (ImageView) findViewById(R.id.editPostPhotoImageView);
+
+        storageReference = FirebaseStorage.getInstance().getReference("images");
+
+        editPostPhotoImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileChooser();
+            }
+        });
+
         applyChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 applyChangesPost();
+                uploadFile();
                 Intent intent = new Intent( getApplicationContext(), MyPosts.class);
                 startActivity(intent);
             }
@@ -93,6 +132,37 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
     }
 
+    private void uploadFile() {
+        if ( postImageUri != null ) {
+            StorageReference fileReference = storageReference.child("posts_pictures/3");
+
+            fileReference.putFile(postImageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(EditPost2.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+
+                            // CURRENT POST IS NOT INITIALIZED YET; EDIT THE POST
+                            //currentPost.addPicture(fileReference.getDownloadUrl().toString());
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(EditPost2.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openFileChooser() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(intent,1);
+    }
 
 
     @Override
