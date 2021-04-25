@@ -1,6 +1,7 @@
 package com.example.booked;
 
 import android.app.Application;
+import android.net.Uri;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.BookProfile;
@@ -16,6 +17,15 @@ public class Booked extends Application {
     static Book currentBook;// = new Book("Example Book","picbook");
     private static User currentSeller;
 
+    private static String examplePath;
+
+    public static String getExamplePath() {
+        return examplePath;
+    }
+
+    public static void setExamplePath(String examplePath) {
+        Booked.examplePath = examplePath;
+    }
 
     public Booked() {
     }

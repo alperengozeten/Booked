@@ -114,7 +114,7 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
             public void onClick(View v) {
                 createPost();
                 uploadFile();
-                Intent intent = new Intent( getApplicationContext(), MyPosts.class);
+                Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
@@ -130,6 +130,12 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(AddPost2.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    Booked.setExamplePath(uri.toString());
+                                }
+                            });
 
                             // CURRENT POST IS NOT INITIALIZED YET; MAKE NEW POST
                             //currentPost.addPicture(fileReference.getDownloadUrl().toString());

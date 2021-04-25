@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.models.Post;
 import com.example.booked.models.Showroom;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -99,6 +100,10 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
         holder.showroomPostDescriptionTextView.setText(posts.get(position).getTitle());
         holder.showroomPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
         holder.showroomPostSellerTextView.setText(posts.get(position).getSeller().getName());
+
+        if ( Booked.getExamplePath() != null ) {
+            Picasso.get().load(Booked.getExamplePath()).fit().centerCrop().into(holder.showroomPostPictureImageView);
+        }
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

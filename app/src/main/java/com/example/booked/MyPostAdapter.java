@@ -8,12 +8,14 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.models.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,12 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
     public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
         holder.postDescriptionTextView.setText(posts.get(position).getTitle().toString());
         holder.postPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
+
+        //Toast.makeText(context,"path:" + Booked.getExamplePath(), Toast.LENGTH_LONG).show();
+        if ( Booked.getExamplePath() != null ) {
+            Picasso.get().load(Booked.getExamplePath()).fit().centerCrop().into(holder.postPictureImageView);
+        }
+
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
