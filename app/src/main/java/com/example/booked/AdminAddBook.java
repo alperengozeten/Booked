@@ -19,10 +19,13 @@ import android.widget.Toast;
 import com.example.booked.models.Book;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.HashMap;
 
 public class AdminAddBook extends AppCompatActivity {
 
@@ -32,6 +35,7 @@ public class AdminAddBook extends AppCompatActivity {
 
     private boolean isPhotoPicked;
 
+    private FirebaseFirestore db;
     private StorageReference storageReference;
 
     private Uri newBookImageUri;
@@ -47,6 +51,7 @@ public class AdminAddBook extends AppCompatActivity {
         newBookImageView = (ImageView) findViewById(R.id.newBookImageView);
         addNewBookBtn = (Button) findViewById(R.id.addNewBookBtn);
 
+        db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
         newBookImageView.setOnClickListener(new View.OnClickListener() {
@@ -87,7 +92,18 @@ public class AdminAddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     newBook.setPicture(uri.toString());
+                                    // NEW BOOK PROFILE
                                     // SAVE THESE DATA TO FIRESTORE
+                                    HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("title", newBook.getBookName());
+                                    newData.put("picture", newBook.getPicture());
+                                    newData.put("id", newBook.getId());
+                                    db.collection("books").document(newBook.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AdminAddBook.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                                 }
                             });
 
