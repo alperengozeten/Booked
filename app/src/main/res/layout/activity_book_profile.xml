@@ -183,7 +183,7 @@
             android:id="@+id/bookProfile_lowToHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="4dp"
             android:layout_marginTop="28dp"
             android:text="Low to high"
             app:layout_constraintStart_toStartOf="@+id/bookprofile_evaluate"
@@ -193,7 +193,6 @@
             android:id="@+id/bookprofile_highToLow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
             android:text="High to Low"
             app:layout_constraintStart_toEndOf="@+id/bookProfile_lowToHigh"
             app:layout_constraintTop_toTopOf="@+id/bookProfile_lowToHigh" />
@@ -202,7 +201,7 @@
             android:id="@+id/Ztoa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="8dp"
             android:text="Z-A"
             app:layout_constraintStart_toEndOf="@+id/bookprofile_highToLow"
             app:layout_constraintTop_toTopOf="@+id/bookprofile_highToLow" />
@@ -211,11 +210,11 @@
             android:id="@+id/aToz"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
             android:layout_marginTop="28dp"
+            android:layout_marginEnd="8dp"
             android:text="A-Z"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toEndOf="@+id/Ztoa"
             app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
 
