@@ -9,7 +9,7 @@ public class Post implements Reportable, Comparable<Post> {
     String description;
     String university;
     String course;
-    int id;
+    String id;
     int price;
     String picture;
     ArrayList<Report> reports;
@@ -27,7 +27,7 @@ public class Post implements Reportable, Comparable<Post> {
     };
 
 
-    public Post (String title, String description, String course, int price, int id, String aPicture, Book aBook, User seller) {
+    public Post (String title, String description, String course, int price, String aPicture, Book aBook, User seller) {
         this.seller = seller;
         this.title = title;
         this.description = description;
@@ -39,14 +39,15 @@ public class Post implements Reportable, Comparable<Post> {
         reports = new ArrayList<>();
         this.isSold = false;
         this.theBook = aBook;
+        randomKeyGenerator(11);
 
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -123,6 +124,34 @@ public class Post implements Reportable, Comparable<Post> {
 
         return this.getPrice() - post.getPrice();
 
+    }
+
+    // function to generate a random string of length n
+    private void randomKeyGenerator(int n)
+    {
+
+        // chose a Character random from this String
+        String AlphaNumericString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                + "0123456789"
+                + "abcdefghijklmnopqrstuvxyz";
+
+        // create StringBuffer size of AlphaNumericString
+        StringBuilder sb = new StringBuilder(n);
+
+        for (int i = 0; i < n; i++) {
+
+            // generate a random number between
+            // 0 to AlphaNumericString variable length
+            int index
+                    = (int)(AlphaNumericString.length()
+                    * Math.random());
+
+            // add Character one by one in end of sb
+            sb.append(AlphaNumericString
+                    .charAt(index));
+        }
+
+        this.id = sb.toString();
     }
 
 }

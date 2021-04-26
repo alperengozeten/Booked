@@ -83,9 +83,9 @@ public class OtherUsersProfile extends AppCompatActivity {
         //otherUsersProfilePhotoImageView.setImageURI(Uri.parse(currentSeller.getAvatar()));
 
         ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Cs book", "In good state", "Cs-115",70, 1,"No pic", book, currentSeller));
-        posts.add(new Post("Math book", "In good state", "Math-101",60,2,"No pic", book, currentSeller));
-        posts.add(new Post("Phys book", "In good state", "Phys-101",50,3,"No pic", book, currentSeller));
+        posts.add(new Post("Cs book", "In good state", "Cs-115",70, "No pic", book, currentSeller));
+        posts.add(new Post("Math book", "In good state", "Math-101",60,"No pic", book, currentSeller));
+        posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, currentSeller));
 
         mAdapter = new OtherUsersPostAdapter(posts, this);
         recyclerView.setAdapter(mAdapter);
