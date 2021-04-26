@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
     Button profileBtn;
     Button mLogOutBtn;
 
+    private Button adminNewBookBtn;
+
     FirebaseAuth mAuth;
 
     @Override
@@ -58,6 +60,15 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        adminNewBookBtn = (Button) findViewById(R.id.adminNewBookBtn);
+        adminNewBookBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),AdminAddBook.class);
+                startActivity(intent);
+            }
+        });
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
