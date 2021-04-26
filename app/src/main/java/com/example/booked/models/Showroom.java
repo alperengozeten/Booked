@@ -22,9 +22,9 @@ public class Showroom implements Filterable, Sortable{
         return posts;
     }
 
-    void createPost(String title, String description, String course, int price, Book aBook, User seller)
+    void createPost(String title, String description, String course, int price, int id, Book aBook, User seller)
     {
-        Post aPost = new Post(title, description, course,price, course, aBook, seller);
+        Post aPost = new Post(title, description, course, price, id, course, aBook, seller);
         //prog.bookProfiles.get(prog.books.indexOf(aBook)).addPost(aPost);
 
         posts.add(aPost);

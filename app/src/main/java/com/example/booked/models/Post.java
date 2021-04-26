@@ -9,8 +9,9 @@ public class Post implements Reportable, Comparable<Post> {
     String description;
     String university;
     String course;
+    int id;
     int price;
-    ArrayList<String> pictures;
+    String picture;
     ArrayList<Report> reports;
     User seller;
     Boolean isSold;
@@ -26,19 +27,27 @@ public class Post implements Reportable, Comparable<Post> {
     };
 
 
-    public Post (String title, String description, String course, int price, String aPicture, Book aBook, User seller) {
+    public Post (String title, String description, String course, int price, int id, String aPicture, Book aBook, User seller) {
         this.seller = seller;
         this.title = title;
         this.description = description;
         this.university = this.seller.getUniversity();
         this.course = course;
         this.price = price;
-        pictures = new ArrayList<>();
-        pictures.add( aPicture);
+        this.id = id;
+        picture = aPicture;
         reports = new ArrayList<>();
         this.isSold = false;
         this.theBook = aBook;
 
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void editPost (String title, String description, int price, Book aBook) {
@@ -48,16 +57,12 @@ public class Post implements Reportable, Comparable<Post> {
         theBook = aBook;
     }
 
-    public boolean addPicture( String aPicture) {
-        return this.pictures.add( aPicture);
+    public void deletePicture( String aPicture) {
+        this.picture = "";
     }
 
-    public boolean deletePicture( String aPicture) {
-        return this.pictures.remove( aPicture);
-    }
-
-    public void setPicture( String aPicture, int index) {
-        this.pictures.set(index, aPicture);
+    public void setPicture( String aPicture) {
+        this.picture = aPicture;
     }
 
     public String getTitle() {
@@ -88,8 +93,8 @@ public class Post implements Reportable, Comparable<Post> {
         return isSold;
     }
 
-    public ArrayList<String> getPictures() {
-        return pictures;
+    public String getPicture() {
+        return picture;
     }
 
     public ArrayList<Report> getReports() {
