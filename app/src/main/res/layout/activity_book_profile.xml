@@ -99,13 +99,13 @@
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="36dp"
             android:background="@drawable/offer_border"
             android:maxHeight="100dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.266"
+            app:layout_constraintHorizontal_bias="0.465"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
+            app:layout_constraintTop_toBottomOf="@+id/bookProfile_lowToHigh" />
 
         <Button
             android:id="@+id/bookprofile_evaluate"
@@ -178,6 +178,46 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/rate2"
             app:srcCompat="@drawable/ic_action_starempty" />
+
+        <Button
+            android:id="@+id/bookProfile_lowToHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="28dp"
+            android:text="Low to high"
+            app:layout_constraintStart_toStartOf="@+id/bookprofile_evaluate"
+            app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
+
+        <Button
+            android:id="@+id/bookprofile_highToLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="High to Low"
+            app:layout_constraintStart_toEndOf="@+id/bookProfile_lowToHigh"
+            app:layout_constraintTop_toTopOf="@+id/bookProfile_lowToHigh" />
+
+        <Button
+            android:id="@+id/Ztoa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="Z-A"
+            app:layout_constraintStart_toEndOf="@+id/bookprofile_highToLow"
+            app:layout_constraintTop_toTopOf="@+id/bookprofile_highToLow" />
+
+        <Button
+            android:id="@+id/aToz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="22dp"
+            android:layout_marginTop="28dp"
+            android:text="A-Z"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/Ztoa"
+            app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

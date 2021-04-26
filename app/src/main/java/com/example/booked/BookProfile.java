@@ -27,7 +27,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     RecyclerView offersList, commentList;
     OfferRecyclerApapter offerAdapter;
     CommentRecyclerAdapter commentAdapter;
-    Button addEvaluation;
+    Button addEvaluation, lowToHigh, highToLow, aToz, zToA;
     ImageView s1,s2,s3,s4,s5;
 
 
@@ -114,6 +114,42 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
             public void onClick(View v) {
                 DialogFragment evaluationPopUp = new AddEvaluationDialog();
                 evaluationPopUp.show(getSupportFragmentManager(),"Evaluate");
+            }
+        });
+
+        lowToHigh = (Button) findViewById(R.id.bookProfile_lowToHigh);
+        lowToHigh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBookProfile.sortByPrice(true);
+                offerAdapter.notifyDataSetChanged();
+            }
+        });
+
+        highToLow = (Button) findViewById(R.id.bookprofile_highToLow);
+        highToLow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBookProfile.sortByPrice(false);
+                offerAdapter.notifyDataSetChanged();
+            }
+        });
+
+        aToz = (Button) findViewById(R.id.aToz);
+        aToz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBookProfile.sortByLetter(true);
+                offerAdapter.notifyDataSetChanged();
+            }
+        });
+
+        zToA = (Button) findViewById(R.id.Ztoa);
+        zToA.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                myBookProfile.sortByLetter(false);
+                offerAdapter.notifyDataSetChanged();
             }
         });
     }

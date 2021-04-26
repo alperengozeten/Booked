@@ -72,10 +72,14 @@ public class Booked extends Application {
 
         currentBookProfile.addEvalution(new Evaluation("coh iyi",3,new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University")));
 
-        currentBookProfile.addPost(new Post("Cs book", "A In good state", "Cs-115",70,2,"No pic", currentBook,
+        currentBookProfile.addPost(new Post("B book", "A In good state", "Cs-115",70,2,"No pic", currentBook,
                 new User("berkay", "berkay@gmail.com", "None", "05443332211", "Bilk University")));
 
+        currentBookProfile.addPost(new Post("A book", "iyidir", "Cs-115",40,2,"No pic", currentBook,
+                new User("omer", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
 
+        currentBookProfile.addPost(new Post("C book", "iyidir", "Cs-115",50,2,"No pic", currentBook,
+                new User("yarkın", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
     }
 
 }

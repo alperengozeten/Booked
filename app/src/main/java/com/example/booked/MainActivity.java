@@ -52,6 +52,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // denemek için, sonra silenecek
+        Booked.setExample();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 

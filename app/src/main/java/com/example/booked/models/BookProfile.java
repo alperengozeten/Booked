@@ -93,7 +93,12 @@ public class BookProfile implements Sortable{
 
     @Override
     public void sortByLetter(boolean isAToZ) {
-        Collections.sort(offers, new TitleComparator());
+        Collections.sort(offers, new UserNameComparator());
+
+        if(!isAToZ)
+        {
+            Collections.reverse(offers);
+        }
 
     }
 }
