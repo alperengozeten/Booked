@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.booked.models.Book;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
@@ -74,7 +75,8 @@ public class AdminAddBook extends AppCompatActivity {
 
     private void uploadFile() {
         if ( newBookImageUri != null ) {
-            StorageReference fileReference = storageReference.child("book_pictures/4");
+            Book newBook = new Book( title);
+            StorageReference fileReference = storageReference.child("book_pictures/" + newBook.getId());
 
             fileReference.putFile(newBookImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -84,7 +86,8 @@ public class AdminAddBook extends AppCompatActivity {
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    //Book.setPhoto(uri.toString());
+                                    newBook.setPicture(uri.toString());
+                                    // SAVE THESE DATA TO FIRESTORE
                                 }
                             });
 
