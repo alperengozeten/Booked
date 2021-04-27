@@ -13,11 +13,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity  {
 
@@ -29,6 +33,10 @@ public class SignUpActivity extends AppCompatActivity  {
     Button mGoBackToLogin;
 
     FirebaseAuth mAuth;
+
+    FirebaseFirestore db;
+
+    User user;
 
 
     @Override
@@ -45,6 +53,8 @@ public class SignUpActivity extends AppCompatActivity  {
         mGoBackToLogin = (Button) findViewById(R.id.goBackToLogin);
 
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
 
         //delete this later
         // if the user already signed in and not logged out it directs the user to main page
@@ -120,11 +130,28 @@ public class SignUpActivity extends AppCompatActivity  {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
+                                user = new User( email, userName);
+                                HashMap<String,Object> newData = new HashMap<>();
+                                newData.put("username", user.getName());
+                                newData.put("email", user.getEmail());
+                                newData.put("avatar", user.getAvatar());
+                                newData.put("socialmedia", user.getSocialMedia());
+                                newData.put("phonenumber", user.getPhoneNumber());
+                                newData.put("university", user.getUniversity());
+                                newData.put("notifications", user.isNotifications());
+                                newData.put("isbanned", user.isBanned());
+                                newData.put("wishlist", user.getWishlist());
+                                db.collection("users").document(fUser.getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(SignUpActivity.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                    }
+                                });
                                 Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_LONG).show();
                                 Intent i =  new Intent( getApplicationContext(), EmailVerificationCheckActivity.class);
                                 i.putExtra("email",email);
                                 i.putExtra("password", password);
-                                startActivity(i);
+                                //startActivity(i);
 //                                finish();
                             }
                             else {
@@ -133,8 +160,6 @@ public class SignUpActivity extends AppCompatActivity  {
                         }
                     });
 
-                    User user = new User( email, userName);
-                    Booked.setCurrentUser(user);
 
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser()

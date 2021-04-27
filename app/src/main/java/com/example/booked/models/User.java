@@ -5,6 +5,15 @@ import java.util.ArrayList;
 public class User{
 
     String userName;
+
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
     String email;
     String avatar;
     ArrayList<String> socialMedia;
