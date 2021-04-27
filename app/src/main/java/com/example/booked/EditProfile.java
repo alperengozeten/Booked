@@ -58,6 +58,7 @@ public class EditProfile extends AppCompatActivity {
                 currentUser.setUniversity(university.getText().toString());
                 currentUser.setPhoneNumber(telephone.getText().toString());
                 currentUser.setUserName(username.getText().toString());
+                currentUser.clearSocialMedia();
                 currentUser.addSocialMedia(facebook.getText().toString());
                 currentUser.addSocialMedia(twitter.getText().toString());
                 currentUser.addSocialMedia(instagram.getText().toString());

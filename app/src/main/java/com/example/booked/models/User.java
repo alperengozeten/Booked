@@ -76,6 +76,9 @@ public class User{
         this.userName = userName;
     }
 
+    public void clearSocialMedia() {
+        this.socialMedia.clear();
+    }
     public void setEmail(String email) {
         this.email = email;
     }
