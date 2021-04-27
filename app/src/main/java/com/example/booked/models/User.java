@@ -72,6 +72,10 @@ public class User{
         this.wishlist = wishlist;
     }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }

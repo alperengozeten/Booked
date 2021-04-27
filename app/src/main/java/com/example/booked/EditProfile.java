@@ -5,17 +5,26 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.HashMap;
 
 
 public class EditProfile extends AppCompatActivity {
 
     User currentUser;
     Button confirmButton;
-    EditText userName, university, telephone,email, facebook, twitter , instagram;
+    EditText username, university, telephone, facebook, twitter , instagram;
+
+    private FirebaseAuth mAuth;
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +35,10 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         currentUser = Booked.getCurrentUser();
+
+        mAuth = FirebaseAuth.getInstance();
+
+        db = FirebaseFirestore.getInstance();
 
         setEditTexts();
 
@@ -41,15 +54,34 @@ public class EditProfile extends AppCompatActivity {
             public void onClick(View v) {
                 //currentUser.setName(userName.getText().toString());// isim değiştirme eklersek yorumlardaki isimleri de değiştirmek gerekir
 
+                // E-mail kaldır, username yap
                 currentUser.setUniversity(university.getText().toString());
                 currentUser.setPhoneNumber(telephone.getText().toString());
-                currentUser.setEmail(email.getText().toString());
+                currentUser.setUserName(username.getText().toString());
+                currentUser.addSocialMedia(facebook.getText().toString());
+                currentUser.addSocialMedia(twitter.getText().toString());
+                currentUser.addSocialMedia(instagram.getText().toString());
                 //social media?
 
-                //post
+                HashMap<String,Object> newData = new HashMap<>();
+                newData.put("username", currentUser.getName());
+                newData.put("email", currentUser.getEmail());
+                newData.put("avatar", currentUser.getAvatar());
+                newData.put("socialmedia", currentUser.getSocialMedia());
+                newData.put("phonenumber", currentUser.getPhoneNumber());
+                newData.put("university", currentUser.getUniversity());
+                newData.put("notifications", currentUser.isNotifications());
+                newData.put("isbanned", currentUser.isBanned());
+                newData.put("wishlist", currentUser.getWishlist());
+                db.collection("users").document(mAuth.getCurrentUser().getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(EditProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                    }
+                });
 
                 //open new page
-                Intent profile = new Intent(getApplicationContext(), PostPage.class);
+                Intent profile = new Intent(getApplicationContext(), MyProfile.class);
                 startActivity(profile);
 
             }
@@ -58,18 +90,27 @@ public class EditProfile extends AppCompatActivity {
 
     void setEditTexts()
     {
-        userName = (EditText) findViewById(R.id.username);
+        username = (EditText) findViewById(R.id.username);
         university = (EditText) findViewById(R.id.university);
         telephone = (EditText) findViewById(R.id.telephone);
-        email = (EditText) findViewById(R.id.email);
         twitter = (EditText) findViewById(R.id.twitter);
         facebook = (EditText) findViewById(R.id.facebook);
         instagram = (EditText) findViewById(R.id.instagram);
 
-        userName.setText(currentUser.getName().toString());
+        username.setText(currentUser.getName().toString());
         university.setText(currentUser.getUniversity().toString());
         telephone.setText(currentUser.getPhoneNumber().toString());
-        email.setText(currentUser.getEmail().toString());
+        if ( currentUser.getSocialMedia() != null && currentUser.getSocialMedia().size() == 3 ) {
+            if (currentUser.getSocialMedia().get(0) != null) {
+                facebook.setText(currentUser.getSocialMedia().get(0));
+            }
+            if (currentUser.getSocialMedia().get(1) != null) {
+                twitter.setText(currentUser.getSocialMedia().get(1));
+            }
+            if (currentUser.getSocialMedia().get(2) != null) {
+                instagram.setText(currentUser.getSocialMedia().get(2));
+            }
+        }
         // social media?
 
     }
