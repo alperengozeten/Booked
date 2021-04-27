@@ -25,7 +25,7 @@ public class EditProfile extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        setCurrentUser();
+        currentUser = Booked.getCurrentUser();
 
         setEditTexts();
 
@@ -54,12 +54,6 @@ public class EditProfile extends AppCompatActivity {
 
             }
         });
-    }
-
-    void setCurrentUser()
-    {
-        Booked.setExample();
-        currentUser = Booked.getCurrentUser();
     }
 
     void setEditTexts()

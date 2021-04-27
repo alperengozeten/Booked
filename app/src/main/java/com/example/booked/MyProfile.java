@@ -25,6 +25,8 @@ import android.widget.Toast;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -32,6 +34,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -55,6 +58,10 @@ public class MyProfile extends AppCompatActivity {
 
     private Uri imageUri;
     private Bitmap image;
+
+    private FirebaseAuth mAuth;
+
+    private FirebaseFirestore db;
 
     private StorageReference storageReference;
 
@@ -88,7 +95,7 @@ public class MyProfile extends AppCompatActivity {
 
     private void uploadFile() {
         if ( imageUri != null ) {
-            StorageReference imageReference = storageReference.child("profile_photos/1");
+            StorageReference imageReference = storageReference.child("profile_photos/" + mAuth.getCurrentUser().getUid());
 
             imageReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -100,6 +107,25 @@ public class MyProfile extends AppCompatActivity {
                                 public void onSuccess(Uri uri) {
                                     // BURADA FIRESTORE'DA GÜNCELLE
                                     currentUser.setAvatar(uri.toString());
+
+                                    HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("username", currentUser.getName());
+                                    newData.put("email", currentUser.getEmail());
+                                    newData.put("avatar", currentUser.getAvatar());
+                                    newData.put("socialmedia", currentUser.getSocialMedia());
+                                    newData.put("phonenumber", currentUser.getPhoneNumber());
+                                    newData.put("university", currentUser.getUniversity());
+                                    newData.put("notifications", currentUser.isNotifications());
+                                    newData.put("isbanned", currentUser.isBanned());
+                                    newData.put("wishlist", currentUser.getWishlist());
+                                    db.collection("users").document(mAuth.getCurrentUser().getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+
                                 }
                             });
                         }
@@ -181,6 +207,10 @@ public class MyProfile extends AppCompatActivity {
 
 
         storageReference = FirebaseStorage.getInstance().getReference("images");
+
+        mAuth = FirebaseAuth.getInstance();
+
+        db = FirebaseFirestore.getInstance();
 
 
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
