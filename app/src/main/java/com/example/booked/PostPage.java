@@ -103,6 +103,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     @Override
     public void positiveClicked(String[] reportTypes, int position) {
 
+        currentPost.report(reportTypes[position],position,Booked.getCurrentUser());
         // burada reportu kaydedicez
 
 

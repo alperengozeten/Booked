@@ -71,7 +71,7 @@ public class Booked extends Application {
         currentPost = new Post("Old book", "iyi durumda iş görür ", "Cs-115",70, "No pic", currentBook, currentUser);
 
         currentBookProfile.addEvalution(new Evaluation("coh iyi",3,new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University")));
-
+        currentBookProfile.addEvalution(new Evaluation("daha da iyi",4, currentUser));
         currentBookProfile.addPost(new Post("B book", "A In good state", "Cs-115",70,"No pic", currentBook,
                 new User("berkay", "berkay@gmail.com", "None", "05443332211", "Bilk University")));
 

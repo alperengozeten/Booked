@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     Button profileBtn;
     Button mLogOutBtn;
 
-    private Button adminNewBookBtn;
+    private Button adminPanel;
 
     FirebaseAuth mAuth;
 
@@ -61,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        adminNewBookBtn = (Button) findViewById(R.id.adminNewBookBtn);
-        adminNewBookBtn.setOnClickListener(new View.OnClickListener() {
+
+        adminPanel = (Button) findViewById(R.id.adminNewBookBtn);
+        adminPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),AdminAddBook.class);
+                Intent intent = new Intent(getApplicationContext(),AdminPanel.class);
                 startActivity(intent);
             }
         });

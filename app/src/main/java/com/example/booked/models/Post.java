@@ -17,14 +17,14 @@ public class Post implements Reportable, Comparable<Post> {
     Boolean isSold;
     Book theBook;
 
-    Comparator<Post> TitleComparator = new Comparator<Post>() {
+    /**Comparator<Post> TitleComparator = new Comparator<Post>() {
 
         @Override
         public int compare(Post p1, Post p2) {
 
             return p1.getTitle().compareTo(p2.getTitle());
         }
-    };
+    };*/
 
 
     public Post (String title, String description, String course, int price, String aPicture, Book aBook, User seller) {
@@ -112,8 +112,8 @@ public class Post implements Reportable, Comparable<Post> {
                 "\n name of the book: " + this.theBook +"\n";
     }
 
-    @Override
-    public void report(String description, String catagory, User owner) {
+   @Override
+    public void report(String description, int catagory, User owner) {
 
         this.reports.add( new Report(description, catagory, owner) );
 

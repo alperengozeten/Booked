@@ -93,7 +93,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     {
         title = (TextView) findViewById(R.id.bookprofiletitle);
         rating = (TextView) findViewById(R.id.bookProfileRating);
-        course = (TextView) findViewById(R.id.bookprofile_school_lesson);
+        //course = (TextView) findViewById(R.id.bookprofile_school_lesson);
         textNumOfComments = (TextView) findViewById(R.id.commentNum);
 
         title.setText(myBookProfile.getBook().getBookName());
@@ -162,8 +162,6 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         offersList.setAdapter(offerAdapter);
         offersList.setLayoutManager(new LinearLayoutManager(this));
         offerAdapter.notifyDataSetChanged();
-
-        //offer sıralamsı ekle
 
     }
 

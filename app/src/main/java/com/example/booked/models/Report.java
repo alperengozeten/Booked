@@ -3,16 +3,16 @@ package com.example.booked.models;
 public class Report {
 
     private String description;
-    private String category;
+    private int category;
     private User owner;
 
-    public Report( String description, String category, User owner) {
+    public Report( String description, int category, User owner) {
         this.description = description;
         this.category = category;
         this.owner = owner;
     }
 
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 

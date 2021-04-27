@@ -137,7 +137,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="8dp"
         android:background="@color/blue_button"
-        android:text="Visit S eller Profile"
+        android:text="Visit Seller Profile"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

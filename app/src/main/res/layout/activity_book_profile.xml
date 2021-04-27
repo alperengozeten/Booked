@@ -30,49 +30,25 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView4"
-            android:layout_width="118dp"
-            android:layout_height="34dp"
-            android:layout_marginTop="32dp"
-            android:gravity="center|right|left"
-            android:text="School_lesson"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.082"
-            app:layout_constraintStart_toStartOf="@+id/bookprofiletitle"
-            app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle" />
-
-        <TextView
-            android:id="@+id/bookprofile_school_lesson"
-            android:layout_width="178dp"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:background="#81E7C5"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/textView4"
-            app:layout_constraintTop_toBottomOf="@+id/textView4" />
-
-        <TextView
             android:id="@+id/theRating"
             android:layout_width="87dp"
             android:layout_height="31dp"
             android:layout_marginTop="20dp"
+            android:layout_marginEnd="292dp"
             android:text="Rating"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.01"
-            app:layout_constraintStart_toStartOf="@+id/bookprofile_school_lesson"
-            app:layout_constraintTop_toBottomOf="@+id/bookprofile_school_lesson" />
+            app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle" />
 
         <TextView
             android:id="@+id/bookProfileRating"
             android:layout_width="192dp"
             android:layout_height="59dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="8dp"
             android:background="#81E7C5"
             android:gravity="center_vertical"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.132"
+            app:layout_constraintHorizontal_bias="0.123"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/theRating" />
 
@@ -89,8 +65,9 @@
             android:id="@+id/bookprofile_comments"
             android:layout_width="357dp"
             android:layout_height="200dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="56dp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.388"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentNum" />
 
@@ -124,9 +101,9 @@
             android:id="@+id/commentNum"
             android:layout_width="150dp"
             android:layout_height="27dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="48dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.103"
+            app:layout_constraintHorizontal_bias="0.08"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookProfileRating" />
 
@@ -134,10 +111,9 @@
             android:id="@+id/imageView4"
             android:layout_width="135dp"
             android:layout_height="175dp"
-            android:layout_marginStart="36dp"
-            android:layout_marginLeft="36dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="20dp"
-            app:layout_constraintStart_toEndOf="@+id/bookprofile_school_lesson"
+            app:layout_constraintStart_toEndOf="@+id/bookProfileRating"
             app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -145,9 +121,9 @@
             android:id="@+id/rate3"
             android:layout_width="29dp"
             android:layout_height="31dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="12dp"
             app:layout_constraintEnd_toStartOf="@+id/rate4"
-            app:layout_constraintTop_toBottomOf="@+id/imageView4"
+            app:layout_constraintTop_toTopOf="@+id/bookProfileRating"
             app:srcCompat="@drawable/ic_action_starempty" />
 
         <ImageView
@@ -155,7 +131,6 @@
             android:layout_width="29dp"
             android:layout_height="31dp"
             android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
             app:layout_constraintEnd_toStartOf="@+id/rate5"
             app:layout_constraintTop_toTopOf="@+id/rate3"
             app:srcCompat="@drawable/ic_action_starempty" />
