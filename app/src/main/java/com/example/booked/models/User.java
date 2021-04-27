@@ -60,6 +60,18 @@ public class User{
         this.wishlist = new ArrayList<>();
     }
 
+    public User(String userName, String email, String avatar, ArrayList<String> socialMedia, String phoneNumber, String university, boolean notifications, boolean isBanned, ArrayList<Book> wishlist) {
+        this.userName = userName;
+        this.email = email;
+        this.avatar = avatar;
+        this.socialMedia = socialMedia;
+        this.phoneNumber = phoneNumber;
+        this.university = university;
+        this.notifications = notifications;
+        this.isBanned = isBanned;
+        this.wishlist = wishlist;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }

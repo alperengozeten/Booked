@@ -131,6 +131,7 @@ public class SignUpActivity extends AppCompatActivity  {
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()) {
                                 user = new User( email, userName);
+                                Booked.setCurrentUser(user);
                                 HashMap<String,Object> newData = new HashMap<>();
                                 newData.put("username", user.getName());
                                 newData.put("email", user.getEmail());
