@@ -158,7 +158,7 @@
         android:id="@+id/imageView2"
         android:layout_width="140dp"
         android:layout_height="200dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="26dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/postschoolLesson"
         app:layout_constraintTop_toBottomOf="@+id/postTitle"
