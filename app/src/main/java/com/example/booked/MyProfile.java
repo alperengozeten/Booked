@@ -240,21 +240,33 @@ public class MyProfile extends AppCompatActivity {
         facebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog( "No Info");
+                if ( currentUser.getSocialMedia().size() < 3 ) {
+                    openDialog("No Info");
+                } else {
+                    openDialog(currentUser.getSocialMedia().get(0));
+                }
             }
         });
 
         twitterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog( "No Info");
+                if ( currentUser.getSocialMedia().size() < 3 ) {
+                    openDialog("No Info");
+                } else {
+                    openDialog(currentUser.getSocialMedia().get(1));
+                }
             }
         });
 
         instagramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog( "No Info");
+                if ( currentUser.getSocialMedia().size() < 3 ) {
+                    openDialog("No Info");
+                } else {
+                    openDialog(currentUser.getSocialMedia().get(2));
+                }
             }
         });
 
