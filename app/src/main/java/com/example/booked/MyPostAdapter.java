@@ -46,8 +46,8 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
         holder.postPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
 
         //Toast.makeText(context,"path:" + Booked.getExamplePath(), Toast.LENGTH_LONG).show();
-        if ( Booked.getExamplePath() != null ) {
-            Picasso.get().load(Booked.getExamplePath()).fit().centerCrop().into(holder.postPictureImageView);
+        if ( ! posts.get(position).getPicture().equals("")  ) {
+            Picasso.get().load(posts.get(position).getPicture()).fit().centerCrop().into(holder.postPictureImageView);
         }
 
 

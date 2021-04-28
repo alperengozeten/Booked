@@ -12,12 +12,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MyPosts extends AppCompatActivity {
 
@@ -26,6 +33,10 @@ public class MyPosts extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
 
     private User currentUser;
+
+    private FirebaseFirestore db;
+
+    private ArrayList<Post> posts;
 
     private ImageButton myPostsAddPostBtn;
 
@@ -37,6 +48,8 @@ public class MyPosts extends AppCompatActivity {
         //getSupportActionBar().setTitle("My Posts");
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        db = FirebaseFirestore.getInstance();
 
         myPostsAddPostBtn = (ImageButton) findViewById(R.id.myPostsAddPostBtn);
         myPostsAddPostBtn.setOnClickListener(new View.OnClickListener() {
@@ -56,13 +69,33 @@ public class MyPosts extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // TO BE REPLACED WITH THE DATABASE
-        User currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University");
-        Book book = new Book("Introduction to Python", "No pic");
+        User currentUser = Booked.getCurrentUser();
 
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Cs book", "In good state", "Cs-115",70, "No pic", book, currentUser));
-        posts.add(new Post("Math book", "In good state", "Math-101",60, "No pic", book, currentUser));
-        posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, currentUser));
+        posts = new ArrayList<>();
+        db.collection("posts").whereEqualTo("username", currentUser.getName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if ( task.isSuccessful() ) {
+                    for ( DocumentSnapshot document : task.getResult()) {
+                        HashMap<String, Object> hashBook = (HashMap<String, Object>) document.get("book");
+                        Book postBook = new Book( (String) hashBook.get("bookName"), (String) hashBook.get("picture"), (String) hashBook.get("id"));
+
+                        HashMap<String, Object> hashUser = (HashMap<String, Object>) document.get("user");
+                        User postUser = new User((String) hashUser.get("name"), (String) hashUser.get("email"), (String) hashUser.get("avatar"), (ArrayList<String>) hashUser.get("socialMedia"),
+                                (String) hashUser.get("phoneNumber"), (String) hashUser.get("university"), (boolean) hashUser.get("notifications"),
+                                (boolean) hashUser.get("banned"), (ArrayList<Book>) hashUser.get("wishlist"));
+
+                        Post postToBeAdded = new Post(document.getString("title"), document.getString("description"), document.getString("university"),
+                                document.getString("course"), document.getLong("price").intValue(), document.getString("picture"), postBook,
+                                postUser, document.getString("id"));
+                        posts.add(postToBeAdded);
+                    }
+                    Toast.makeText(MyPosts.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
+                    mAdapter = new MyPostAdapter(posts, MyPosts.this);
+                    recyclerView.setAdapter(mAdapter);
+                }
+            }
+        });
 
         /*
         ArrayList<String> names = new ArrayList<>();
@@ -70,9 +103,6 @@ public class MyPosts extends AppCompatActivity {
         names.add("Alpozo");
         names.add("Alponzo");
          */
-
-        mAdapter = new MyPostAdapter(posts, this);
-        recyclerView.setAdapter(mAdapter);
     }
 
     @Override
