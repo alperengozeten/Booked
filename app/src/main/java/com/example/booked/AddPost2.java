@@ -187,7 +187,6 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                 }
             }
         });
-
     }
 
     private void uploadFile() {

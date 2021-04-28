@@ -8,6 +8,17 @@
     tools:context=".AddPost2">
 
     <TextView
+        android:id="@+id/selectUniversityTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="Select a book"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addDescriptionEditText" />
+
+    <TextView
         android:id="@+id/enterTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -145,9 +156,8 @@
         android:id="@+id/bookNameSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addDescriptionEditText" />
+        tools:layout_editor_absoluteY="585dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

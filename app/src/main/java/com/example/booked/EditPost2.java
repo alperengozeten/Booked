@@ -20,12 +20,23 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.booked.models.Book;
+import com.example.booked.models.Post;
+import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -35,6 +46,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
     private Spinner changeUniversitySpinner;
     private Spinner changeCourseSpinner;
+    private Spinner changeBookSpinner;
 
     private Button applyChangesBtn;
 
@@ -42,8 +54,19 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     private String selectedCourse;
 
     private StorageReference storageReference;
+    private FirebaseFirestore db;
+
+    private ArrayList<Book> allBooks;
+    private ArrayList<String> allBookNames;
+
+    private String selectedBookName;
+    private Book selectedBook;
+
+    private Post currentPost;
 
     private Uri postImageUri;
+
+    private User currentUser;
 
     private ImageView editPostPhotoImageView;
 
@@ -88,12 +111,16 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post2);
 
+        currentPost = Booked.getCurrentPost();
+        currentUser = Booked.getCurrentUser();
+
         changeTitleEditText = (EditText) findViewById(R.id.changeTitleEditText);
         changePriceEditText = (EditText) findViewById(R.id.changePriceEditText);
         changeDescriptionEditText = (EditText) findViewById(R.id.changeDescriptionEditText);
 
         changeUniversitySpinner = (Spinner) findViewById(R.id.changeUniversitySpinner);
         changeCourseSpinner = (Spinner) findViewById(R.id.changeCourseSpinner);
+        changeBookSpinner = (Spinner) findViewById(R.id.changeBookSpinner);
 
         applyChangesBtn = (Button) findViewById(R.id.applyChangePostBtn);
 
@@ -111,7 +138,35 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
         editPostPhotoImageView = (ImageView) findViewById(R.id.editPostPhotoImageView);
 
+        // FILL MUST BE AFTER
+        fill();
+
         storageReference = FirebaseStorage.getInstance().getReference("images");
+
+        db = FirebaseFirestore.getInstance();
+
+        allBooks = new ArrayList<>();
+        allBookNames = new ArrayList<>();
+        db.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if ( task.isSuccessful() ) {
+                    for ( DocumentSnapshot document : task.getResult() ) {
+                        allBookNames.add(document.getString("title"));
+
+                        Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
+                        allBooks.add(newBook);
+                    }
+                    Toast.makeText(EditPost2.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
+                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost2.this,android.R.layout.simple_spinner_item, allBookNames);
+                    bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    changeBookSpinner.setAdapter(bookAdapter);
+
+                    changeBookSpinner.setOnItemSelectedListener(EditPost2.this);
+                    changeBookSpinner.setSelection(((ArrayAdapter) changeBookSpinner.getAdapter()).getPosition(currentPost.getBook().getBookName()));
+                }
+            }
+        });
 
         editPostPhotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,27 +178,76 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
         applyChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                applyChangesPost();
-                uploadFile();
-                Intent intent = new Intent( getApplicationContext(), MyPosts.class);
-                startActivity(intent);
+                if ( changeTitleEditText.getText() == null || changeTitleEditText.getText().toString().equals("") ) {
+                    Toast.makeText(EditPost2.this, "Please enter title", Toast.LENGTH_SHORT).show();
+                }
+                else if ( changePriceEditText.getText() == null || changePriceEditText.getText().toString().equals("") ) {
+                    Toast.makeText(EditPost2.this, "Please enter a price", Toast.LENGTH_SHORT).show();
+                }
+                else if ( changeDescriptionEditText.getText() == null || changeDescriptionEditText.getText().toString().equals("") ) {
+                    Toast.makeText(EditPost2.this, "Please enter a description", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    uploadFile();
+                    Intent intent = new Intent( getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
             }
         });
 
     }
 
+    private void fill() {
+        changeTitleEditText.setText(currentPost.getTitle());
+        changeDescriptionEditText.setText(currentPost.getDescription());
+        changePriceEditText.setText(String.valueOf(currentPost.getPrice()));
+
+        changeUniversitySpinner.setSelection( ((ArrayAdapter) changeUniversitySpinner.getAdapter()).getPosition(currentPost.getUniversity()));
+        changeCourseSpinner.setSelection(((ArrayAdapter) changeCourseSpinner.getAdapter()).getPosition(currentPost.getCourse()));
+        Picasso.get().load(currentPost.getPicture()).fit().into(editPostPhotoImageView);
+    }
+
     private void uploadFile() {
         if ( postImageUri != null ) {
-            StorageReference fileReference = storageReference.child("posts_pictures/3");
+            StorageReference fileReference = storageReference.child("posts_pictures/" + currentPost.getId());
 
             fileReference.putFile(postImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(EditPost2.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
-
                             // CURRENT POST IS NOT INITIALIZED YET; EDIT THE POST
                             //currentPost.addPicture(fileReference.getDownloadUrl().toString());
+                            fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // PRICE I PARSE LA
+                                    currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
+                                            Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId());
+                                    Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
+
+                                    HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("title", currentPost.getTitle());
+                                    newData.put("description", currentPost.getDescription());
+                                    newData.put("university", currentPost.getUniversity());
+                                    newData.put("course", currentPost.getCourse());
+                                    newData.put("price", currentPost.getPrice());
+                                    newData.put("username", currentPost.getSeller().getName());
+                                    newData.put("picture", currentPost.getPicture());
+                                    newData.put("book", currentPost.getBook());
+                                    newData.put("user", currentPost.getSeller());
+                                    newData.put("id", currentPost.getId());
+                                    newData.put("reports", currentPost.getReports());
+                                    newData.put("issold", currentPost.getIsSold());
+
+                                    db.collection("posts").document(currentPost.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -153,7 +257,30 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                         }
                     });
         } else {
-            Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
+            currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
+                    Integer.parseInt(changePriceEditText.getText().toString().trim()), currentPost.getPicture(), selectedBook, currentUser, currentPost.getId());
+            Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
+
+            HashMap<String,Object> newData = new HashMap<>();
+            newData.put("title", currentPost.getTitle());
+            newData.put("description", currentPost.getDescription());
+            newData.put("university", currentPost.getUniversity());
+            newData.put("course", currentPost.getCourse());
+            newData.put("price", currentPost.getPrice());
+            newData.put("username", currentPost.getSeller().getName());
+            newData.put("picture", currentPost.getPicture());
+            newData.put("book", currentPost.getBook());
+            newData.put("user", currentPost.getSeller());
+            newData.put("id", currentPost.getId());
+            newData.put("reports", currentPost.getReports());
+            newData.put("issold", currentPost.getIsSold());
+
+            db.collection("posts").document(currentPost.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -172,18 +299,16 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
             selectedUniversity = changeUniversitySpinner.getItemAtPosition(position).toString();
         }
         else if ( parent.getId() == changeCourseSpinner.getId() ) {
-            selectedUniversity = changeCourseSpinner.getItemAtPosition(position).toString();
+            selectedCourse = changeCourseSpinner.getItemAtPosition(position).toString();
         }
-
+        else if ( parent.getId() == changeBookSpinner.getId() ) {
+            selectedBookName = changeBookSpinner.getItemAtPosition(position).toString();
+            selectedBook = allBooks.get(position);
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
-    }
-
-    public void applyChangesPost(){
-
 
     }
 }
