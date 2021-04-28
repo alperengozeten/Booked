@@ -36,6 +36,7 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -206,6 +207,27 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                     Post newPost = new Post(enterTitleEditText.getText().toString().trim(), addDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                                             Integer.parseInt(setPriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, key);
                                     Toast.makeText(AddPost2.this,"Post created", Toast.LENGTH_SHORT).show();
+
+                                    HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("title", newPost.getTitle());
+                                    newData.put("description", newPost.getDescription());
+                                    newData.put("university", newPost.getUniversity());
+                                    newData.put("course", newPost.getCourse());
+                                    newData.put("price", newPost.getPrice());
+                                    newData.put("username", newPost.getSeller().getName());
+                                    newData.put("picture", newPost.getPicture());
+                                    newData.put("book", newPost.getBook());
+                                    newData.put("user", newPost.getSeller());
+                                    newData.put("id", newPost.getId());
+                                    newData.put("reports", newPost.getReports());
+                                    newData.put("issold", newPost.getIsSold());
+
+                                    db.collection("posts").document(key).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AddPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                                 }
                             });
 
