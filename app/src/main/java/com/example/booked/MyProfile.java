@@ -80,16 +80,8 @@ public class MyProfile extends AppCompatActivity {
 
             // UPLOAD IMAGE
             uploadFile();
+            Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
 
-            try {
-                ParcelFileDescriptor parcelFileDescriptor = getContentResolver().openFileDescriptor(imageUri,"r");
-                FileDescriptor fileDescriptor = parcelFileDescriptor.getFileDescriptor();
-                image = BitmapFactory.decodeFileDescriptor(fileDescriptor);
-                parcelFileDescriptor.close();
-                profilePhotoImageView.setImageBitmap(image);
-            } catch (IOException e) {
-                Log.e("Image","Image not found",e);
-            }
         }
     }
 
@@ -196,7 +188,7 @@ public class MyProfile extends AppCompatActivity {
 
         if ( currentUser.getAvatar() != "" ) {
             //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
-            Picasso.get().load(currentUser.getAvatar()).into(profilePhotoImageView);
+            Picasso.get().load(currentUser.getAvatar()).fit().into(profilePhotoImageView);
         }
         else {
             Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).resize(223,244).centerCrop().into(profilePhotoImageView);

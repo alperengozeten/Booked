@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.models.Post;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -41,11 +42,14 @@ public class OtherUsersPostAdapter extends RecyclerView.Adapter<OtherUsersPostAd
         holder.otherUsersPostDescriptionTextView.setText(posts.get(position).getTitle().toString());
         holder.otherUsersPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) +" ₺");
 
+        Picasso.get().load(posts.get(position).getPicture()).fit().into(holder.otherUsersPostPictureImageView);
+
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //TODO
-                Intent intent = new Intent(context, PostActivity.class);
+                Booked.setCurrentPost(posts.get(position));
+                Intent intent = new Intent(context, PostPage.class);
                 context.startActivity(intent);
             }
         });
