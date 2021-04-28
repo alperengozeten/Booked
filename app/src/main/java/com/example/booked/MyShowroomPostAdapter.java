@@ -101,8 +101,8 @@ public class MyShowroomPostAdapter extends RecyclerView.Adapter<MyShowroomPostAd
         holder.showroomPostPriceTextView.setText(String.valueOf(posts.get(position).getPrice()) + " ₺");
         holder.showroomPostSellerTextView.setText(posts.get(position).getSeller().getName());
 
-        if ( Booked.getExamplePath() != null ) {
-            Picasso.get().load(Booked.getExamplePath()).fit().centerCrop().into(holder.showroomPostPictureImageView);
+        if ( showroom.getPosts().get(position).getPicture() != "" ) {
+            Picasso.get().load(showroom.getPosts().get(position).getPicture()).fit().centerCrop().into(holder.showroomPostPictureImageView);
         }
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {

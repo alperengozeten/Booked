@@ -272,7 +272,7 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
             selectedUniversity = selectUniversitySpinner.getItemAtPosition(position).toString();
         }
         else if ( parent.getId() == selectCourseSpinner.getId() ) {
-            selectedUniversity = selectCourseSpinner.getItemAtPosition(position).toString();
+            selectedCourse = selectCourseSpinner.getItemAtPosition(position).toString();
         }
         else if ( parent.getId() == bookNameSpinner.getId() ) {
             selectedBookName = bookNameSpinner.getItemAtPosition(position).toString();
