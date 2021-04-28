@@ -145,15 +145,15 @@ public class SignUpActivity extends AppCompatActivity  {
                                 db.collection("users").document(fUser.getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
-                                        Toast.makeText(SignUpActivity.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(SignUpActivity.this,"Information uploaded to database!", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-                                Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_LONG).show();
+                                Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_SHORT).show();
                                 Intent i =  new Intent( getApplicationContext(), EmailVerificationCheckActivity.class);
                                 i.putExtra("email",email);
                                 i.putExtra("password", password);
-                                //startActivity(i);
-//                                finish();
+                                startActivity(i);
+                                finish();
                             }
                             else {
                                 Toast.makeText(com.example.booked.SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
@@ -161,22 +161,21 @@ public class SignUpActivity extends AppCompatActivity  {
                         }
                     });
 
-
-                    FirebaseDatabase.getInstance().getReference("Users")
-                            .child(FirebaseAuth.getInstance().getCurrentUser()
-                                    .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-//                                Toast.makeText(com.example.booked.SignUpActivity.this, "User has been registered successfully!  Account has been created", Toast.LENGTH_LONG).show();
-//                                startActivity( new Intent( com.example.booked.SignUpActivity.this, MainActivity.class));
-                                finish();
-                            }
-                            else {
-                                Toast.makeText(com.example.booked.SignUpActivity.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
+//                    FirebaseDatabase.getInstance().getReference("Users")
+//                            .child(FirebaseAuth.getInstance().getCurrentUser()
+//                                    .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            if (task.isSuccessful()) {
+////                                Toast.makeText(com.example.booked.SignUpActivity.this, "User has been registered successfully!  Account has been created", Toast.LENGTH_LONG).show();
+////                                startActivity( new Intent( com.example.booked.SignUpActivity.this, MainActivity.class));
+//                                finish();
+//                            }
+//                            else {
+//                                Toast.makeText(com.example.booked.SignUpActivity.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
+//                            }
+//                        }
+//                    });
                 }
                 else {
                     Toast.makeText(com.example.booked.SignUpActivity.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
