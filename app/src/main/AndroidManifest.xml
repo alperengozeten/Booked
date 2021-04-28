@@ -17,7 +17,7 @@
         <activity android:name=".AdminAddBook" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".ForgetPasswordActivity" />
+        <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".EmailVerificationCheckActivity" />
         <activity android:name=".SuccessfulVerificationActivity" />
         <activity android:name=".OtherUsersProfile" />

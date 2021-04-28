@@ -15,7 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class ForgetPasswordActivity extends AppCompatActivity {
+public class ForgotPasswordActivity extends AppCompatActivity {
 
     EditText mEmail;
     Button mSendResetEmailBtn;
@@ -26,7 +26,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget_password);
+        setContentView(R.layout.activity_forgot_password);
 
         mEmail = (EditText) findViewById(R.id.emailAddressEditTextF);
         mSendResetEmailBtn = (Button) findViewById(R.id.sendResetEmailButton);
@@ -63,13 +63,13 @@ public class ForgetPasswordActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(ForgetPasswordActivity.this, "Password reset link has been sent to your email address: " + email, Toast.LENGTH_LONG).show();
+                            Toast.makeText(ForgotPasswordActivity.this, "Password reset link has been sent to your email address: " + email, Toast.LENGTH_LONG).show();
                             startActivity( new Intent(getApplicationContext(), LoginActivity.class));
                             finish();
 
                         }
                         else{
-                            Toast.makeText(ForgetPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(ForgotPasswordActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
 
