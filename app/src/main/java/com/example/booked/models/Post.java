@@ -43,6 +43,21 @@ public class Post implements Reportable, Comparable<Post> {
 
     }
 
+    public Post (String title, String description, String university, String course, int price, String aPicture, Book aBook, User seller, String id) {
+        this.seller = seller;
+        this.title = title;
+        this.description = description;
+        this.university = university;
+        this.course = course;
+        this.price = price;
+        this.id = id;
+        picture = aPicture;
+        reports = new ArrayList<>();
+        this.isSold = false;
+        this.theBook = aBook;
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }
@@ -153,6 +168,5 @@ public class Post implements Reportable, Comparable<Post> {
 
         this.id = sb.toString();
     }
-
 }
 

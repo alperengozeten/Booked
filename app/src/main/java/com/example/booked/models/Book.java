@@ -20,6 +20,12 @@ public class Book {
         randomKeyGenerator(10);
     }
 
+    public Book(String bookName, String picture, String id) {
+        this.bookName = bookName;
+        this.picture = picture;
+        this.id = id;
+    }
+
     public void setBookName(String bookName) {
         this.bookName = bookName;
     }
