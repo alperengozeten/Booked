@@ -1,7 +1,6 @@
 package com.example.booked;
 
 import android.app.Application;
-import android.net.Uri;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.BookProfile;
@@ -17,15 +16,6 @@ public class Booked extends Application {
     static Book currentBook;// = new Book("Example Book","picbook");
     private static User currentSeller;
 
-    private static String examplePath;
-
-    public static String getExamplePath() {
-        return examplePath;
-    }
-
-    public static void setExamplePath(String examplePath) {
-        Booked.examplePath = examplePath;
-    }
 
     public Booked() {
     }
@@ -68,18 +58,14 @@ public class Booked extends Application {
 
         currentBook = new Book(" book1","pic1");
         currentBookProfile = new BookProfile(currentBook);
-        currentPost = new Post("Old book", "iyi durumda iş görür ", "Cs-115",70, "No pic", currentBook, currentUser);
+        currentPost = new Post("Old book", "iyi durumda iş görür ", "Cs-115",70,"No pic", currentBook, currentUser);
 
         currentBookProfile.addEvalution(new Evaluation("coh iyi",3,new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University")));
-        currentBookProfile.addEvalution(new Evaluation("daha da iyi",4, currentUser));
-        currentBookProfile.addPost(new Post("B book", "A In good state", "Cs-115",70,"No pic", currentBook,
+
+        currentBookProfile.addPost(new Post("Cs book", "A In good state", "Cs-115",70,"No pic", currentBook,
                 new User("berkay", "berkay@gmail.com", "None", "05443332211", "Bilk University")));
 
-        currentBookProfile.addPost(new Post("A book", "iyidir", "Cs-115",40,"No pic", currentBook,
-                new User("omer", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
 
-        currentBookProfile.addPost(new Post("C book", "iyidir", "Cs-115",50,"No pic", currentBook,
-                new User("yarkın", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
     }
 
 }

@@ -5,15 +5,6 @@ import java.util.ArrayList;
 public class User{
 
     String userName;
-
-    public boolean isNotifications() {
-        return notifications;
-    }
-
-    public boolean isBanned() {
-        return isBanned;
-    }
-
     String email;
     String avatar;
     ArrayList<String> socialMedia;
@@ -21,30 +12,15 @@ public class User{
     String university;
     boolean notifications;
     boolean isBanned;
-    ArrayList<Book> wishlist;
 
     public User(String userName) {
-        this.email = "";
+        this.email = email;
         this.userName = userName;
-        this.avatar = "";
-        this.socialMedia = new ArrayList<>();
-        this.phoneNumber = "";
-        this.university = "";
-        this.wishlist = new ArrayList<>();
-        this.notifications = true;
-        this.isBanned = false;
     }
 
     public User(String email, String userName) {
         this.email = email;
         this.userName = userName;
-        this.avatar = "";
-        this.socialMedia = new ArrayList<>();
-        this.phoneNumber = "";
-        this.university = "";
-        this.wishlist = new ArrayList<>();
-        this.notifications = true;
-        this.isBanned = false;
     }
 
     public User(String userName, String email, String avatar, String phoneNumber, String university )
@@ -57,33 +33,10 @@ public class User{
         this.socialMedia = new ArrayList<>();
         this.notifications = true;
         this.isBanned = false;
-        this.wishlist = new ArrayList<>();
+
     }
 
-    public User(String userName, String email, String avatar, ArrayList<String> socialMedia, String phoneNumber, String university, boolean notifications, boolean isBanned, ArrayList<Book> wishlist) {
-        this.userName = userName;
-        this.email = email;
-        this.avatar = avatar;
-        this.socialMedia = socialMedia;
-        this.phoneNumber = phoneNumber;
-        this.university = university;
-        this.notifications = notifications;
-        this.isBanned = isBanned;
-        this.wishlist = wishlist;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public void clearSocialMedia() {
-        this.socialMedia.clear();
-    }
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void addSocialMedia(String socialMediaProfileLink ) {
+    public void addSocialMedia( String socialMediaProfileLink ) {
         socialMedia.add( socialMediaProfileLink);
     }
 
@@ -93,10 +46,6 @@ public class User{
     }
 
     // Accessor Methods
-
-    public ArrayList<String> getSocialMedia() {
-        return this.socialMedia;
-    }
 
     public String getName() {
         return this.userName;
@@ -137,16 +86,8 @@ public class User{
         this.notifications = !this.notifications;
     }
 
-    public void addBookToWishlist(Book b) {
-        this.wishlist.add(b);
-    }
-
-    public boolean removeBookFromWishlist(Book b) {
-        return this.wishlist.remove(b);
-    }
-
-    public ArrayList<Book> getWishlist() {
-        return wishlist;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**  void addPostToMyPosts(Post post)
