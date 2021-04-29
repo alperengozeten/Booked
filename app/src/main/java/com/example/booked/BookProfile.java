@@ -1,13 +1,18 @@
 package com.example.booked;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -19,6 +24,7 @@ import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.models.Evaluation;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 
 public class BookProfile extends AppCompatActivity implements AddEvaluationDialog.CommentListener {
@@ -31,7 +37,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     OfferRecyclerApapter offerAdapter;
     CommentRecyclerAdapter commentAdapter;
     Button addEvaluation, lowToHigh, highToLow, aToz, zToA;
-    ImageView s1,s2,s3,s4,s5;
+    ImageView s1,s2,s3,s4,s5, bookProfileImageView;
     private FirebaseFirestore db;
 
     @Override
@@ -46,6 +52,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
         createBookProfile();
 
+        bookProfileImageView = (ImageView) findViewById(R.id.bookProfileImageView);
+        Picasso.get().load(myBookProfile.getBook().getPicture()).fit().into(bookProfileImageView);
 
         setButtons();
         setTextViews();
@@ -216,5 +224,27 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
         setStars();
         commentAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_icon:
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                startActivity( settingsIntent);
+                return true;
+            case android.R.id.home:
+                Intent bookIntent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(bookIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

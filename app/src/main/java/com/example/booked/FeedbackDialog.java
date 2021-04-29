@@ -70,7 +70,8 @@ public class FeedbackDialog extends AppCompatDialogFragment {
                 else {
                     // MAKE IT A MAP
                     HashMap<String,Object> newData = new HashMap<>();
-                    newData.put("feedback", (String) "From User:" + username + " " + feedbackEditText.getText().toString());
+                    newData.put("feedback", (String) feedbackEditText.getText().toString());
+                    newData.put("username", (String) username);
                     db.collection("feedbacks").document(mAuth.getCurrentUser().getUid()).set(newData)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override

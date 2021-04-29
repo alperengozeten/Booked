@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
-        <activity android:name=".AdminPanel"></activity>
+        <activity android:name=".FeedbacksActivity"></activity>
+        <activity android:name=".AdminPanel" />
         <activity android:name=".ReportedPosts" />
         <activity android:name=".AdminAddBook" />
         <activity android:name=".SignUpActivity" />
