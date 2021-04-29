@@ -6,12 +6,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import com.example.booked.models.Book;
 import com.example.booked.models.Post;
+import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 
 public class PostPage extends AppCompatActivity implements ReportDialog.ReportypeListener {
@@ -22,12 +35,18 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     ImageButton report;
     Post currentPost;
 
+    private User currentSeller;
 
+    ImageView postImageView;
+
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postpage);
+
+        db = FirebaseFirestore.getInstance();
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -65,6 +84,9 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         features = (TextView) findViewById(R.id.postFeatures);
         features.setText(currentPost.getDescription());
 
+        postImageView = (ImageView) findViewById(R.id.postImageView);
+        Picasso.get().load(currentPost.getPicture()).fit().into(postImageView);
+
     }
 
     public void setButtons()
@@ -73,9 +95,29 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {// düzelt
-                Booked.setCurrentSeller(currentPost.getSeller());
-                Intent sellerPage = new Intent(getApplicationContext(), OtherUsersProfile.class);
-                startActivity(sellerPage);
+                db.collection("users").whereEqualTo("username", currentPost.getSeller().getName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult() ) {
+                            String newUserName = documentSnapshot.getString("username");
+                            String newUserEmail = documentSnapshot.getString("email");
+                            String newUserAvatar = documentSnapshot.getString("avatar");
+                            String newUserUniversity = documentSnapshot.getString("university");
+                            String newUserPhoneNumber = documentSnapshot.getString("phonenumber");
+                            boolean newUserIsBanned = documentSnapshot.getBoolean("isbanned");
+                            boolean newUserNotifications = documentSnapshot.getBoolean("notifications");
+                            ArrayList<Book> newUserWishList = (ArrayList<Book>) documentSnapshot.get("wishlist");
+                            ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");
+
+                            currentSeller = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
+                            Toast.makeText(PostPage.this, "User Pulled", Toast.LENGTH_LONG).show();
+
+                            Booked.setCurrentSeller(currentSeller);
+                            Intent sellerPage = new Intent(getApplicationContext(), OtherUsersProfile.class);
+                            startActivity(sellerPage);
+                        }
+                    }
+                });
             }
         });
 
