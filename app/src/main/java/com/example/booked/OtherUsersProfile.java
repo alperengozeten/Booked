@@ -96,23 +96,13 @@ public class OtherUsersProfile extends AppCompatActivity {
         //otherUsersProfilePhotoImageView.setImageURI(Uri.parse(currentSeller.getAvatar()));
 
         posts = new ArrayList<>();
-        db.collection("posts").whereEqualTo("username", currentSeller.getName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("postsObj").whereEqualTo("seller.documentId", currentSeller.getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
                     for ( DocumentSnapshot document : task.getResult()) {
-                        HashMap<String, Object> hashBook = (HashMap<String, Object>) document.get("book");
-                        Book postBook = new Book( (String) hashBook.get("bookName"), (String) hashBook.get("picture"), (String) hashBook.get("id"));
 
-                        HashMap<String, Object> hashUser = (HashMap<String, Object>) document.get("user");
-                        User postUser = new User((String) hashUser.get("name"), (String) hashUser.get("email"), (String) hashUser.get("avatar"), (ArrayList<String>) hashUser.get("socialMedia"),
-                                (String) hashUser.get("phoneNumber"), (String) hashUser.get("university"), (boolean) hashUser.get("notifications"),
-                                (boolean) hashUser.get("banned"), (ArrayList<Book>) hashUser.get("wishlist"));
-
-                        Post postToBeAdded = new Post(document.getString("title"), document.getString("description"), document.getString("university"),
-                                document.getString("course"), document.getLong("price").intValue(), document.getString("picture"), postBook,
-                                postUser, document.getString("id"));
-                        posts.add(postToBeAdded);
+                        posts.add(document.toObject(Post.class));
                     }
                     Toast.makeText(OtherUsersProfile.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
                     mAdapter = new OtherUsersPostAdapter(posts, OtherUsersProfile.this);

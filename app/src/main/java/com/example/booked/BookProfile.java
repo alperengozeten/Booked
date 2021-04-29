@@ -201,6 +201,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         //evaluation silme
         //daha önce eklediyse ekleyemsein
         myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
+
+        //setlemek yerine updatele
         db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
         .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
