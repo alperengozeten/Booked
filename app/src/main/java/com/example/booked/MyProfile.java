@@ -192,7 +192,7 @@ public class MyProfile extends AppCompatActivity {
             Picasso.get().load(currentUser.getAvatar()).fit().into(profilePhotoImageView);
         }
         else {
-            Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).resize(223,244).centerCrop().into(profilePhotoImageView);
+            Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).fit().into(profilePhotoImageView);
         }
 
         profileUsernameTextView.setText(currentUser.getName().toString());
