@@ -54,12 +54,12 @@
 
     <ImageButton
         android:id="@+id/otherUsersProfileFacebookBtn"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         android:layout_marginStart="15dp"
         android:layout_marginTop="310dp"
         android:background="@color/primaryBackgroundColor"
-        android:src="@drawable/facebook"
+        android:src="@drawable/facebook_logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
