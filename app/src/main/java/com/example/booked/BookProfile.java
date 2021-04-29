@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
@@ -16,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.Adapter.CommentRecyclerAdapter;
 import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.models.Evaluation;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 
 public class BookProfile extends AppCompatActivity implements AddEvaluationDialog.CommentListener {
@@ -29,7 +32,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     CommentRecyclerAdapter commentAdapter;
     Button addEvaluation, lowToHigh, highToLow, aToz, zToA;
     ImageView s1,s2,s3,s4,s5;
-
+    private FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        db = FirebaseFirestore.getInstance();
 
         createBookProfile();
 
@@ -184,10 +189,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     void createBookProfile()
     {
 
-
         myBookProfile  = Booked.getCurrentBookProfile();
         myBookProfile.sortByPrice(true);
-
 
     }
 
@@ -198,6 +201,15 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         //evaluation silme
         //daha önce eklediyse ekleyemsein
         myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
+        db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
+        .addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(BookProfile.this, "Evaluations Updated", Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
         setStars();

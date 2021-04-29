@@ -14,6 +14,21 @@ public class Evaluation {
 
     }
 
+    public Evaluation() {
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public void setRate(double rate) {
+        this.rate = rate;
+    }
+
+    public void setEvaluater(User evaluater) {
+        this.evaluater = evaluater;
+    }
+
     public String getComment() {
         return comment;
     }

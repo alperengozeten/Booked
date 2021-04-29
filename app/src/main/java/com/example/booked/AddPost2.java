@@ -146,16 +146,7 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
             }
         });
 
-                /**addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if ( task.isSuccessful() ) {
-                    for ( DocumentSnapshot document : task ) {
-                        allBookNames.add(document.getString("title"));
-
-                        Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
-                        allBooks.add(newBook);
-                    }
+                /**
                     Toast.makeText(AddPost2.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
                     ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(AddPost2.this,android.R.layout.simple_spinner_item, allBookNames);
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -240,19 +231,6 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                             Integer.parseInt(setPriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, key);
                                     Toast.makeText(AddPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
-                                    /*HashMap<String,Object> newData = new HashMap<>();
-                                    newData.put("title", newPost.getTitle());
-                                    newData.put("description", newPost.getDescription());
-                                    newData.put("university", newPost.getUniversity());
-                                    newData.put("course", newPost.getCourse());
-                                    newData.put("price", newPost.getPrice());
-                                    newData.put("username", newPost.getSeller().getName());
-                                    newData.put("picture", newPost.getPicture());
-                                    newData.put("book", newPost.getBook());
-                                    newData.put("user", newPost.getSeller());
-                                    newData.put("id", newPost.getId());
-                                    newData.put("reports", newPost.getReports());
-                                    newData.put("issold", newPost.getIsSold());*/
 
                                     //burada key i çıkarılabilir daha sonra yukarısıyla senkronize edilerek , şuan dokunmadım
                                     db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {

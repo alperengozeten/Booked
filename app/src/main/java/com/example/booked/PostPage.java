@@ -95,23 +95,13 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         visitSeller = (Button) findViewById(R.id.GoSeller);
         visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {// düzelt
+            public void onClick(View v) {
                 db.collection("usersObj").whereEqualTo(FieldPath.documentId(), currentPost.getSeller().getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         //burada currentPost.getSeller vardı // bunu databaseden çekmeye gerek var heralde (bunu bi dene safa)
                         for (DocumentSnapshot documentSnapshot : task.getResult() ) {
-                            /**String newUserName = documentSnapshot.getString("username");
-                            String newUserEmail = documentSnapshot.getString("email");
-                            String newUserAvatar = documentSnapshot.getString("avatar");
-                            String newUserUniversity = documentSnapshot.getString("university");
-                            String newUserPhoneNumber = documentSnapshot.getString("phonenumber");
-                            boolean newUserIsBanned = documentSnapshot.getBoolean("isbanned");
-                            boolean newUserNotifications = documentSnapshot.getBoolean("notifications");
-                            ArrayList<Book> newUserWishList = (ArrayList<Book>) documentSnapshot.get("wishlist");
-                            ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");*/
 
-                            //currentSeller = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
                             currentSeller = documentSnapshot.toObject(User.class);
                             Toast.makeText(PostPage.this, "User Pulled", Toast.LENGTH_LONG).show();
 
@@ -128,8 +118,27 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         profilePageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent profilePage = new Intent(getApplicationContext(), BookProfile.class);
-                startActivity(profilePage);
+                db.collection("bookProfileObj").whereEqualTo(FieldPath.documentId(), currentPost.getBook().getId()).get()
+                        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+                            @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        for (DocumentSnapshot documentSnapshot : task.getResult() ) {
+
+                            Booked.setCurrentBookProfile(documentSnapshot.toObject(com.example.booked.models.BookProfile.class));
+
+                            Toast.makeText(PostPage.this, "Book Profile Pulled", Toast.LENGTH_LONG).show();
+
+                            Intent profilePage = new Intent(getApplicationContext(), BookProfile.class);
+                            startActivity(profilePage);
+                        }
+                    }
+                });
+
+
+
+
             }
         });
 
@@ -147,9 +156,10 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     @Override
     public void positiveClicked(String[] reportTypes, int position) {
+        //en fazla 1 kere reportlama ekle
 
         currentPost.report(reportTypes[position],position,Booked.getCurrentUser());
-        // burada reportu kaydedicez
+        db.collection("postsObj").document(currentPost.getId()).update("reports",currentPost.getReports());
 
 
     }

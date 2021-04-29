@@ -104,37 +104,24 @@ public class AdminAddBook extends AppCompatActivity {
                                     newBook.setPicture(uri.toString());
                                     // NEW BOOK PROFILE
                                     // SAVE THESE DATA TO FIRESTORE
-                                    /**HashMap<String,Object> newData = new HashMap<>();
-                                    newData.put("title", newBook.getBookName());
-                                    newData.put("picture", newBook.getPicture());
-                                    newData.put("id", newBook.getId());*/
 
-
-
-                                    db.collection("booksObj").add(newBook).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    db.collection("booksObj").document(newBook.getId()).set(newBook).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-
+                                        public void onSuccess(Void aVoid) {
                                             Toast.makeText(AdminAddBook.this,"The Book uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
+
                                     BookProfile bookProfile = new BookProfile(newBook);
 
-                                    db.collection("bookProfileObj").add(bookProfile).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                    db.collection("bookProfileObj").document(newBook.getId()).set(bookProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
+                                        public void onSuccess(Void aVoid) {
                                             Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
-
-                                    /**addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-
-                                        }
-                                    });*/
                                 }
                             });
 

@@ -6,7 +6,22 @@ public class Report {
     private int category;
     private User owner;
 
-    public Report( String description, int category, User owner) {
+    public Report() {
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setCategory(int category) {
+        this.category = category;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public Report(String description, int category, User owner) {
         this.description = description;
         this.category = category;
         this.owner = owner;

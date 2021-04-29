@@ -62,6 +62,10 @@ public class Booked extends Application {
         return currentSeller;
     }
 
+    public static void setCurrentBookProfile(BookProfile currentBookProfile) {
+        Booked.currentBookProfile = currentBookProfile;
+    }
+
     public static void setExample()
     {
         //currentUser = new User("eren", "atmaziya6@gmail.com", "None", "05443332211", "Bilo University");
