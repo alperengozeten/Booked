@@ -10,7 +10,7 @@
 
     <TextView
         android:id="@+id/otherUsersProfileUniversityNameTextView"
-        android:layout_width="145dp"
+        android:layout_width="160dp"
         android:layout_height="32dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/box"
@@ -26,7 +26,7 @@
 
     <TextView
         android:id="@+id/otherUsersProfileUsernameTextView"
-        android:layout_width="145dp"
+        android:layout_width="160dp"
         android:layout_height="32dp"
         android:layout_marginTop="130dp"
         android:background="@drawable/box"
@@ -68,7 +68,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="311dp"
         android:background="@color/primaryBackgroundColor"
         android:src="@drawable/twitter"
         app:layout_constraintStart_toEndOf="@+id/otherUsersProfileFacebookBtn"
@@ -79,7 +79,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="308dp"
+        android:layout_marginTop="313dp"
         android:background="@color/primaryBackgroundColor"
         android:src="@drawable/instagram"
         app:layout_constraintStart_toEndOf="@+id/otherUsersProfileTwitterBtn"
@@ -90,7 +90,7 @@
         android:layout_width="66dp"
         android:layout_height="65dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="307dp"
+        android:layout_marginTop="312dp"
         android:background="@color/primaryBackgroundColor"
         android:src="@drawable/mail"
         app:layout_constraintStart_toEndOf="@+id/otherUsersProfileInstagramBtn"
@@ -101,7 +101,7 @@
         android:layout_width="65dp"
         android:layout_height="70dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="304dp"
+        android:layout_marginTop="309dp"
         android:background="@color/primaryBackgroundColor"
         android:src="@drawable/telephone"
         app:layout_constraintStart_toEndOf="@+id/otherUsersProfileMailBtn"
@@ -134,30 +134,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider3"
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfilePostTextView"
         app:layout_constraintVertical_bias="0.0" />
-
-    <View
-        android:id="@+id/divider3"
-        android:layout_width="match_parent"
-        android:layout_height="15dp"
-        android:layout_marginTop="35dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="#043B70"
-        android:backgroundTintMode="screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileInstagramBtn" />
 
     <TextView
         android:id="@+id/otherUsersProfilePostTextView"
-        android:layout_width="141dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="1dp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:layout_marginTop="15dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="#043B70"
+        android:backgroundTintMode="screen"
+        android:gravity="center"
         android:text="TextView"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/divider3"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileInstagramBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
