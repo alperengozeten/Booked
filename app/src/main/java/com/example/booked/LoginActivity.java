@@ -2,6 +2,7 @@ package com.example.booked;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -128,11 +129,11 @@ public class LoginActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     if ( mAuth.getCurrentUser().isEmailVerified() ) {
-                        db.collection("users").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>()
+                        db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>()
                         {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                String newUserName = documentSnapshot.getString("username");
+                                /**String newUserName = documentSnapshot.getString("username");
                                 String newUserEmail = documentSnapshot.getString("email");
                                 String newUserAvatar = documentSnapshot.getString("avatar");
                                 String newUserUniversity = documentSnapshot.getString("university");
@@ -141,14 +142,17 @@ public class LoginActivity extends AppCompatActivity {
                                 boolean newUserNotifications = documentSnapshot.getBoolean("notifications");
                                 ArrayList<Book> newUserWishList = (ArrayList<Book>) documentSnapshot.get("wishlist");
                                 ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");
-
-                                currentUser = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
+                                */
+                                //currentUser = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
+                                //current user çıkartılabilir benje
+                                currentUser = documentSnapshot.toObject(User.class);
                                 Booked.setCurrentUser(currentUser);
                                 Toast.makeText(LoginActivity.this, "User Pulled", Toast.LENGTH_LONG).show();
+
                             }
                         });
                         Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class)); // bunu user pulledın altına alabiliz
                         finish();
                     }
                     else {

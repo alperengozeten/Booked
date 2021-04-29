@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class User{
 
+    String documentId;
     String userName;
     String email;
     String avatar;
@@ -12,15 +13,50 @@ public class User{
     String university;
     boolean notifications;
     boolean isBanned;
+    ArrayList<Book> wishlist;
 
-    public User(String userName) {
+
+
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+    public User() { //do not delete this
+    }
+
+    public User(String userName, String email,String documentId) {
         this.email = email;
         this.userName = userName;
+        this.documentId = documentId;
+        this.avatar = "";
+        this.socialMedia = new ArrayList<>();
+        socialMedia.add(null);
+        socialMedia.add(null);
+        socialMedia.add(null);
+        this.phoneNumber = "";
+        this.university = "";
+        this.wishlist = new ArrayList<>();
+        this.notifications = true;
+        this.isBanned = false;
     }
 
     public User(String email, String userName) {
         this.email = email;
         this.userName = userName;
+        this.avatar = "";
+        this.socialMedia = new ArrayList<>();
+        socialMedia.add(null);
+        socialMedia.add(null);
+        socialMedia.add(null);
+        this.phoneNumber = "";
+        this.university = "";
+        this.wishlist = new ArrayList<>();
+        this.notifications = true;
+        this.isBanned = false;
     }
 
     public User(String userName, String email, String avatar, String phoneNumber, String university )
@@ -31,14 +67,64 @@ public class User{
         this.phoneNumber = phoneNumber;
         this.university = university;
         this.socialMedia = new ArrayList<>();
+        socialMedia.add(null);
+        socialMedia.add(null);
+        socialMedia.add(null);
         this.notifications = true;
         this.isBanned = false;
-
+        this.wishlist = new ArrayList<>();
     }
 
-    public void addSocialMedia( String socialMediaProfileLink ) {
+    public User(String userName, String email, String avatar, ArrayList<String> socialMedia, String phoneNumber, String university, boolean notifications, boolean isBanned, ArrayList<Book> wishlist) {
+        this.userName = userName;
+        this.email = email;
+        this.avatar = avatar;
+        this.socialMedia = socialMedia;
+        socialMedia.add(null);
+        socialMedia.add(null);
+        socialMedia.add(null);
+        this.phoneNumber = phoneNumber;
+        this.university = university;
+        this.notifications = notifications;
+        this.isBanned = isBanned;
+        this.wishlist = wishlist;
+    }
+
+    public String getDocumentId() {
+        return documentId;
+    }
+
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    //bunu silelim
+    public void clearSocialMedia() {
+        this.socialMedia.clear();
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    //bunu silelim
+    public void addSocialMedia(String socialMediaProfileLink ) {
+        //add degil set yapalım, int position girsin
+        //socialMedia.set(position, socialMediaProfileLink);
+
         socialMedia.add( socialMediaProfileLink);
     }
+
+
+    public void setSocialMedia(int position, String socialMediaProfileLink ) {
+        socialMedia.set(position, socialMediaProfileLink);
+    }
+
+
 
     // Gereksiz gibi duruyo zaten setPhoneNumber var
     public void addPhoneNumber() {
@@ -47,8 +133,16 @@ public class User{
 
     // Accessor Methods
 
+    public ArrayList<String> getSocialMedia() {
+        return this.socialMedia;
+    }
+
     public String getName() {
         return this.userName;
+    }
+
+    public String getUserName() {
+        return userName;
     }
 
     public String getEmail() {
@@ -68,8 +162,23 @@ public class User{
     }
 
     // Mutator Methods
+    public void setSocialMedia(ArrayList<String> socialMedia) {
+        this.socialMedia = socialMedia;
+    }
 
-    public void setAvatar( String anAvatar) {
+    public void setNotifications(boolean notifications) {
+        this.notifications = notifications;
+    }
+
+    public void setBanned(boolean banned) {
+        isBanned = banned;
+    }
+
+    public void setWishlist(ArrayList<Book> wishlist) {
+        this.wishlist = wishlist;
+    }
+
+    public void setAvatar(String anAvatar) {
         this.avatar = anAvatar;
     }
 
@@ -86,8 +195,16 @@ public class User{
         this.notifications = !this.notifications;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void addBookToWishlist(Book b) {
+        this.wishlist.add(b);
+    }
+
+    public boolean removeBookFromWishlist(Book b) {
+        return this.wishlist.remove(b);
+    }
+
+    public ArrayList<Book> getWishlist() {
+        return wishlist;
     }
 
     /**  void addPostToMyPosts(Post post)

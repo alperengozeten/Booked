@@ -22,8 +22,15 @@ import com.example.booked.models.Book;
 import com.example.booked.models.Post;
 import com.example.booked.models.Showroom;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
 
@@ -41,6 +48,10 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
     private Button aToZBtn;
     private Button zToABtn;
 
+    private FirebaseFirestore db;
+
+    private ArrayList<Post> posts;
+
     private Showroom showroom;
 
     @Override
@@ -48,9 +59,8 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showroom);
 
-        // denemek için, sonra silenecek
-        Booked.setExample();
 
+        db = FirebaseFirestore.getInstance();
 
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -63,45 +73,73 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        posts = new ArrayList<>();
+
+
+        db.collection("postsObj").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if ( task.isSuccessful() ) {
+                    for (DocumentSnapshot document : task.getResult() ) {
+
+                        posts.add(document.toObject(Post.class));
+
+                        /**HashMap<String, Object> hashBook = (HashMap<String, Object>) document.get("book");
+                        Book postBook = new Book( (String) hashBook.get("bookName"), (String) hashBook.get("picture"), (String) hashBook.get("id"));
+
+                        HashMap<String, Object> hashUser = (HashMap<String, Object>) document.get("user");
+                        User postUser = new User((String) hashUser.get("name"), (String) hashUser.get("email"), (String) hashUser.get("avatar"), (ArrayList<String>) hashUser.get("socialMedia"),
+                                (String) hashUser.get("phoneNumber"), (String) hashUser.get("university"), (boolean) hashUser.get("notifications"),
+                                (boolean) hashUser.get("banned"), (ArrayList<Book>) hashUser.get("wishlist"));
+
+                        Post postToBeAdded = new Post(document.getString("title"), document.getString("description"), document.getString("university"),
+                                document.getString("course"), document.getLong("price").intValue(), document.getString("picture"), postBook,
+                                postUser, document.getString("id"));
+
+
+                        posts.add(postToBeAdded);*/
+                    }
+                    Toast.makeText(ShowroomActivity.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
+
+                    mAdapter = new MyShowroomPostAdapter( showroom, ShowroomActivity.this);
+                    recyclerView.setAdapter(mAdapter);
+
+                    searchView = (SearchView) findViewById(R.id.showroomSearchView);
+                    searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                    searchView.setIconifiedByDefault(false);
+
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String query) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String newText) {
+                            ((MyShowroomPostAdapter) mAdapter).getFilter().filter(newText);
+                            return false;
+                        }
+                    });
+                }
+            }
+        });
+
+
         // TO BE REPLACED WITH THE DATABASE
-        User currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University");
-        User secondUser = new User("Batın", "alperengozeten@gmail.com", "None", "05392472224", "ODTU University");
-        Book book = new Book("Introduction to Python", "No pic");
+        //User currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University");
+        //User secondUser = new User("Batın", "alperengozeten@gmail.com", "None", "05392472224", "ODTU University");
+        //Book book = new Book("Introduction to Python", "No pic");
 
-        ArrayList<Post> posts = new ArrayList<>();
-        posts.add(new Post("Cs book", "A In good state", "Cs-115",70,"No pic", book, currentUser));
-        posts.add(new Post("Math book", "In good state", "Math-101",60,"No pic", book, currentUser));
-        posts.add(new Post("Phys book", "In good state", "Phys-101",50,"No pic", book, secondUser));
-
+        //bunun aynısı yukarda da yokmu
         showroom = new Showroom(posts);
-
+/**
         ArrayList<String> names = new ArrayList<>();
         names.add("Alperen");
         names.add("Alpozo");
         names.add("Alponzo");
         names.add("Safa");
         names.add("LOLO");
-
-        mAdapter = new MyShowroomPostAdapter( showroom, this);
-        recyclerView.setAdapter(mAdapter);
-
-        searchView = (SearchView) findViewById(R.id.showroomSearchView);
-        searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
-        searchView.setIconifiedByDefault(false);
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                ((MyShowroomPostAdapter) mAdapter).getFilter().filter(newText);
-                return false;
-            }
-        });
-
+*/
         menuImageBtn = (ImageButton) findViewById(R.id.menuImageBtn);
         showroomAddPostBtn = (ImageButton) findViewById(R.id.showroomAddPostBtn);
 

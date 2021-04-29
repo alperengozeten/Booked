@@ -80,8 +80,8 @@ public class MyProfile extends AppCompatActivity {
 
             // UPLOAD IMAGE
             uploadFile();
-            Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
 
+            Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
         }
     }
 
@@ -100,7 +100,7 @@ public class MyProfile extends AppCompatActivity {
                                     // BURADA FIRESTORE'DA GÜNCELLE
                                     currentUser.setAvatar(uri.toString());
 
-                                    HashMap<String,Object> newData = new HashMap<>();
+                                   /** HashMap<String,Object> newData = new HashMap<>();
                                     newData.put("username", currentUser.getName());
                                     newData.put("email", currentUser.getEmail());
                                     newData.put("avatar", currentUser.getAvatar());
@@ -109,8 +109,8 @@ public class MyProfile extends AppCompatActivity {
                                     newData.put("university", currentUser.getUniversity());
                                     newData.put("notifications", currentUser.isNotifications());
                                     newData.put("isbanned", currentUser.isBanned());
-                                    newData.put("wishlist", currentUser.getWishlist());
-                                    db.collection("users").document(mAuth.getCurrentUser().getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    newData.put("wishlist", currentUser.getWishlist());*/
+                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
@@ -139,12 +139,13 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
 
         // GET THIS DATA FROM THE DATABASE
+        //buraası önemli burda hata veriyor ,else e giriyor
         if ( Booked.getCurrentUser() != null ) {
             currentUser = Booked.getCurrentUser();
             //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }
         else {
-            currentUser = new User("Alperen", "alperengozeten@gmail.com", "", "05392472224", "Bilkent University" );
+            currentUser = new User("Alperen", "(bunu goruyosan bi sıkıntı var demek)", "", "05392472224", "Hata.Myprofile da" );
             Booked.setCurrentUser(currentUser);
             //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }

@@ -56,6 +56,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     private StorageReference storageReference;
     private FirebaseFirestore db;
 
+    //bunlar pekKUllanılmamaış
     private ArrayList<Book> allBooks;
     private ArrayList<String> allBookNames;
 
@@ -147,19 +148,21 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
 
         allBooks = new ArrayList<>();
         allBookNames = new ArrayList<>();
-        db.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("booksObj").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
                     for ( DocumentSnapshot document : task.getResult() ) {
-                        allBookNames.add(document.getString("title"));
+                        allBooks.add(document.toObject(Book.class));
+                        allBookNames.add(document.toObject(Book.class).getBookName());
 
-                        Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
-                        allBooks.add(newBook);
+                        //Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
+
                     }
                     Toast.makeText(EditPost2.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
                     ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost2.this,android.R.layout.simple_spinner_item, allBookNames);
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
                     changeBookSpinner.setAdapter(bookAdapter);
 
                     changeBookSpinner.setOnItemSelectedListener(EditPost2.this);
@@ -226,7 +229,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                             Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId());
                                     Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
-                                    HashMap<String,Object> newData = new HashMap<>();
+                                    /**HashMap<String,Object> newData = new HashMap<>();
                                     newData.put("title", currentPost.getTitle());
                                     newData.put("description", currentPost.getDescription());
                                     newData.put("university", currentPost.getUniversity());
@@ -238,9 +241,9 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                     newData.put("user", currentPost.getSeller());
                                     newData.put("id", currentPost.getId());
                                     newData.put("reports", currentPost.getReports());
-                                    newData.put("issold", currentPost.getIsSold());
+                                    newData.put("issold", currentPost.getIsSold());*/
 
-                                    db.collection("posts").document(currentPost.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
@@ -261,6 +264,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                     Integer.parseInt(changePriceEditText.getText().toString().trim()), currentPost.getPicture(), selectedBook, currentUser, currentPost.getId());
             Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
+            /**
             HashMap<String,Object> newData = new HashMap<>();
             newData.put("title", currentPost.getTitle());
             newData.put("description", currentPost.getDescription());
@@ -273,9 +277,9 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
             newData.put("user", currentPost.getSeller());
             newData.put("id", currentPost.getId());
             newData.put("reports", currentPost.getReports());
-            newData.put("issold", currentPost.getIsSold());
+            newData.put("issold", currentPost.getIsSold());*/
 
-            db.collection("posts").document(currentPost.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("posts").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();

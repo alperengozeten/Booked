@@ -11,6 +11,8 @@ public class BookProfile implements Sortable{
     ArrayList<Post> offers;
     Book book;
 
+    public BookProfile() {//dont delete this
+    }
 
     public BookProfile(Book book)
     {
@@ -24,10 +26,25 @@ public class BookProfile implements Sortable{
         this.book = book;
     }
 
+
+
     public void addEvalution(Evaluation e)
     {
         evalutions.add(e);
         this.getMeanRate();
+    }
+
+
+    public void setRating(double rating) {
+        this.rating = rating;
+    }
+
+    public void setEvalutions(ArrayList<Evaluation> evalutions) {
+        this.evalutions = evalutions;
+    }
+
+    public void setOffers(ArrayList<Post> offers) {
+        this.offers = offers;
     }
 
     /**void deleteEvalution(int index)

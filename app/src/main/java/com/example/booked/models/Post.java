@@ -17,6 +17,10 @@ public class Post implements Reportable, Comparable<Post> {
     Boolean isSold;
     Book theBook;
 
+
+    public Post() { // important do not delete this
+    }
+
     /**Comparator<Post> TitleComparator = new Comparator<Post>() {
 
         @Override
@@ -27,19 +31,20 @@ public class Post implements Reportable, Comparable<Post> {
     };*/
 
 
-    public Post (String title, String description, String course, int price, String aPicture, Book aBook, User seller) {
+
+    public Post (String title, String description,  String course, int price, String aPicture, Book aBook, User seller) {
         this.seller = seller;
         this.title = title;
         this.description = description;
-        this.university = this.seller.getUniversity();
+        this.university = seller.getUniversity();
         this.course = course;
         this.price = price;
-        this.id = id;
+        //this.id = id;
         picture = aPicture;
         reports = new ArrayList<>();
         this.isSold = false;
         this.theBook = aBook;
-        randomKeyGenerator(11);
+        //randomKeyGenerator(11);
 
     }
 
@@ -120,6 +125,53 @@ public class Post implements Reportable, Comparable<Post> {
     public String getUniversity() {
         return university;
     }
+
+    public Boolean getSold() {
+        return isSold;
+    }
+
+    public Book getTheBook() {
+        return theBook;
+    }
+
+    //setter
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setUniversity(String university) {
+        this.university = university;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setReports(ArrayList<Report> reports) {
+        this.reports = reports;
+    }
+
+    public void setSeller(User seller) {
+        this.seller = seller;
+    }
+
+    public void setSold(Boolean sold) {
+        isSold = sold;
+    }
+
+    public void setTheBook(Book theBook) {
+        this.theBook = theBook;
+    }
+
 
     @Override
     public String toString() {

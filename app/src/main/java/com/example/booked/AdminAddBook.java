@@ -17,10 +17,12 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.booked.models.Book;
+import com.example.booked.models.BookProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -84,7 +86,11 @@ public class AdminAddBook extends AppCompatActivity {
 
     private void uploadFile() {
         if ( newBookImageUri != null ) {
+
+
             Book newBook = new Book( title);
+
+
             StorageReference fileReference = storageReference.child("book_pictures/" + newBook.getId());
 
             fileReference.putFile(newBookImageUri)
@@ -98,16 +104,37 @@ public class AdminAddBook extends AppCompatActivity {
                                     newBook.setPicture(uri.toString());
                                     // NEW BOOK PROFILE
                                     // SAVE THESE DATA TO FIRESTORE
-                                    HashMap<String,Object> newData = new HashMap<>();
+                                    /**HashMap<String,Object> newData = new HashMap<>();
                                     newData.put("title", newBook.getBookName());
                                     newData.put("picture", newBook.getPicture());
-                                    newData.put("id", newBook.getId());
-                                    db.collection("books").document(newBook.getId()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    newData.put("id", newBook.getId());*/
+
+
+
+                                    db.collection("booksObj").add(newBook).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                                         @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdminAddBook.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        public void onSuccess(DocumentReference documentReference) {
+
+                                            Toast.makeText(AdminAddBook.this,"The Book uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+                                    BookProfile bookProfile = new BookProfile(newBook);
+
+                                    db.collection("bookProfileObj").add(bookProfile).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+
+                                    /**addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+
+                                        }
+                                    });*/
                                 }
                             });
 

@@ -58,13 +58,13 @@ public class EditProfile extends AppCompatActivity {
                 currentUser.setUniversity(university.getText().toString());
                 currentUser.setPhoneNumber(telephone.getText().toString());
                 currentUser.setUserName(username.getText().toString());
-                currentUser.clearSocialMedia();
-                currentUser.addSocialMedia(facebook.getText().toString());
-                currentUser.addSocialMedia(twitter.getText().toString());
-                currentUser.addSocialMedia(instagram.getText().toString());
+                //currentUser.clearSocialMedia();
+                currentUser.setSocialMedia(0,facebook.getText().toString());
+                currentUser.setSocialMedia(1,twitter.getText().toString());
+                currentUser.setSocialMedia(2,instagram.getText().toString());
                 //social media?
 
-                HashMap<String,Object> newData = new HashMap<>();
+                /**HashMap<String,Object> newData = new HashMap<>();
                 newData.put("username", currentUser.getName());
                 newData.put("email", currentUser.getEmail());
                 newData.put("avatar", currentUser.getAvatar());
@@ -73,8 +73,8 @@ public class EditProfile extends AppCompatActivity {
                 newData.put("university", currentUser.getUniversity());
                 newData.put("notifications", currentUser.isNotifications());
                 newData.put("isbanned", currentUser.isBanned());
-                newData.put("wishlist", currentUser.getWishlist());
-                db.collection("users").document(mAuth.getCurrentUser().getUid()).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                newData.put("wishlist", currentUser.getWishlist());*/
+                db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
@@ -101,18 +101,19 @@ public class EditProfile extends AppCompatActivity {
         username.setText(currentUser.getName().toString());
         university.setText(currentUser.getUniversity().toString());
         telephone.setText(currentUser.getPhoneNumber().toString());
-        if ( currentUser.getSocialMedia() != null && currentUser.getSocialMedia().size() == 3 ) {
-            if (currentUser.getSocialMedia().get(0) != null) {
+
+
+        if (currentUser.getSocialMedia().get(0) != null) {
                 facebook.setText(currentUser.getSocialMedia().get(0));
-            }
-            if (currentUser.getSocialMedia().get(1) != null) {
-                twitter.setText(currentUser.getSocialMedia().get(1));
-            }
-            if (currentUser.getSocialMedia().get(2) != null) {
-                instagram.setText(currentUser.getSocialMedia().get(2));
-            }
         }
-        // social media?
+        if (currentUser.getSocialMedia().get(1) != null) {
+                twitter.setText(currentUser.getSocialMedia().get(1));
+        }
+        if (currentUser.getSocialMedia().get(2) != null) {
+                instagram.setText(currentUser.getSocialMedia().get(2));
+        }
+
+
 
     }
 }

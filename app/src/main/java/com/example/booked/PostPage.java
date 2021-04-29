@@ -20,6 +20,7 @@ import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
@@ -95,11 +96,12 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {// düzelt
-                db.collection("users").whereEqualTo("username", currentPost.getSeller().getName()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                db.collection("usersObj").whereEqualTo(FieldPath.documentId(), currentPost.getSeller().getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //burada currentPost.getSeller vardı // bunu databaseden çekmeye gerek var heralde (bunu bi dene safa)
                         for (DocumentSnapshot documentSnapshot : task.getResult() ) {
-                            String newUserName = documentSnapshot.getString("username");
+                            /**String newUserName = documentSnapshot.getString("username");
                             String newUserEmail = documentSnapshot.getString("email");
                             String newUserAvatar = documentSnapshot.getString("avatar");
                             String newUserUniversity = documentSnapshot.getString("university");
@@ -107,9 +109,10 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
                             boolean newUserIsBanned = documentSnapshot.getBoolean("isbanned");
                             boolean newUserNotifications = documentSnapshot.getBoolean("notifications");
                             ArrayList<Book> newUserWishList = (ArrayList<Book>) documentSnapshot.get("wishlist");
-                            ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");
+                            ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");*/
 
-                            currentSeller = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
+                            //currentSeller = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
+                            currentSeller = documentSnapshot.toObject(User.class);
                             Toast.makeText(PostPage.this, "User Pulled", Toast.LENGTH_LONG).show();
 
                             Booked.setCurrentSeller(currentSeller);

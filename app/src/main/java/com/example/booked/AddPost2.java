@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -113,11 +115,42 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
 
         allBooks = new ArrayList<>();
         allBookNames = new ArrayList<>();
-        db.collection("books").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("booksObj").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+
+                for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
+                {
+                    Book aBookFromBase = documentSnapshots.toObject(Book.class);
+                    Log.d("name",aBookFromBase.getBookName());
+                    allBookNames.add(aBookFromBase.getBookName());
+                    allBooks.add(aBookFromBase);
+                }
+
+            }
+        })
+        .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
-                    for ( DocumentSnapshot document : task.getResult() ) {
+
+                    //Toast.makeText(AddPost2.this,"on complete de",Toast.LENGTH_LONG).show();
+                    ArrayAdapter<CharSequence> bookAdapter = new ArrayAdapter(AddPost2.this,android.R.layout.simple_spinner_item, allBookNames);
+
+                    bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    bookNameSpinner.setAdapter(bookAdapter);
+
+                    bookNameSpinner.setOnItemSelectedListener(AddPost2.this);
+
+                }
+            }
+        });
+
+                /**addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if ( task.isSuccessful() ) {
+                    for ( DocumentSnapshot document : task ) {
                         allBookNames.add(document.getString("title"));
 
                         Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
@@ -131,7 +164,7 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                     bookNameSpinner.setOnItemSelectedListener(AddPost2.this);
                 }
             }
-        });
+        });*/
 
         enterTitleEditText = (EditText) findViewById(R.id.enterTitleEditText);
         setPriceEditText = (EditText) findViewById(R.id.enterPriceEditText);
@@ -207,7 +240,7 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                             Integer.parseInt(setPriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, key);
                                     Toast.makeText(AddPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
-                                    HashMap<String,Object> newData = new HashMap<>();
+                                    /*HashMap<String,Object> newData = new HashMap<>();
                                     newData.put("title", newPost.getTitle());
                                     newData.put("description", newPost.getDescription());
                                     newData.put("university", newPost.getUniversity());
@@ -219,12 +252,13 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                     newData.put("user", newPost.getSeller());
                                     newData.put("id", newPost.getId());
                                     newData.put("reports", newPost.getReports());
-                                    newData.put("issold", newPost.getIsSold());
+                                    newData.put("issold", newPost.getIsSold());*/
 
-                                    db.collection("posts").document(key).set(newData).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    //burada key i çıkarılabilir daha sonra yukarısıyla senkronize edilerek , şuan dokunmadım
+                                    db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AddPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(AddPost2.this,"Post uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
                                 }

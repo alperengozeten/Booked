@@ -7,6 +7,9 @@ public class Book {
 
     String id;
 
+    public Book() {// dont delete this
+    }
+
     public Book(String name) {
         this.bookName = name;
         randomKeyGenerator(10);
@@ -17,7 +20,7 @@ public class Book {
     {
         bookName = name;
         picture = pic;
-        randomKeyGenerator(10);
+        //randomKeyGenerator(10);
     }
 
     public Book(String bookName, String picture, String id) {
@@ -46,6 +49,10 @@ public class Book {
         //pic ekle
         return this.getBookName() == otherBook.getBookName();
 
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     @Override

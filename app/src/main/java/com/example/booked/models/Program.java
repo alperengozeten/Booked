@@ -30,7 +30,7 @@ public class Program {
 
     public static void main(String[] args)
     {
-
+/*
         Program pro = new Program();
 
         Admin a1 = new Admin("a1");
@@ -38,7 +38,7 @@ public class Program {
         User u2 = new User("user2");
 
 
-        /*
+
         a1.addBook(new Book("book1", "pic1"), pro);
         a1.addBook(new Book("book2", "pic2"), pro);
 
