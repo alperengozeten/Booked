@@ -226,22 +226,8 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                 public void onSuccess(Uri uri) {
                                     // PRICE I PARSE LA
                                     currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
-                                            Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId());
+                                            Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId(), currentPost.getReports());
                                     Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
-
-                                    /**HashMap<String,Object> newData = new HashMap<>();
-                                    newData.put("title", currentPost.getTitle());
-                                    newData.put("description", currentPost.getDescription());
-                                    newData.put("university", currentPost.getUniversity());
-                                    newData.put("course", currentPost.getCourse());
-                                    newData.put("price", currentPost.getPrice());
-                                    newData.put("username", currentPost.getSeller().getName());
-                                    newData.put("picture", currentPost.getPicture());
-                                    newData.put("book", currentPost.getBook());
-                                    newData.put("user", currentPost.getSeller());
-                                    newData.put("id", currentPost.getId());
-                                    newData.put("reports", currentPost.getReports());
-                                    newData.put("issold", currentPost.getIsSold());*/
 
                                     db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
@@ -261,25 +247,10 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                     });
         } else {
             currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
-                    Integer.parseInt(changePriceEditText.getText().toString().trim()), currentPost.getPicture(), selectedBook, currentUser, currentPost.getId());
-            Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
+                    Integer.parseInt(changePriceEditText.getText().toString().trim()), currentPost.getPicture(), selectedBook, currentUser, currentPost.getId(), currentPost.getReports());
+            //Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
-            /**
-            HashMap<String,Object> newData = new HashMap<>();
-            newData.put("title", currentPost.getTitle());
-            newData.put("description", currentPost.getDescription());
-            newData.put("university", currentPost.getUniversity());
-            newData.put("course", currentPost.getCourse());
-            newData.put("price", currentPost.getPrice());
-            newData.put("username", currentPost.getSeller().getName());
-            newData.put("picture", currentPost.getPicture());
-            newData.put("book", currentPost.getBook());
-            newData.put("user", currentPost.getSeller());
-            newData.put("id", currentPost.getId());
-            newData.put("reports", currentPost.getReports());
-            newData.put("issold", currentPost.getIsSold());*/
-
-            db.collection("posts").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
+            db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();

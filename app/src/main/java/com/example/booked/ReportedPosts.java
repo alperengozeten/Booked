@@ -1,16 +1,27 @@
 package com.example.booked;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.Adapter.ReportedListAdapter;
 import com.example.booked.models.Book;
 import com.example.booked.models.Post;
+import com.example.booked.models.Report;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -19,6 +30,7 @@ public class ReportedPosts extends AppCompatActivity {
     ArrayList<Post> reportedPostList;
     RecyclerView reportedList;
     ReportedListAdapter reportedAdapter;
+    private FirebaseFirestore db;
 
 
     @Override
@@ -29,22 +41,48 @@ public class ReportedPosts extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        db = FirebaseFirestore.getInstance();
+        reportedPostList = new ArrayList<Post>();
 
-        setExampleR();
 
 
+
+        pullFromDateBase();
 
         viewReports();
 
     }
 
+    private void pullFromDateBase() {
+
+
+        db.collection("postsObj").get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        for (DocumentSnapshot documentSnapshot : task.getResult() )
+                        {
+                            Post post = documentSnapshot.toObject(Post.class);
+                            reportedPostList.add(post);
+
+                            reportedAdapter.notifyDataSetChanged();
+                        }
+
+                        reportedAdapter.notifyDataSetChanged();
+                    }
+                });
+    }
+
+
     void viewReports() {
         reportedList = (RecyclerView) findViewById(R.id.reportedList);
-
+        Log.d("reportedv1",reportedPostList.toString());
         reportedAdapter= new ReportedListAdapter(reportedPostList);
-
+        Log.d("reportedv2",reportedPostList.toString());
         reportedList.setAdapter(reportedAdapter);
+        Log.d("reportedv3",reportedPostList.toString());
         reportedList.setLayoutManager(new LinearLayoutManager(this));
+        Log.d("reportedv4",reportedPostList.toString());
         reportedAdapter.notifyDataSetChanged();
     }
 

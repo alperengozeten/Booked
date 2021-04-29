@@ -99,7 +99,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
                 db.collection("usersObj").whereEqualTo(FieldPath.documentId(), currentPost.getSeller().getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        //burada currentPost.getSeller vardı // bunu databaseden çekmeye gerek var heralde (bunu bi dene safa)
+                        //burada currentPost.getSeller vardı
                         for (DocumentSnapshot documentSnapshot : task.getResult() ) {
 
                             currentSeller = documentSnapshot.toObject(User.class);

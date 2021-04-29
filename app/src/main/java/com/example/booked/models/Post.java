@@ -63,6 +63,21 @@ public class Post implements Reportable, Comparable<Post> {
         this.id = id;
     }
 
+    public Post (String title, String description, String university, String course, int price, String aPicture, Book aBook, User seller, String id, ArrayList<Report> reports) {
+        this.seller = seller;
+        this.title = title;
+        this.description = description;
+        this.university = university;
+        this.course = course;
+        this.price = price;
+        this.id = id;
+        picture = aPicture;
+        this.reports = reports;
+        this.isSold = false;
+        this.theBook = aBook;
+        this.id = id;
+    }
+
     public String getId() {
         return id;
     }

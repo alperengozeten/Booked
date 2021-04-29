@@ -110,7 +110,8 @@ public class MyProfile extends AppCompatActivity {
                                     newData.put("notifications", currentUser.isNotifications());
                                     newData.put("isbanned", currentUser.isBanned());
                                     newData.put("wishlist", currentUser.getWishlist());*/
-                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
@@ -139,7 +140,7 @@ public class MyProfile extends AppCompatActivity {
         setContentView(R.layout.activity_my_profile);
 
         // GET THIS DATA FROM THE DATABASE
-        //buraası önemli burda hata veriyor ,else e giriyor
+
         if ( Booked.getCurrentUser() != null ) {
             currentUser = Booked.getCurrentUser();
             //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
