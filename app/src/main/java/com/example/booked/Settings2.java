@@ -13,14 +13,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.booked.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class Settings2 extends AppCompatActivity {
 
-    ImageButton logOutImageBtn;
-    ImageButton feedbackImageBtn;
-    ImageButton changePasswordImageBtn;
-    ImageButton notificationImageBtn;
+     ImageButton logOutImageBtn;
+     ImageButton feedbackImageBtn;
+     ImageButton changePasswordImageBtn;
+     ImageButton notificationImageBtn;
 
 
      Button logOutBtn;
@@ -28,7 +29,9 @@ public class Settings2 extends AppCompatActivity {
      Button changePasswordBtn;
      Button notificationBtn;
 
-    FirebaseAuth mAuth;
+     FirebaseAuth mAuth;
+
+    private User currentUser;
 
 
     @Override
@@ -62,6 +65,7 @@ public class Settings2 extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        currentUser = Booked.getCurrentUser();
 
         logOutBtn = (Button) findViewById(R.id.logOutBtn);
         feedbackBtn = (Button) findViewById(R.id.feedbackBtn);
@@ -105,7 +109,7 @@ public class Settings2 extends AppCompatActivity {
         });
     }
     public void openFeedbackDialog(){
-        FeedbackDialog feedbackDialog = new FeedbackDialog();
+        FeedbackDialog feedbackDialog = new FeedbackDialog(Settings2.this, currentUser.getName());
         feedbackDialog.show(getSupportFragmentManager(),"feedback dialog");
 
     }
