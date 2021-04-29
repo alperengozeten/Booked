@@ -63,10 +63,10 @@ public class ReportedPosts extends AppCompatActivity {
                         for (DocumentSnapshot documentSnapshot : task.getResult() )
                         {
                             Post post = documentSnapshot.toObject(Post.class);
-                            if(post.getReports().size() >= 1)
-                            reportedPostList.add(post);
+                            if(post.getReports().size() >= 1) {
+                                reportedPostList.add(post);
+                            }
 
-                            reportedAdapter.notifyDataSetChanged();
                         }
 
                         reportedAdapter.notifyDataSetChanged();
