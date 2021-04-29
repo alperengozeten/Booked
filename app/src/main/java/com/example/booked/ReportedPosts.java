@@ -45,7 +45,7 @@ public class ReportedPosts extends AppCompatActivity {
         reportedPostList = new ArrayList<Post>();
 
 
-
+        //resim eklenmesi lazım
 
         pullFromDateBase();
 
@@ -63,6 +63,7 @@ public class ReportedPosts extends AppCompatActivity {
                         for (DocumentSnapshot documentSnapshot : task.getResult() )
                         {
                             Post post = documentSnapshot.toObject(Post.class);
+                            if(post.getReports().size() >= 1)
                             reportedPostList.add(post);
 
                             reportedAdapter.notifyDataSetChanged();
