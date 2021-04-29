@@ -209,7 +209,7 @@ public class Post implements Reportable, Comparable<Post> {
     }
 
     // function to generate a random string of length n
-    private void randomKeyGenerator(int n)
+    public void randomKeyGenerator(int n)
     {
 
         // chose a Character random from this String

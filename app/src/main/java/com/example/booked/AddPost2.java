@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.booked.models.Book;
+import com.example.booked.models.BookProfile;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -76,6 +77,8 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
     private String key;
 
     private Uri postImageUri;
+
+    Post newPost;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -227,10 +230,10 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     // PRICE I PARSE LA
-                                    Post newPost = new Post(enterTitleEditText.getText().toString().trim(), addDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
+                                    newPost = new Post(enterTitleEditText.getText().toString().trim(), addDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                                             Integer.parseInt(setPriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, key);
                                     Toast.makeText(AddPost2.this,"Post created", Toast.LENGTH_SHORT).show();
-
+                                    Booked.getCurrentBookProfile().addPost(newPost);
 
                                     //burada key i çıkarılabilir daha sonra yukarısıyla senkronize edilerek , şuan dokunmadım
                                     db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -239,6 +242,26 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
                                             Toast.makeText(AddPost2.this,"Post uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+/**
+                                    db.collection("bookProfileObj").document(newPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+
+
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            Toast.makeText(AddPost2.this,"Current profile setlendi", Toast.LENGTH_LONG).show();
+                                            Booked.setCurrentBookProfile(documentSnapshot.toObject(BookProfile.class));
+                                            Booked.getCurrentBookProfile().addPost(newPost);
+                                        }
+                                    });*/
+
+
+
+
+                                    addToOffers();
+
+
                                 }
                             });
 
@@ -256,6 +279,19 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
             Toast.makeText(this,"No file selected", Toast.LENGTH_SHORT).show();
         }
     }
+
+    private void addToOffers()
+    {
+        db.collection("bookProfileObj").document(newPost.getBook().getId()).set(Booked.getCurrentBookProfile())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(AddPost2.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+
 
     private void openFileChooser() {
         Intent intent = new Intent();
@@ -288,6 +324,15 @@ public class AddPost2 extends AppCompatActivity implements AdapterView.OnItemSel
         else if ( parent.getId() == bookNameSpinner.getId() ) {
             selectedBookName = bookNameSpinner.getItemAtPosition(position).toString();
             selectedBook = allBooks.get(position);
+            db.collection("bookProfileObj").document(selectedBook.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    Toast.makeText(AddPost2.this,"Current profile setlendi", Toast.LENGTH_LONG).show();
+                    Booked.setCurrentBookProfile(documentSnapshot.toObject(BookProfile.class));
+                    //Booked.getCurrentBookProfile().addPost(newPost);
+                }
+            });
         }
     }
 

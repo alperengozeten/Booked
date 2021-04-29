@@ -25,7 +25,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     com.example.booked.models.BookProfile myBookProfile;
 
-    TextView title, rating, course, textNumOfComments;
+    TextView title, rating, textNumOfComments;
 
     RecyclerView offersList, commentList;
     OfferRecyclerApapter offerAdapter;

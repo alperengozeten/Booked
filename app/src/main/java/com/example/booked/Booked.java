@@ -70,7 +70,7 @@ public class Booked extends Application {
     {
         //currentUser = new User("eren", "atmaziya6@gmail.com", "None", "05443332211", "Bilo University");
 
-        currentBook = new Book(" book1","pic1");
+        /**currentBook = new Book(" book1","pic1");
         currentBookProfile = new BookProfile(currentBook);
        // currentPost = new Post("Old book", "iyi durumda iş görür ", "Cs-115",70, "No pic", currentBook, currentUser);
 
@@ -83,7 +83,7 @@ public class Booked extends Application {
                 new User("omer", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
 
         currentBookProfile.addPost(new Post("C book", "iyidir", "Cs-115",50,"No pic", currentBook,
-                new User("yarkın", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
+                new User("yarkın", "ömer@gmail.com", "None", "05443332211", "Bilke University")));*/
     }
 
 }
