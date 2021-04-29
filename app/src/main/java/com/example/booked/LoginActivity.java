@@ -59,6 +59,13 @@ public class LoginActivity extends AppCompatActivity {
         if (mAuth.getCurrentUser() != null) {
             if ( mAuth.getCurrentUser().isEmailVerified() ) {
 //                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+                db.collection("usersObj").document(mAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        Booked.setCurrentUser(documentSnapshot.toObject(User.class));
+                    }
+                });
+
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }

@@ -25,6 +25,6 @@ Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, Si
 Ömer Asım Doğan: Xml classes of login page, sign up page, verification pages. Also helping with the some other xml classes and with the firebase database
 
 Safa Eren Kuday:  Written down the Model Classes. XML designs and Activity (Controller) implementations of Book Profile, Edit Profile, Post Page, Admin Page pages. Also provided 
-Recycler Views and adapters for Book Profile. 
+Recycler Views and adapters for Book Profile. Database connections ...
 
 Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts.
