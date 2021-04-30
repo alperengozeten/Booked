@@ -108,9 +108,14 @@ public class OtherUsersProfile extends AppCompatActivity {
         });
 
 
-        if ( !currentSeller.getAvatar().equals("") ) {
+        if ( currentSeller.getAvatar() != "" ) {
+            //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
             Picasso.get().load(currentSeller.getAvatar()).fit().into(otherUsersProfilePhotoImageView);
         }
+        else {
+            Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).fit().into(otherUsersProfilePhotoImageView);
+        }
+
         otherUsersProfileUsernameTextView.setText(currentSeller.getName().toString());
         otherUsersProfileUniversityNameTextView.setText(currentSeller.getUniversity().toString());
         otherUsersProfilePostTextView.setText(currentSeller.getName().toString() + "'s Posts");
