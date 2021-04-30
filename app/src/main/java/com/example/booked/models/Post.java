@@ -1,5 +1,7 @@
 package com.example.booked.models;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -21,17 +23,7 @@ public class Post implements Reportable, Comparable<Post> {
     public Post() { // important do not delete this
     }
 
-    /**Comparator<Post> TitleComparator = new Comparator<Post>() {
-
-        @Override
-        public int compare(Post p1, Post p2) {
-
-            return p1.getTitle().compareTo(p2.getTitle());
-        }
-    };*/
-
-
-
+/**
     public Post (String title, String description,  String course, int price, String aPicture, Book aBook, User seller) {
         this.seller = seller;
         this.title = title;
@@ -46,7 +38,7 @@ public class Post implements Reportable, Comparable<Post> {
         this.theBook = aBook;
         //randomKeyGenerator(11);
 
-    }
+    }*/
 
     public Post (String title, String description, String university, String course, int price, String aPicture, Book aBook, User seller, String id) {
         this.seller = seller;
@@ -78,29 +70,16 @@ public class Post implements Reportable, Comparable<Post> {
         this.id = id;
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void editPost (String title, String description, int price, Book aBook) {
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        theBook = aBook;
-    }
 
     public void deletePicture( String aPicture) {
         this.picture = "";
     }
 
-    public void setPicture( String aPicture) {
-        this.picture = aPicture;
-    }
+    //accessor methods
 
+    public String getId() {
+        return id;
+    }
     public String getTitle() {
         return this.title;
     }
@@ -149,8 +128,16 @@ public class Post implements Reportable, Comparable<Post> {
         return theBook;
     }
 
-    //setter
 
+    //mutator methods
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setPicture( String aPicture) {
+        this.picture = aPicture;
+    }
     public void setTitle(String title) {
         this.title = title;
     }

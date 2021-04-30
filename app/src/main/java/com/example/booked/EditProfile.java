@@ -71,16 +71,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 currentUser.setSocialMedia(2,instagram.getText().toString());
                 //social media?
 
-                /**HashMap<String,Object> newData = new HashMap<>();
-                newData.put("username", currentUser.getName());
-                newData.put("email", currentUser.getEmail());
-                newData.put("avatar", currentUser.getAvatar());
-                newData.put("socialmedia", currentUser.getSocialMedia());
-                newData.put("phonenumber", currentUser.getPhoneNumber());
-                newData.put("university", currentUser.getUniversity());
-                newData.put("notifications", currentUser.isNotifications());
-                newData.put("isbanned", currentUser.isBanned());
-                newData.put("wishlist", currentUser.getWishlist());*/
                 db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

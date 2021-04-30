@@ -86,20 +86,6 @@ public class ReportedPosts extends AppCompatActivity {
         reportedAdapter.notifyDataSetChanged();
     }
 
-    void setExampleR()
-    {
-        User u1 = new User("emaillll","safa");
-        Post p1 = new Post("Examlpe1","bad post","Mat111",50,"no", new Book("ww","sd"), u1 );
-        Post p2 = new Post("Examlpe2","ugly post","Mat121",20,"no", Booked.getCurrentBook(), u1 );
-
-        p1.report("w",1, u1);
-        p1.report("w",2, Booked.getCurrentUser());
-        p2.report("w",2, Booked.getCurrentUser());
-
-        reportedPostList = new ArrayList<Post>();
-        reportedPostList.add(p1);
-        reportedPostList.add(p2);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

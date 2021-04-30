@@ -58,8 +58,8 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
     //bunlar pekKUllanılmamaış
     private ArrayList<Book> allBooks;
     private ArrayList<String> allBookNames;
-
     private String selectedBookName;
+
     private Book selectedBook;
 
     private Post currentPost;
@@ -68,7 +68,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
 
     private User currentUser;
 
-    private ArrayList<Post> offers;
+    private ArrayList<Post> offers = new ArrayList<Post>();
     private com.example.booked.models.BookProfile matchingBookProfile;
 
     private ImageView editPostPhotoImageView;
@@ -194,6 +194,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                 }
                 else {
                     uploadFile();
+                    //changeBookProfileOffers(offers);
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
@@ -238,24 +239,19 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                                         }
                                     });
 
-                                    offers = new ArrayList<>();
+
                                     db.collection("bookProfileObj").document(currentPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            matchingBookProfile = documentSnapshot.toObject(BookProfile.class);
-                                            offers = matchingBookProfile.getOffers();
+                                            offers = documentSnapshot.toObject(BookProfile.class).getOffers();
+
+                                            offers.remove(currentPost);
+                                            offers.add(currentPost);
+                                            changeBookProfileOffers(offers);
                                         }
                                     });
 
-                                    offers.remove(currentPost);
-                                    offers.add(currentPost);
 
-                                    db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
                                 }
                             });
                         }
@@ -278,24 +274,18 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                 }
             });
 
-            offers = new ArrayList<>();
-            db.collection("bookProfileObj").document(currentPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+            db.collection("bookProfileObj").document(currentPost.getBook().getId()).get()
+                    .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    matchingBookProfile = documentSnapshot.toObject(BookProfile.class);
-                    offers = matchingBookProfile.getOffers();
+                    offers = documentSnapshot.toObject(BookProfile.class).getOffers();
+                    offers.remove(currentPost);
+                    offers.add(currentPost);
+                    changeBookProfileOffers(offers);
                 }
             });
 
-            offers.remove(currentPost);
-            offers.add(currentPost);
-
-            db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
-                }
-            });
         }
     }
 
@@ -304,6 +294,17 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent,1);
+    }
+
+    private void changeBookProfileOffers(ArrayList<Post> offers )
+    {
+        db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
 

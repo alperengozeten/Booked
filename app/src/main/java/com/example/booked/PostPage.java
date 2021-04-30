@@ -35,10 +35,9 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     Button visitSeller;
     ImageButton report;
     Post currentPost;
+    ImageView postImageView;
 
     private User currentSeller;
-
-    ImageView postImageView;
 
     private FirebaseFirestore db;
 

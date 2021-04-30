@@ -211,13 +211,11 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
-    //sonrasil
+
     void createBookProfile()
     {
-
         myBookProfile  = Booked.getCurrentBookProfile();
         myBookProfile.sortByPrice(true);
-
     }
 
     @SuppressLint("SetTextI18n")
