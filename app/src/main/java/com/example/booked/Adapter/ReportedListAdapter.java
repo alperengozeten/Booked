@@ -19,6 +19,7 @@ import com.example.booked.Booked;
 import com.example.booked.PostPage;
 import com.example.booked.R;
 import com.example.booked.models.Post;
+import com.example.booked.models.Report;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -63,7 +64,19 @@ public class ReportedListAdapter extends RecyclerView.Adapter<ReportedListAdapte
     @Override
     public void onBindViewHolder(@NonNull ReportHolder holder, int position) {
         holder.postTitle.setText(reportedPosts.get(position).getTitle());
-        holder.reportsNum.setText("Reports: " + reportedPosts.get(position).getReports().size());
+
+        int[] reportTypes = new int[4];
+
+        //int i= 0; i <
+        for (Report r : reportedPosts.get(position).getReports())
+        {
+            reportTypes[r.getCategory()] ++;
+        }
+
+        holder.reportsNum.setText("Reports: \nInappropriate Content: " + reportTypes[0] +
+                "\nSpam or Misleading Content: " + reportTypes[1] +
+                "\nIrrelevant Price: " + reportTypes[2] +
+                "\nHateful or Abusive Content: " + reportTypes[3]);
 
         Picasso.get().load(reportedPosts.get(position).getPicture()).fit().into(holder.postImage);
 

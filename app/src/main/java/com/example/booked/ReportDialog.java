@@ -34,7 +34,7 @@ public class ReportDialog extends DialogFragment {
 
         AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(getActivity());
 
-        String reports[] = {"Inapropriate Content", "Spam or Misleading Content", "Irrelevant Price", "Hateful or Abusive Content"};
+        String reports[] = {"Inappropriate Content", "Spam or Misleading Content", "Irrelevant Price", "Hateful or Abusive Content"};
 
         dialogbuilder.setTitle("Why do you report this post?");
 
