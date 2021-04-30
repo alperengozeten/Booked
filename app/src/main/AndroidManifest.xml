@@ -21,6 +21,7 @@
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".EmailVerificationCheckActivity" />
         <activity android:name=".SuccessfulVerificationActivity" />
+        <activity android:name=".SuccessfulPasswordChange" />
         <activity android:name=".OtherUsersProfile" />
         <activity android:name=".AddPost2" />
         <activity android:name=".EditPost2" />

@@ -122,6 +122,12 @@ public class SignUpActivity extends AppCompatActivity  {
             return;
         }
 
+        if (password.length() < 6) {
+            mPassword.setError("Please enter a password with at least 6 characters");
+            mPassword.requestFocus();
+            return;
+        }
+
         mAuth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
