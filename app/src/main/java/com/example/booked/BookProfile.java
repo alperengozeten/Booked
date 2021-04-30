@@ -22,7 +22,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.Adapter.CommentRecyclerAdapter;
 import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.models.Evaluation;
+import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -36,7 +40,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     RecyclerView offersList, commentList;
     OfferRecyclerApapter offerAdapter;
     CommentRecyclerAdapter commentAdapter;
-    Button addEvaluation, lowToHigh, highToLow, aToz, zToA;
+    Button addEvaluation, addToWishList, lowToHigh, highToLow, aToz, zToA;
     ImageView s1,s2,s3,s4,s5, bookProfileImageView;
     private FirebaseFirestore db;
 
@@ -106,17 +110,12 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     {
         title = (TextView) findViewById(R.id.bookprofiletitle);
         rating = (TextView) findViewById(R.id.bookProfileRating);
-        //course = (TextView) findViewById(R.id.bookprofile_school_lesson);
         textNumOfComments = (TextView) findViewById(R.id.commentNum);
 
         title.setText(myBookProfile.getBook().getBookName());
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
 
-        //bookProfile da course ve lesson yok, ya bunu burdan çıkarıcaz
-        //ya da add post yaparken university ve course yerine sadece book seçecek ve book da university,course özellikleri olacak
-        // bunun yerine adminin düzenlediği bir description bölmü olabilir, orada hangi unilerde kullanıldığını yazar
-        //course.setText(myBookProfile.);
     }
 
     void setButtons()
@@ -127,6 +126,29 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
             public void onClick(View v) {
                 DialogFragment evaluationPopUp = new AddEvaluationDialog();
                 evaluationPopUp.show(getSupportFragmentManager(),"Evaluate");
+            }
+        });
+
+        addToWishList = (Button) findViewById(R.id.bookProfile_addTowWishlist);
+        addToWishList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if( Booked.getCurrentUser().getWishlist().contains(myBookProfile.getBook()) ) // bunu başa ekleyeyip visble lığını ayarlayabilirz
+                {
+                    Toast.makeText(BookProfile.this, "You already have this book in your Wish List", Toast.LENGTH_LONG).show();
+                }
+                else
+                {
+                Booked.getCurrentUser().addBookToWishlist(myBookProfile.getBook());
+                db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).set(Booked.getCurrentUser())
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(BookProfile.this, "Wish List Updated", Toast.LENGTH_LONG).show();
+                            }
+                        });
+                }
             }
         });
 

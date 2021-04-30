@@ -31,7 +31,7 @@ public class WishlistActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         //SİLİNECEK
-        Booked.setExample();
+        /**Booked.setExample();
         currentUser = Booked.getCurrentUser();
 
         Book b1 = new Book("Sefiller", "");
@@ -40,7 +40,9 @@ public class WishlistActivity extends AppCompatActivity {
 
         currentUser.addBookToWishlist(b1);
         currentUser.addBookToWishlist(b2);
-        currentUser.addBookToWishlist(b3);
+        currentUser.addBookToWishlist(b3);*/
+
+        currentUser = Booked.getCurrentUser();
 
         recyclerView = (RecyclerView) findViewById(R.id.wishList);
 

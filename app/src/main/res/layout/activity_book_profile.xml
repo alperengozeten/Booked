@@ -65,9 +65,9 @@
             android:id="@+id/bookprofile_comments"
             android:layout_width="357dp"
             android:layout_height="200dp"
-            android:layout_marginTop="56dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.388"
+            app:layout_constraintHorizontal_bias="0.444"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/commentNum" />
 
@@ -101,11 +101,11 @@
             android:id="@+id/commentNum"
             android:layout_width="150dp"
             android:layout_height="27dp"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.08"
+            app:layout_constraintHorizontal_bias="0.122"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bookProfileRating" />
+            app:layout_constraintTop_toBottomOf="@+id/bookProfile_addTowWishlist" />
 
         <ImageView
             android:id="@+id/bookProfileImageView"
@@ -192,6 +192,19 @@
             app:layout_constraintHorizontal_bias="0.578"
             app:layout_constraintStart_toEndOf="@+id/Ztoa"
             app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
+
+        <Button
+            android:id="@+id/bookProfile_addTowWishlist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:backgroundTint="@color/blue_button"
+            android:text="Add to Wish List"
+            android:textColor="#FFFFFF"
+            app:layout_constraintEnd_toStartOf="@+id/bookProfileImageView"
+            app:layout_constraintHorizontal_bias="0.412"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bookProfileRating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

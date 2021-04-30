@@ -2,6 +2,7 @@ package com.example.booked;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -23,7 +27,8 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
 
     private ArrayList<Book> wishlist;
     private Context context;
-    private User currentUser;
+    private User currentUser; // current usera gerek yok gibi
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MyWishlistAdapter(User currentUser, ArrayList<Book> wishlist, Context context) {
         this.wishlist = wishlist;
@@ -50,21 +55,43 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
             public void onClick(View v) {
                 //TODO
                 // Buraya book'u ekle
-                Intent intent = new Intent(context, BookProfile.class);
-                context.startActivity(intent);
+
+                db.collection("bookProfileObj").document(wishlist.get(position).getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                       Booked.setCurrentBookProfile(documentSnapshot.toObject(com.example.booked.models.BookProfile.class));
+                        Intent intent = new Intent(context, BookProfile.class);
+                        context.startActivity(intent);
+                    }
+                });
+
             }
         });
 
         holder.wishListTrashBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("current wishlist",Booked.getCurrentUser().getWishlist().toString());
                 wishlist.remove(position);
                 notifyDataSetChanged();
-                Toast.makeText(context,"Book removed from Wishlist!",Toast.LENGTH_SHORT).show();
-                //currentUser.removeBookFromWishlist(wishlist.get(position));
+
+
+                saveUserDataBase(wishlist);
             }
         });
     }
+
+    private void saveUserDataBase(ArrayList<Book> wishlist)
+    {
+        db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).update("wishlist",wishlist)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(context,"The Book is removed from Wishlist!",Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
 
     @Override
     public int getItemCount() {

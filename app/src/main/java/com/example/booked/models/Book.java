@@ -45,9 +45,19 @@ public class Book {
         return picture;
     }
 
-    public boolean equals(Book otherBook) {
-        //pic ekle
-        return this.getBookName() == otherBook.getBookName();
+    @Override
+    public boolean equals(Object o) {
+
+        if( o == null ){
+            return false;
+        }
+        else if( o instanceof Book){
+            Book otherBook = (Book) o;
+            return this.getId().equals( otherBook.getId());
+        }
+        else {
+            return false;
+        }
 
     }
 

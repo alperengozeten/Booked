@@ -199,19 +199,14 @@ public class User{
         this.wishlist.add(b);
     }
 
-    public boolean removeBookFromWishlist(Book b) {
-        return this.wishlist.remove(b);
+    public void removeBookFromWishlist(int index) {
+         this.wishlist.remove(index);
     }
 
     public ArrayList<Book> getWishlist() {
         return wishlist;
     }
 
-    /**  void addPostToMyPosts(Post post)
-     {
-     posts.add(post);
-     }
-     */
 
     @Override
     public String toString() {
