@@ -21,7 +21,7 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class ChangePassword2 extends AppCompatActivity {
+public class ChangePassword extends AppCompatActivity {
 
 
     TextView mOldPassword;
@@ -44,7 +44,7 @@ public class ChangePassword2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:
@@ -143,9 +143,9 @@ public class ChangePassword2 extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if(!task.isSuccessful()){
-                                    Toast.makeText(ChangePassword2.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangePassword.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT).show();
                                 }else {
-                                    Toast.makeText(ChangePassword2.this, "Password Successfully Modified", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(ChangePassword.this, "Password Successfully Modified", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), SuccessfulPasswordChange.class);
                                     startActivity(intent);
                                     finish();
@@ -154,7 +154,7 @@ public class ChangePassword2 extends AppCompatActivity {
                         });
                     }
                     else {
-                        Toast.makeText(ChangePassword2.this, "Current password is wrong", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePassword.this, "Current password is wrong", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

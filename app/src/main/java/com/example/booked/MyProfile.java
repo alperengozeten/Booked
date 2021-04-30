@@ -7,11 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.ParcelFileDescriptor;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -31,10 +28,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.util.HashMap;
 
 public class MyProfile extends AppCompatActivity {
 
@@ -218,7 +211,7 @@ public class MyProfile extends AppCompatActivity {
         changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChangePassword2.class);
+                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
                 startActivity(intent);
             }
         });
@@ -304,7 +297,7 @@ public class MyProfile extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

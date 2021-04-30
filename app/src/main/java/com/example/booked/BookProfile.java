@@ -22,11 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.Adapter.CommentRecyclerAdapter;
 import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.models.Evaluation;
-import com.example.booked.models.User;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -259,7 +255,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

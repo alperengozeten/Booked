@@ -3,7 +3,6 @@ package com.example.booked;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -16,7 +15,7 @@ import android.widget.ImageButton;
 import com.example.booked.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Settings2 extends AppCompatActivity {
+public class Settings extends AppCompatActivity {
 
      ImageButton logOutImageBtn;
      ImageButton feedbackImageBtn;
@@ -46,7 +45,7 @@ public class Settings2 extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:
@@ -96,7 +95,7 @@ public class Settings2 extends AppCompatActivity {
         changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ChangePassword2.class);
+                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
                 startActivity(intent);
             }
         });
@@ -109,7 +108,7 @@ public class Settings2 extends AppCompatActivity {
         });
     }
     public void openFeedbackDialog(){
-        FeedbackDialog feedbackDialog = new FeedbackDialog(Settings2.this, currentUser.getName());
+        FeedbackDialog feedbackDialog = new FeedbackDialog(Settings.this, currentUser.getName());
         feedbackDialog.show(getSupportFragmentManager(),"feedback dialog");
 
     }

@@ -155,7 +155,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             @Override
             public void onClick(View v) {
                 //TODO
-                Intent intent = new Intent(getApplicationContext(),AddPost2.class);
+                Intent intent = new Intent(getApplicationContext(), AddPost.class);
                 startActivity(intent);
             }
         });
@@ -201,7 +201,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackgroundColor"
-    tools:context=".AddPost2">
+    tools:context=".AddPost">
 
     <TextView
         android:id="@+id/selectUniversityTextView2"

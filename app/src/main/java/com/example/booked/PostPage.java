@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
-import com.example.booked.models.Book;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,8 +26,6 @@ import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 
 public class PostPage extends AppCompatActivity implements ReportDialog.ReportypeListener {
@@ -183,7 +180,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

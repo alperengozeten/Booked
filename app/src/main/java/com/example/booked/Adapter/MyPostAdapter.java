@@ -14,7 +14,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.Booked;
-import com.example.booked.EditPost2;
+import com.example.booked.EditPost;
 import com.example.booked.PostPage;
 import com.example.booked.R;
 import com.example.booked.models.Post;
@@ -69,7 +69,7 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
             public void onClick(View v) {
                 Booked book = new Booked();
                 book.setCurrentPost(posts.get(position));
-                Intent intent = new Intent(context, EditPost2.class);
+                Intent intent = new Intent(context, EditPost.class);
                 context.startActivity(intent);
             }
         });

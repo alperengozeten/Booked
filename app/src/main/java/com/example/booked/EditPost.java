@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,9 +36,8 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class EditPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private EditText changeTitleEditText;
     private EditText changePriceEditText;
@@ -87,7 +85,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings2.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:
@@ -163,13 +161,13 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                         //Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
 
                     }
-                    Toast.makeText(EditPost2.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
-                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost2.this,android.R.layout.simple_spinner_item, allBookNames);
+                    Toast.makeText(EditPost.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
+                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost.this,android.R.layout.simple_spinner_item, allBookNames);
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
                     changeBookSpinner.setAdapter(bookAdapter);
 
-                    changeBookSpinner.setOnItemSelectedListener(EditPost2.this);
+                    changeBookSpinner.setOnItemSelectedListener(EditPost.this);
                     changeBookSpinner.setSelection(((ArrayAdapter) changeBookSpinner.getAdapter()).getPosition(currentPost.getBook().getBookName()));
                 }
             }
@@ -186,13 +184,13 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
             @Override
             public void onClick(View v) {
                 if ( changeTitleEditText.getText() == null || changeTitleEditText.getText().toString().equals("") ) {
-                    Toast.makeText(EditPost2.this, "Please enter title", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditPost.this, "Please enter title", Toast.LENGTH_SHORT).show();
                 }
                 else if ( changePriceEditText.getText() == null || changePriceEditText.getText().toString().equals("") ) {
-                    Toast.makeText(EditPost2.this, "Please enter a price", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditPost.this, "Please enter a price", Toast.LENGTH_SHORT).show();
                 }
                 else if ( changeDescriptionEditText.getText() == null || changeDescriptionEditText.getText().toString().equals("") ) {
-                    Toast.makeText(EditPost2.this, "Please enter a description", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditPost.this, "Please enter a description", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     uploadFile();
@@ -222,7 +220,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(EditPost2.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
                             // CURRENT POST IS NOT INITIALIZED YET; EDIT THE POST
                             //currentPost.addPicture(fileReference.getDownloadUrl().toString());
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -231,12 +229,12 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                     // PRICE I PARSE LA
                                     currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                                             Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId(), currentPost.getReports());
-                                    Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(EditPost.this,"Post created", Toast.LENGTH_SHORT).show();
 
                                     db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(EditPost.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
@@ -255,7 +253,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                     db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(EditPost2.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
                                         }
                                     });
                                 }
@@ -265,7 +263,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(EditPost2.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(EditPost.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     });
         } else {
@@ -276,7 +274,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
             db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(EditPost.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                 }
             });
 
@@ -295,7 +293,7 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
             db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(EditPost2.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
                 }
             });
         }
