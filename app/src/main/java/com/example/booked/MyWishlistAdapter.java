@@ -20,6 +20,7 @@ import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -49,6 +50,8 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
     @Override
     public void onBindViewHolder(@NonNull WishlistViewHolder holder, int position) {
         holder.wishListTextView.setText(wishlist.get(position).getBookName());
+
+        Picasso.get().load(wishlist.get(position).getPicture()).fit().into(holder.wishListImageView);
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

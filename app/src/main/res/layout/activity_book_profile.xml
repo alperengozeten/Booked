@@ -42,7 +42,7 @@
 
         <TextView
             android:id="@+id/bookProfileRating"
-            android:layout_width="192dp"
+            android:layout_width="194dp"
             android:layout_height="59dp"
             android:layout_marginTop="8dp"
             android:background="#81E7C5"
@@ -199,7 +199,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:backgroundTint="@color/blue_button"
-            android:text="Add to Wish List"
+            android:text="ADD TO WISHLIST"
             android:textColor="#FFFFFF"
             app:layout_constraintEnd_toStartOf="@+id/bookProfileImageView"
             app:layout_constraintHorizontal_bias="0.412"
