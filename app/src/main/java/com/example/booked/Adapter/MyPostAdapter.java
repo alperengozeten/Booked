@@ -1,4 +1,4 @@
-package com.example.booked;
+package com.example.booked.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,12 +8,15 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booked.Booked;
+import com.example.booked.EditPost2;
+import com.example.booked.PostPage;
+import com.example.booked.R;
 import com.example.booked.models.Post;
 import com.squareup.picasso.Picasso;
 

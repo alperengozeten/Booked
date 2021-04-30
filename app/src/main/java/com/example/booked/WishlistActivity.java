@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
-import com.example.booked.models.Book;
+import com.example.booked.Adapter.MyWishlistAdapter;
 import com.example.booked.models.User;
 
 public class WishlistActivity extends AppCompatActivity {

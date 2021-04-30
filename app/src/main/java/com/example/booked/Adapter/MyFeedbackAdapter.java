@@ -1,4 +1,4 @@
-package com.example.booked;
+package com.example.booked.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,11 +13,13 @@ import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.booked.Booked;
+import com.example.booked.OtherUsersProfile;
+import com.example.booked.R;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldPath;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 

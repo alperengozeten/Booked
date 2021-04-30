@@ -14,7 +14,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.booked.models.Book;
+import com.example.booked.Adapter.MyPostAdapter;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,7 +24,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class MyPosts extends AppCompatActivity {
 
