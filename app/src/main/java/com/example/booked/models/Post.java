@@ -187,6 +187,20 @@ public class Post implements Reportable, Comparable<Post> {
         this.theBook = theBook;
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if( o == null ){
+            return false;
+        }
+        else if( o instanceof Post){
+            Post otherPost = (Post) o;
+            return this.getId().equals( otherPost.getId());
+        }
+        else {
+            return false;
+        }
+    }
 
     @Override
     public String toString() {

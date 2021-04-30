@@ -21,6 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.booked.models.Book;
+import com.example.booked.models.BookProfile;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -68,6 +69,9 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
     private Uri postImageUri;
 
     private User currentUser;
+
+    private ArrayList<Post> offers;
+    private com.example.booked.models.BookProfile matchingBookProfile;
 
     private ImageView editPostPhotoImageView;
 
@@ -235,6 +239,25 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                                             Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
+
+                                    offers = new ArrayList<>();
+                                    db.collection("bookProfileObj").document(currentPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                            matchingBookProfile = documentSnapshot.toObject(BookProfile.class);
+                                            offers = matchingBookProfile.getOffers();
+                                        }
+                                    });
+
+                                    offers.remove(currentPost);
+                                    offers.add(currentPost);
+
+                                    db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(EditPost2.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
                                 }
                             });
                         }
@@ -254,6 +277,25 @@ public class EditPost2 extends AppCompatActivity implements AdapterView.OnItemSe
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(EditPost2.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            offers = new ArrayList<>();
+            db.collection("bookProfileObj").document(currentPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                @Override
+                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                    matchingBookProfile = documentSnapshot.toObject(BookProfile.class);
+                    offers = matchingBookProfile.getOffers();
+                }
+            });
+
+            offers.remove(currentPost);
+            offers.add(currentPost);
+
+            db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(EditPost2.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
                 }
             });
         }
