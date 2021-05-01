@@ -3,9 +3,14 @@ package com.example.booked;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -80,6 +85,8 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
     private Post newPost;
 
+    private static final String CHANNEL_ID = "add_post";
+
     /**
      * This method is in all pages which creates the top menu
      * @param menu
@@ -112,6 +119,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         return super.onOptionsItemSelected(item);
     }
 
+
     /**
      * This is the first method called when an instance of this class is created
      * @param savedInstanceState
@@ -124,6 +132,9 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Create notification channel
+        createNotificationChannel();
 
         // Initialize the database objects
         storageReference = FirebaseStorage.getInstance().getReference("images");
@@ -225,12 +236,38 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
                      Toast.makeText(AddPost.this, "Please enter a description", Toast.LENGTH_SHORT).show();
                 }
                 else {
+
                      uploadFile();
+
+                     notifyUser();
+
                      Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                      startActivity(intent);
                 }
             }
         });
+    }
+
+    private void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channelOne = new NotificationChannel(
+                    CHANNEL_ID, "channel 1", NotificationManager.IMPORTANCE_DEFAULT);
+            channelOne.setDescription( "Add Post Notification");
+
+            NotificationManager manager = getSystemService( NotificationManager.class);
+            manager.createNotificationChannel( channelOne);
+        }
+    }
+
+    private void notifyUser() {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this,CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("New Post!")
+                .setContentText("Your new post has been created and featured in Showroom.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+        mNotificationManager.notify(1, mBuilder.build());
     }
 
     /**
