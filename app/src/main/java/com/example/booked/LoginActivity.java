@@ -24,8 +24,15 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
+/**
+ * A class for the Login Screen
+ *
+ * @author NoExpection
+ * @version 2021 Spring
+ */
 public class LoginActivity extends AppCompatActivity {
 
+    // Properties
     EditText mEmail;
     EditText mPassword;
     Button mLoginButton;
@@ -38,6 +45,11 @@ public class LoginActivity extends AppCompatActivity {
 
     User currentUser;
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,10 +67,10 @@ public class LoginActivity extends AppCompatActivity {
 
         db = FirebaseFirestore.getInstance();
 
-//         if the user already signed in and not logged out it directs the user to main page
+        // if the user already signed in and not logged out it directs the user to main page.
         if (mAuth.getCurrentUser() != null) {
             if ( mAuth.getCurrentUser().isEmailVerified() ) {
-//                Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
+
                 db.collection("usersObj").document(mAuth.getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -69,13 +81,9 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), MainActivity.class));
                 finish();
             }
-//            else {
-//                Toast.makeText(LoginActivity.this, "Please verify your email address!", Toast.LENGTH_LONG).show();
-//            }
-//            startActivity(new Intent(com.example.booked.LoginActivity.this, MainActivity.class));
-//            finish();
         }
 
+        // Sets ClickListener object for Login button.
         mLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +91,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Sets ClickListener object for Sign Up button.
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,6 +100,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+        // Sets ClickListener object for Forgot Password button.
         mForgetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -100,10 +110,15 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+
+    /**
+     * This method validates entered input in order for the user to login.
+     */
     private void loginUser() {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
 
+        // if the email field is empty, show an error message.
         if (email.isEmpty() ) {
             mEmail.setError("Please enter your email address");
             mEmail.requestFocus();
@@ -113,28 +128,54 @@ public class LoginActivity extends AppCompatActivity {
             mEmail.setError( null);
         }
 
+        // if the password field is empty, show an error message.
         if (password.isEmpty() ) {
             mPassword.setError("Please enter a password");
             mPassword.requestFocus();
             return;
         }
+        else {
+            mPassword.setError( null);
+        }
 
+        // if the email address is not valid, show an error message.
         if ( !Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
             mEmail.setError("Please provide a valid email address!");
             mEmail.requestFocus();
             return;
         }
+        else {
+            mEmail.setError( null);
+        }
 
+        // if it is not an edu.tr type email address, show an error
+        if (!email.substring(email.indexOf("@")).contains(".edu.tr"))
+        {
+            mEmail.setError("This is not an email address with edu.tr extension");
+            mEmail.requestFocus();
+            return;
+        }
+        else {
+            mEmail.setError( null);
+        }
+
+        // if the password is less than 6 chars, show an error message
         if (password.length() < 6 ) {
-            mPassword.setError("Please enter a password minimum 6 characters long");
+            mPassword.setError("Your password should be minimum 6 characters long");
             mPassword.requestFocus();
             return;
         }
+        else {
+            mEmail.setError( null);
+        }
 
+        // Signs in the user with the given email and password if the user's
+        // email address is verified and pulls the user's data from the database.
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
+                    // if the user's email address is verified, it pulls user's data and transfers user to Main Page.
                     if ( mAuth.getCurrentUser().isEmailVerified() ) {
                         db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>()
                         {
@@ -162,17 +203,17 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), MainActivity.class)); // bunu user pulledın altına alabiliz
                         finish();
                     }
+                    // otherwise, set an error message.
                     else {
                         mAuth.signOut();
                         Toast.makeText(LoginActivity.this, "Please verify your email address!", Toast.LENGTH_LONG).show();
                     }
                 }
+                // otherwise, set an error message.
                 else{
                     Toast.makeText(LoginActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                 }
             }
         });
-
-
     }
 }

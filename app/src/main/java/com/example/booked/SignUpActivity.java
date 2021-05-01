@@ -25,22 +25,31 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * A class for the Register Screen
+ *
+ * @author NoExpection
+ * @version 2021 Spring
+ */
 public class SignUpActivity extends AppCompatActivity  {
 
+    // Properties
     EditText mEmail;
     EditText mUserName;
     EditText mPassword;
     Button mSignUpButton;
-    Button mBackToLoginButton;
     Button mGoBackToLogin;
 
     FirebaseAuth mAuth;
-
     FirebaseFirestore db;
 
     User user;
 
-
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,23 +66,7 @@ public class SignUpActivity extends AppCompatActivity  {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-
-        //delete this later
-        // if the user already signed in and not logged out it directs the user to main page
-//        if (mAuth.getCurrentUser() != null) {
-////            startActivity(new Intent(com.example.booked.SignUpActivity.this, MainActivity.class));
-////            finish();
-//
-//            if ( mAuth.getCurrentUser().isEmailVerified() ) {
-//                Toast.makeText(getApplicationContext(), "Logged in Successfully", Toast.LENGTH_LONG).show();
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                finish();
-//            }
-////            else {
-////                Toast.makeText(getApplicationContext(), "Please verify your email address!", Toast.LENGTH_LONG).show();
-////            }
-//        }
-
+        // Sets ClickListener object for Sign Up button.
         mSignUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -81,6 +74,7 @@ public class SignUpActivity extends AppCompatActivity  {
             }
         });
 
+        // Sets ClickListener object for Back to Login button.
         mGoBackToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,11 +84,16 @@ public class SignUpActivity extends AppCompatActivity  {
         });
     }
 
-    public void registerUser() {
+    /**
+     * Validates all of the input, registers a new user with the given email,
+     * username and password and saves the user's data to database.
+     */
+    private void registerUser() {
         String email = mEmail.getText().toString().trim();
         String password = mPassword.getText().toString().trim();
         String userName = mUserName.getText().toString().trim();
 
+        // if the email field is empty, show an error message.
         if (email.isEmpty() ) {
             mEmail.setError("Please enter your email address");
             mEmail.requestFocus();
@@ -104,15 +103,27 @@ public class SignUpActivity extends AppCompatActivity  {
             mEmail.setError( null);
         }
 
+        // if the username field is empty, show an error message.
         if (userName.isEmpty() ) {
             mUserName.setError("Please enter your user name");
             mUserName.requestFocus();
             return;
         }
         else {
-            mEmail.setError( null);
+            mUserName.setError( null);
         }
 
+        // if the password field is empty, show an error message.
+        if (password.isEmpty() ) {
+            mPassword.setError("Please enter a password");
+            mPassword.requestFocus();
+            return;
+        }
+        else {
+            mPassword.setError( null);
+        }
+
+        // if the email address is not valid, show an error message.
         if ( !Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
             mEmail.setError("Please provide a valid email address!");
             mEmail.requestFocus();
@@ -122,10 +133,10 @@ public class SignUpActivity extends AppCompatActivity  {
             mEmail.setError( null);
         }
 
-        //if it is not edu.tr mail, show an error
+        // if it is not an edu.tr type email address, show an error
         if (!email.substring(email.indexOf("@")).contains(".edu.tr"))
         {
-            mEmail.setError("This is not a edu.tr mail");
+            mEmail.setError("This is not an email address with edu.tr extension");
             mEmail.requestFocus();
             return;
         }
@@ -133,15 +144,7 @@ public class SignUpActivity extends AppCompatActivity  {
             mEmail.setError( null);
         }
 
-        if (password.isEmpty() ) {
-            mPassword.setError("Please enter a password");
-            mPassword.requestFocus();
-            return;
-        }
-        else {
-            mEmail.setError( null);
-        }
-
+        // if the password is less than 6 chars, show an error message
         if (password.length() < 6) {
             mPassword.setError("Please enter a password with at least 6 characters");
             mPassword.requestFocus();
@@ -151,15 +154,18 @@ public class SignUpActivity extends AppCompatActivity  {
             mEmail.setError( null);
         }
 
+        // create a user with the given email and password and add the user's data to database.
         mAuth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
+                // if task is successful, send an email verification link.
                 if ( task.isSuccessful()) {
 
                     FirebaseUser fUser = mAuth.getCurrentUser();
                     fUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
+                            // if the sending process successful, create a new user, add the data to database and transfer the data to the verification activity.
                             if (task.isSuccessful()) {
                                 user = new User( userName,email ,mAuth.getUid());
                                 Booked.setCurrentUser(user);
@@ -189,37 +195,18 @@ public class SignUpActivity extends AppCompatActivity  {
                                 startActivity(i);
                                 finish();
                             }
+                            // otherwise, show an error message.
                             else {
                                 Toast.makeText(com.example.booked.SignUpActivity.this, task.getException().getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
                     });
-
-//                    FirebaseDatabase.getInstance().getReference("Users")
-//                            .child(FirebaseAuth.getInstance().getCurrentUser()
-//                                    .getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if (task.isSuccessful()) {
-////                                Toast.makeText(com.example.booked.SignUpActivity.this, "User has been registered successfully!  Account has been created", Toast.LENGTH_LONG).show();
-////                                startActivity( new Intent( com.example.booked.SignUpActivity.this, MainActivity.class));
-//                                finish();
-//                            }
-//                            else {
-//                                Toast.makeText(com.example.booked.SignUpActivity.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
-//                            }
-//                        }
-//                    });
                 }
+                // otherwise, show an error message.
                 else {
                     Toast.makeText(com.example.booked.SignUpActivity.this, "Failed to register! Try again!", Toast.LENGTH_LONG).show();
                 }
             }
         });
     }
-
-
-
-
-
 }
