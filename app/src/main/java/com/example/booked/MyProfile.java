@@ -29,9 +29,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
-/**
- * MyProfile Page class
- */
 public class MyProfile extends AppCompatActivity {
 
     private Button editProfileBtn;
@@ -61,10 +58,6 @@ public class MyProfile extends AppCompatActivity {
 
     private User currentUser;
 
-    /**
-     * First method that is called when this activity is open
-     * @param savedInstanceState
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,13 +66,14 @@ public class MyProfile extends AppCompatActivity {
         // Get the current user from global class Booked
         if ( Booked.getCurrentUser() != null ) {
             currentUser = Booked.getCurrentUser();
+            //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }
         else {
             currentUser = new User("Error", "Error", "", "05392472224", "Hata.Myprofile da" );
             Booked.setCurrentUser(currentUser);
+            //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }
 
-        // Button that goes to Wishlist Page
         goWishlistBtn = (Button) findViewById(R.id.goWishlistBtn);
         goWishlistBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,16 +83,13 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Inıtialize other buttons
         editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
         changePasswordBtn = (Button) findViewById(R.id.changePasswordBtn);
         postsBtn = (Button) findViewById(R.id.postsBtn);
 
-        // Initialize image buttons
         facebookBtn = (ImageButton) findViewById(R.id.otherUsersProfileFacebookBtn);
         twitterBtn = (ImageButton) findViewById(R.id.otherUsersProfileTwitterBtn);
         instagramBtn = (ImageButton) findViewById(R.id.otherUsersProfileInstagramBtn);
@@ -106,14 +97,11 @@ public class MyProfile extends AppCompatActivity {
         phoneBtn = (ImageButton) findViewById(R.id.otherUsersProfilePhoneBtn);
         imageEditBtn = (ImageButton) findViewById(R.id.imageEditBtn);
 
-        // Initialize textviews
         profileUniversityNameTextView = (TextView) findViewById(R.id.otherUsersProfileUniversityNameTextView);
         profileUsernameTextView = (TextView) findViewById(R.id.otherUsersProfileUsernameTextView);
 
-        // Inıtialize imageview
         profilePhotoImageView = (ImageView) findViewById(R.id.usersProfilePhotoImageView);
 
-        // If the user has an avatar, then load it. Else, load an error photo
         if ( currentUser.getAvatar() != "" ) {
             //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
             Picasso.get().load(currentUser.getAvatar()).fit().into(profilePhotoImageView);
@@ -122,18 +110,17 @@ public class MyProfile extends AppCompatActivity {
             Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).fit().into(profilePhotoImageView);
         }
 
-        // Set the texts for the university and username
         profileUsernameTextView.setText(currentUser.getName().toString());
         profileUniversityNameTextView.setText(currentUser.getUniversity().toString());
 
-        // These three are for the database connections
+
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
         mAuth = FirebaseAuth.getInstance();
 
         db = FirebaseFirestore.getInstance();
 
-        // editProfileBtn directs the user to the Edit Profile page
+
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,7 +129,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // changePasswordBtn directs the user to the ChangePassword page
         changePasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,7 +137,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // postsBtn directs the user to the My Posts page
         postsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +145,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // facebookBtn opens up the dialog through openDialog() method
         facebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -172,7 +156,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // twitterBtn opens up the dialog through openDialog() method
         twitterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -184,7 +167,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // instagramBtn opens up the dialog through openDialog() method
         instagramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -196,7 +178,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // mailBtn opens up the dialog through openDialog() method
         mailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,7 +185,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // phoneBtn opens up the dialog through openDialog() method
         phoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +192,6 @@ public class MyProfile extends AppCompatActivity {
             }
         });
 
-        // imageEditBtn opens up the document picker
         imageEditBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -223,37 +202,28 @@ public class MyProfile extends AppCompatActivity {
         });
     }
 
-    /**
-     * This method is called when the document picker is called.
-     * @param requestCode
-     * @param resultCode
-     * @param data
-     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // Take the imageUri from the data
         if ( resultCode == Activity.RESULT_OK && data != null ) {
             imageUri = data.getData();
 
+            //BURADA URI'ı değiştirip database haline getirip user'a koy
 
-            // Upload image
+            //profilePhotoImageView.setImageURI(uri);
+
+            // UPLOAD IMAGE
             uploadFile();
 
-            // Load the image into imageview
             Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
         }
     }
 
-    /**
-     * This method is to upload the image file into firebase storage and update the user data in firebase firestore
-     */
     private void uploadFile() {
         if ( imageUri != null ) {
             StorageReference imageReference = storageReference.child("profile_photos/" + mAuth.getCurrentUser().getUid());
 
-            // Put the image file into firebase storage
             imageReference.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -262,17 +232,31 @@ public class MyProfile extends AppCompatActivity {
                             imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    // Set the url for the user
+                                    // BURADA FIRESTORE'DA GÜNCELLE
                                     currentUser.setAvatar(uri.toString());
 
-                                    //Update the firestore database
-                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser)
+                                   /** HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("username", currentUser.getName());
+                                    newData.put("email", currentUser.getEmail());
+                                    newData.put("avatar", currentUser.getAvatar());
+                                    newData.put("socialmedia", currentUser.getSocialMedia());
+                                    newData.put("phonenumber", currentUser.getPhoneNumber());
+                                    newData.put("university", currentUser.getUniversity());
+                                    newData.put("notifications", currentUser.isNotifications());
+                                    newData.put("isbanned", currentUser.isBanned());
+                                    newData.put("wishlist", currentUser.getWishlist());*/
+                                    /**db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
-                                    });
+                                    });*/
+                                    if (Booked.updateUserInDatabase(currentUser.getDocumentId(),currentUser))
+                                    {
+                                        Toast.makeText(MyProfile.this,"User uploaded to database!", Toast.LENGTH_LONG).show();
+                                    }
+
                                 }
                             });
                         }
@@ -288,20 +272,11 @@ public class MyProfile extends AppCompatActivity {
         }
     }
 
-    /**
-     * This method is to open the social media dialog
-     * @param socialMedia
-     */
     public void openDialog(String socialMedia) {
         SocialMediaDialog dialog = new SocialMediaDialog(socialMedia);
         dialog.show(getSupportFragmentManager(),"social media dialog");
     }
 
-    /**
-     * This method is in all pages which creates the top menu
-     * @param menu
-     * @return
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -309,11 +284,6 @@ public class MyProfile extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * This method is in all pages which creates the functionality of the top menu
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

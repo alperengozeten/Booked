@@ -71,12 +71,14 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 currentUser.setSocialMedia(2,instagram.getText().toString());
                 //social media?
 
+                Booked.updateUserInDatabase(currentUser.getDocumentId(), currentUser);
+                /*
                 db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(EditProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                     }
-                });
+                });*/
 
                 //open new page
                 Intent profile = new Intent(getApplicationContext(), MyProfile.class);

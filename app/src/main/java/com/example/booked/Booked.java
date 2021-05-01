@@ -1,11 +1,9 @@
 package com.example.booked;
 
 import android.app.Application;
-import android.net.Uri;
 
 import com.example.booked.models.Book;
 import com.example.booked.models.BookProfile;
-import com.example.booked.models.Evaluation;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,15 +20,6 @@ public class Booked extends Application {
     static Book currentBook;// = new Book("Example Book","picbook");
     private static User currentSeller;
 
-    private static String examplePath;
-
-    public static String getExamplePath() {
-        return examplePath;
-    }
-
-    public static void setExamplePath(String examplePath) {
-        Booked.examplePath = examplePath;
-    }
 
     public Booked() {
     }
@@ -71,6 +60,23 @@ public class Booked extends Application {
         Booked.currentBookProfile = currentBookProfile;
     }
 
+    public static boolean updatePostInDatabase(String documentId, Post newPost)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection("postsObj").document(documentId).set(newPost).isComplete();
+    }
+
+    public static boolean updateBookProfileInDatabase(String documentId, BookProfile newBookProfile)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection("bookProfileObj").document(documentId).set(newBookProfile).isComplete();
+    }
+
+    public static boolean updateUserInDatabase(String documentId, User newUser)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        return db.collection("usersObj").document(documentId).set(newUser).isComplete();
+    }
 
 
     public static void deletePost(Post p) {

@@ -30,17 +30,7 @@ public class WishlistActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //SİLİNECEK
-        /**Booked.setExample();
-        currentUser = Booked.getCurrentUser();
 
-        Book b1 = new Book("Sefiller", "");
-        Book b2 = new Book("Savaş ve Barış", "");
-        Book b3 = new Book("Suç ve Ceza","");
-
-        currentUser.addBookToWishlist(b1);
-        currentUser.addBookToWishlist(b2);
-        currentUser.addBookToWishlist(b3);*/
 
         currentUser = Booked.getCurrentUser();
 
