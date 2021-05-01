@@ -19,7 +19,8 @@
         app:layout_constraintBottom_toTopOf="@+id/notificationBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableLeft="@drawable/feedback_icon"/>
 
 
     <Button
@@ -33,7 +34,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableLeft="@drawable/logout_icon"/>
 
     <Button
         android:id="@+id/changePasswordBtn"
@@ -46,7 +48,8 @@
         app:layout_constraintBottom_toTopOf="@+id/feedbackBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableLeft="@drawable/change_password_icon"/>
 
     <Button
         android:id="@+id/notificationBtn"
@@ -59,7 +62,8 @@
         app:layout_constraintBottom_toTopOf="@+id/logOutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:drawableLeft="@drawable/notification_icon"/>
 
     <ImageView
         android:id="@+id/imageView"
