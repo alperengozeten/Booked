@@ -36,11 +36,11 @@
 
     <Button
         android:id="@+id/checkVerificationBtn"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
         android:background="@color/button_color"
         android:hint="Check Verification"
         android:textColorHint="@color/white"
@@ -52,11 +52,11 @@
 
     <Button
         android:id="@+id/resendCodeBtn"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@color/forgot_password"
         android:hint="Resend"
         android:textColorHint="@color/white"
@@ -67,11 +67,11 @@
 
     <Button
         android:id="@+id/goToLoginPageBtn"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="50dp"
         android:background="@color/blue_button"
         android:hint="Go to login"
         android:textColorHint="@color/white"

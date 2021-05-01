@@ -24,7 +24,7 @@
         android:id="@+id/newBookTitleEditText"
         android:layout_width="275dp"
         android:layout_height="42dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="75dp"
         android:ems="10"
         android:hint="Enter book title"
         android:inputType="textPersonName"
@@ -34,9 +34,9 @@
 
     <Button
         android:id="@+id/addNewBookBtn"
-        android:layout_width="105dp"
-        android:layout_height="49dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="175dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="100dp"
         android:background="@color/blue_button"
         android:text="Add The Book"
         android:textColor="@color/white"

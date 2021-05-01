@@ -7,32 +7,48 @@
     android:background="@color/primaryBackgroundColor"
     tools:context=".AdminPanel">
 
-    <Button
-        android:id="@+id/adminpanel_reportedpost"
-        android:layout_width="240dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="160dp"
-        android:text="Check Reported Posts"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="400dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/admin_page"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/adminpanel_reportedpost"
+        android:layout_width="140pt"
+        android:layout_height="25pt"
+        android:layout_marginTop="80dp"
+        android:background="@color/blueBackgroundColor"
+        android:text="Check Reported Posts"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
         android:id="@+id/adminpanel_createbook"
-        android:layout_width="240dp"
-        android:layout_height="0dp"
+        android:layout_width="140pt"
+        android:layout_height="25pt"
         android:layout_marginTop="114dp"
+        android:background="@color/forgot_password"
         android:text="Create Book"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminpanel_reportedpost" />
 
     <Button
         android:id="@+id/adminpanel_feedback"
-        android:layout_width="240dp"
-        android:layout_height="0dp"
+        android:layout_width="140pt"
+        android:layout_height="25pt"
         android:layout_marginTop="114dp"
         android:text="FeedBacks"
+        android:textColor="@color/white"
+        android:background="@color/blue_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/adminpanel_createbook" />

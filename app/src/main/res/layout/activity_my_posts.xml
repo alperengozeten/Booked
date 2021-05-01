@@ -7,34 +7,23 @@
     android:background="@color/primaryBackgroundColor"
     tools:context=".MyPosts">
 
-    <TextView
+    <ImageView
         android:id="@+id/textView9"
-        android:layout_width="220dp"
-        android:layout_height="90dp"
-        android:gravity="center"
-        android:paddingLeft="5dp"
-        android:text="My Posts"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:drawableStartCompat="@drawable/ic_iconfinder_send_online_post_start_launch_2205231_1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="250dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/my_posts"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.035" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/myPostsAddPostBtn"
         android:layout_width="75dp"
-        android:layout_height="69dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="4dp"
+        android:layout_height="75dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="30dp"
         android:background="@color/primaryBackgroundColor"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toEndOf="@+id/textView9"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_post_add" />
@@ -43,18 +32,17 @@
         android:id="@+id/postList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toTopOf="@+id/divider2" />
 
     <View
         android:id="@+id/divider2"
         android:layout_width="match_parent"
-        android:layout_height="3dp"
-        android:layout_marginTop="19dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="10dp"
         android:background="?android:attr/listDivider"
         android:backgroundTint="#1C8ABE"
         android:backgroundTintMode="screen"

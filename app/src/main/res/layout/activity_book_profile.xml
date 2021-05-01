@@ -86,7 +86,7 @@
 
         <Button
             android:id="@+id/bookprofile_evaluate"
-            android:layout_width="match_parent"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:background="@color/blue_button"
@@ -110,9 +110,9 @@
 
         <ImageView
             android:id="@+id/bookProfileImageView"
-            android:layout_width="135dp"
-            android:layout_height="175dp"
-            android:layout_marginStart="24dp"
+            android:layout_width="149dp"
+            android:layout_height="161dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/bookProfileRating"
             app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle"
@@ -159,10 +159,9 @@
             android:id="@+id/bookProfile_lowToHigh"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
             android:layout_marginTop="28dp"
             android:text="Low to high"
-            app:layout_constraintStart_toStartOf="@+id/bookprofile_evaluate"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookprofile_evaluate" />
 
         <Button
