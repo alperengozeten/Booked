@@ -34,7 +34,6 @@ public class MyProfile extends AppCompatActivity {
     private Button editProfileBtn;
     private Button changePasswordBtn;
     private Button postsBtn;
-    private Button transientBtn;
     private Button goWishlistBtn;
 
     private ImageButton facebookBtn;
@@ -50,7 +49,6 @@ public class MyProfile extends AppCompatActivity {
     private ImageView profilePhotoImageView;
 
     private Uri imageUri;
-    private Bitmap image;
 
     private FirebaseAuth mAuth;
 
@@ -61,97 +59,20 @@ public class MyProfile extends AppCompatActivity {
     private User currentUser;
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if ( resultCode == Activity.RESULT_OK && data != null ) {
-            imageUri = data.getData();
-
-            //BURADA URI'ı değiştirip database haline getirip user'a koy
-
-            //profilePhotoImageView.setImageURI(uri);
-
-            // UPLOAD IMAGE
-            uploadFile();
-
-            Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
-        }
-    }
-
-    private void uploadFile() {
-        if ( imageUri != null ) {
-            StorageReference imageReference = storageReference.child("profile_photos/" + mAuth.getCurrentUser().getUid());
-
-            imageReference.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(MyProfile.this,"Upload succesful!",Toast.LENGTH_SHORT).show();
-                            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-                                    // BURADA FIRESTORE'DA GÜNCELLE
-                                    currentUser.setAvatar(uri.toString());
-
-                                   /** HashMap<String,Object> newData = new HashMap<>();
-                                    newData.put("username", currentUser.getName());
-                                    newData.put("email", currentUser.getEmail());
-                                    newData.put("avatar", currentUser.getAvatar());
-                                    newData.put("socialmedia", currentUser.getSocialMedia());
-                                    newData.put("phonenumber", currentUser.getPhoneNumber());
-                                    newData.put("university", currentUser.getUniversity());
-                                    newData.put("notifications", currentUser.isNotifications());
-                                    newData.put("isbanned", currentUser.isBanned());
-                                    newData.put("wishlist", currentUser.getWishlist());*/
-                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-
-
-                                }
-                            });
-                        }
-                    })
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(MyProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-        } else {
-            Toast.makeText(this,"No file selected",Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_profile);
 
-        // GET THIS DATA FROM THE DATABASE
-
+        // Get the current user from global class Booked
         if ( Booked.getCurrentUser() != null ) {
             currentUser = Booked.getCurrentUser();
             //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }
         else {
-            currentUser = new User("Alperen", "(bunu goruyosan bi sıkıntı var demek)", "", "05392472224", "Hata.Myprofile da" );
+            currentUser = new User("Error", "Error", "", "05392472224", "Hata.Myprofile da" );
             Booked.setCurrentUser(currentUser);
             //Toast.makeText(this,"uri:" + currentUser.getAvatar(),Toast.LENGTH_LONG).show();
         }
-
-        transientBtn = (Button) findViewById(R.id.transientBtn);
-        transientBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),OtherUsersProfile.class);
-                startActivity(intent);
-            }
-        });
 
         goWishlistBtn = (Button) findViewById(R.id.goWishlistBtn);
         goWishlistBtn.setOnClickListener(new View.OnClickListener() {
@@ -179,7 +100,7 @@ public class MyProfile extends AppCompatActivity {
         profileUniversityNameTextView = (TextView) findViewById(R.id.otherUsersProfileUniversityNameTextView);
         profileUsernameTextView = (TextView) findViewById(R.id.otherUsersProfileUsernameTextView);
 
-        profilePhotoImageView = (ImageView) findViewById(R.id.otherUsersProfilePhotoImageView);
+        profilePhotoImageView = (ImageView) findViewById(R.id.usersProfilePhotoImageView);
 
         if ( currentUser.getAvatar() != "" ) {
             //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
@@ -279,6 +200,73 @@ public class MyProfile extends AppCompatActivity {
                 startActivityForResult(intent,1);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( resultCode == Activity.RESULT_OK && data != null ) {
+            imageUri = data.getData();
+
+            //BURADA URI'ı değiştirip database haline getirip user'a koy
+
+            //profilePhotoImageView.setImageURI(uri);
+
+            // UPLOAD IMAGE
+            uploadFile();
+
+            Picasso.get().load(imageUri).fit().into(profilePhotoImageView);
+        }
+    }
+
+    private void uploadFile() {
+        if ( imageUri != null ) {
+            StorageReference imageReference = storageReference.child("profile_photos/" + mAuth.getCurrentUser().getUid());
+
+            imageReference.putFile(imageUri)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(MyProfile.this,"Upload succesful!",Toast.LENGTH_SHORT).show();
+                            imageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                                @Override
+                                public void onSuccess(Uri uri) {
+                                    // BURADA FIRESTORE'DA GÜNCELLE
+                                    currentUser.setAvatar(uri.toString());
+
+                                   /** HashMap<String,Object> newData = new HashMap<>();
+                                    newData.put("username", currentUser.getName());
+                                    newData.put("email", currentUser.getEmail());
+                                    newData.put("avatar", currentUser.getAvatar());
+                                    newData.put("socialmedia", currentUser.getSocialMedia());
+                                    newData.put("phonenumber", currentUser.getPhoneNumber());
+                                    newData.put("university", currentUser.getUniversity());
+                                    newData.put("notifications", currentUser.isNotifications());
+                                    newData.put("isbanned", currentUser.isBanned());
+                                    newData.put("wishlist", currentUser.getWishlist());*/
+                                    db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(MyProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                        }
+                                    });
+
+
+                                }
+                            });
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(MyProfile.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        }
+                    });
+        } else {
+            Toast.makeText(this,"No file selected",Toast.LENGTH_SHORT).show();
+        }
     }
 
     public void openDialog(String socialMedia) {

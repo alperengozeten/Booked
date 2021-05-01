@@ -13,6 +13,7 @@
         android:layout_width="160dp"
         android:layout_height="32dp"
         android:layout_marginTop="40dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/box"
         android:backgroundTintMode="screen"
         android:gravity="center"
@@ -64,6 +65,7 @@
         android:layout_width="160dp"
         android:layout_height="32dp"
         android:layout_marginTop="130dp"
+        android:layout_marginEnd="8dp"
         android:background="@drawable/box"
         android:backgroundTintMode="screen"
         android:gravity="center"
@@ -75,7 +77,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/otherUsersProfilePhotoImageView"
+        android:id="@+id/usersProfilePhotoImageView"
         android:layout_width="180dp"
         android:layout_height="200dp"
         android:background="@drawable/image_background"
@@ -172,16 +174,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
-
-    <Button
-        android:id="@+id/transientBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="52dp"
-        android:text="Button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileFacebookBtn" />
 
     <Button
         android:id="@+id/goWishlistBtn"
