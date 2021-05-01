@@ -2,6 +2,9 @@ package com.example.booked;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.booked.models.User;
@@ -64,7 +68,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 // E-mail kaldır, username yap
                 currentUser.setUniversity(selectedUniversity);
                 currentUser.setPhoneNumber(telephone.getText().toString());
-                currentUser.setUserName(username.getText().toString());
+                //currentUser.setUserName(username.getText().toString());
 
                 currentUser.setSocialMedia(0,facebook.getText().toString());
                 currentUser.setSocialMedia(1,twitter.getText().toString());
@@ -119,9 +123,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         if (currentUser.getSocialMedia().get(2) != null) {
                 instagram.setText(currentUser.getSocialMedia().get(2));
         }
-
-
-
     }
 
     @Override
@@ -134,5 +135,37 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
+    }
+
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_menu, menu);
+        return true;
+    }
+
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_icon:
+                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                startActivity( settingsIntent);
+                return true;
+            case android.R.id.home:
+                Intent bookIntent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(bookIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

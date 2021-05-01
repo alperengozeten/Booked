@@ -79,7 +79,7 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
         // Load the image
         Picasso.get().load(wishlist.get(position).getPicture()).fit().into(holder.wishListImageView);
 
-        // When the item is clicked, it will lead to the Post page of that post
+        // When the item is clicked, it will lead to the BookProfile page of that book
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
