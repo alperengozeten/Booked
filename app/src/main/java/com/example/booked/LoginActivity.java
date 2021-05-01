@@ -75,11 +75,12 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         Booked.setCurrentUser(documentSnapshot.toObject(User.class));
+                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                        finish();
                     }
                 });
 
-                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                finish();
+
             }
         }
 

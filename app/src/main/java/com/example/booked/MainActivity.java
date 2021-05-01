@@ -76,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Initialize the admin panel button and set a listener to it
         adminPanel = (Button) findViewById(R.id.adminNewBookBtn);
+
         adminPanel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +84,10 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        if( !(Booked.getCurrentUser().isAdmin()))
+        {
+            adminPanel.setVisibility(View.INVISIBLE);
+        }
 
         // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);

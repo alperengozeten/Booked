@@ -14,7 +14,7 @@ public class User{
     boolean notifications;
     boolean isBanned;
     ArrayList<Book> wishlist;
-
+    boolean admin;
 
 
     public boolean isNotifications() {
@@ -42,6 +42,7 @@ public class User{
         this.wishlist = new ArrayList<>();
         this.notifications = true;
         this.isBanned = false;
+        admin = false;
     }
 
     public User(String email, String userName) {
@@ -57,6 +58,7 @@ public class User{
         this.wishlist = new ArrayList<>();
         this.notifications = true;
         this.isBanned = false;
+        admin = false;
     }
 
     public User(String userName, String email, String avatar, String phoneNumber, String university )
@@ -73,6 +75,7 @@ public class User{
         this.notifications = true;
         this.isBanned = false;
         this.wishlist = new ArrayList<>();
+        admin = false;
     }
 
     public User(String userName, String email, String avatar, ArrayList<String> socialMedia, String phoneNumber, String university, boolean notifications, boolean isBanned, ArrayList<Book> wishlist) {
@@ -88,6 +91,7 @@ public class User{
         this.notifications = notifications;
         this.isBanned = isBanned;
         this.wishlist = wishlist;
+        admin = false;
     }
 
     public String getDocumentId() {
@@ -102,21 +106,9 @@ public class User{
         this.userName = userName;
     }
 
-    //bunu silelim
-    public void clearSocialMedia() {
-        this.socialMedia.clear();
-    }
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    //bunu silelim
-    public void addSocialMedia(String socialMediaProfileLink ) {
-        //add degil set yapalım, int position girsin
-        //socialMedia.set(position, socialMediaProfileLink);
-
-        socialMedia.add( socialMediaProfileLink);
     }
 
 
@@ -124,7 +116,13 @@ public class User{
         socialMedia.set(position, socialMediaProfileLink);
     }
 
+    public boolean isAdmin() {
+        return admin;
+    }
 
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
 
     // Gereksiz gibi duruyo zaten setPhoneNumber var
     public void addPhoneNumber() {
