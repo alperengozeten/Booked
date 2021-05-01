@@ -39,8 +39,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * This is the class of the AddPost page
+ */
 public class AddPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    // Properties
     private EditText enterTitleEditText;
     private EditText setPriceEditText;
     private EditText addDescriptionEditText;
@@ -58,8 +62,6 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
     private StorageReference storageReference;
 
-    private Post currentPost;
-
     private User currentUser;
 
     private FirebaseFirestore db;
@@ -76,8 +78,13 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
     private Uri postImageUri;
 
-    Post newPost;
+    private Post newPost;
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -85,6 +92,11 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -100,20 +112,27 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This is the first method called when an instance of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post2);
 
+        // Initialize the database objects
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
         db = FirebaseFirestore.getInstance();
 
+        // Set the photoPicked to false as default
         photoPicked = false;
 
+        // Pull the user from the Booked global class
         currentUser = Booked.getCurrentUser();
-        Toast.makeText(this, "username:" + currentUser.getName(), Toast.LENGTH_LONG).show();
 
+        // Pull two arraylists, allBooks and allBookNames from the database
         allBooks = new ArrayList<>();
         allBookNames = new ArrayList<>();
         db.collection("booksObj").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -122,6 +141,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
                 for(QueryDocumentSnapshot documentSnapshots: queryDocumentSnapshots)
                 {
+                    // Pull the book and add to arraylists
                     Book aBookFromBase = documentSnapshots.toObject(Book.class);
                     Log.d("name",aBookFromBase.getBookName());
                     allBookNames.add(aBookFromBase.getBookName());
@@ -135,7 +155,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
 
-                    //Toast.makeText(AddPost2.this,"on complete de",Toast.LENGTH_LONG).show();
+                    // When the process is completed, set the adapter for the bookNameSpinner which displays all the book names
                     ArrayAdapter<CharSequence> bookAdapter = new ArrayAdapter(AddPost.this,android.R.layout.simple_spinner_item, allBookNames);
 
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -147,17 +167,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
             }
         });
 
-                /**
-                    Toast.makeText(AddPost2.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
-                    ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(AddPost2.this,android.R.layout.simple_spinner_item, allBookNames);
-                    bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    bookNameSpinner.setAdapter(bookAdapter);
-
-                    bookNameSpinner.setOnItemSelectedListener(AddPost2.this);
-                }
-            }
-        });*/
-
+        // Initialize all the EditText, Spinner, Button and ImageView objects
         enterTitleEditText = (EditText) findViewById(R.id.enterTitleEditText);
         setPriceEditText = (EditText) findViewById(R.id.enterPriceEditText);
         addDescriptionEditText = (EditText) findViewById(R.id.addDescriptionEditText);
@@ -170,19 +180,23 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
         addPostPhotoImageView = (ImageView) findViewById(R.id.addPostPhotoImageView);
 
+        // Create the adapters for the university and course options
         ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(this,R.array.universities, android.R.layout.simple_spinner_item);
         ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this,R.array.courses, android.R.layout.simple_spinner_item);
 
+        // Set drop down view resource for the two adapters
         universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        // Set the adapters for the spinners
         selectUniversitySpinner.setAdapter(universityAdapter);
         selectCourseSpinner.setAdapter(courseAdapter);
 
+        // Set listeners (this class in this case since it implements the AdapterView.OnItemSelectedListener interface) for the spinners
         selectUniversitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
         selectCourseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
-
+        // When the ImageView is clicked, open the file chooser
         addPostPhotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +204,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
             }
         });
 
+        // When submit button is clicked upload the changes to database
         submitPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,6 +229,9 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         });
     }
 
+    /**
+     * This method uploads the changes to both storage and firestore databases
+     */
     private void uploadFile() {
         if ( postImageUri != null ) {
             key = randomKeyGenerator(11);
@@ -227,31 +245,19 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    // PRICE I PARSE LA
+                                    // Create a new post
                                     newPost = new Post(enterTitleEditText.getText().toString().trim(), addDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                                             Integer.parseInt(setPriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, key);
                                     Toast.makeText(AddPost.this,"Post created", Toast.LENGTH_SHORT).show();
                                     Booked.getCurrentBookProfile().addPost(newPost);
 
-                                    //burada key i çıkarılabilir daha sonra yukarısıyla senkronize edilerek , şuan dokunmadım
+                                    // Update the database through Booked global class
                                     Booked.updatePostInDatabase(key, newPost);
-                                    /**db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AddPost.this,"Post uploaded to database!", Toast.LENGTH_LONG).show();
-                                        }
-                                    });*/
-
-
-
                                     addToOffers();
 
 
                                 }
                             });
-
-                            // CURRENT POST IS NOT INITIALIZED YET; MAKE NEW POST
-                            //currentPost.addPicture(fileReference.getDownloadUrl().toString());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -265,22 +271,18 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         }
     }
 
+    /**
+     * This method adds the created post to the related BookProfile
+     */
     private void addToOffers()
     {
         if (Booked.updateBookProfileInDatabase(newPost.getBook().getId(), Booked.getCurrentBookProfile()))
             Toast.makeText(AddPost.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
-
-        /**db.collection("bookProfileObj").document(newPost.getBook().getId()).set(Booked.getCurrentBookProfile())
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-
-                    }
-                });*/
     }
 
-
-
+    /**
+     * This method opens the file picker
+     */
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -288,19 +290,34 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         startActivityForResult(intent,1);
     }
 
+    /**
+     * This method is called when another application is opened. In our case it's file picker.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if ( requestCode == 1 && resultCode == RESULT_OK && data != null ) {
+            // Set the related image data
             postImageUri = data.getData();
 
             photoPicked = true;
 
+            // Load the image
             Picasso.get().load(postImageUri).into(addPostPhotoImageView);
         }
     }
 
+    /**
+     * This method checks the origin of the action and holds the data depending on which spinner it is
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         if ( parent.getId() == selectUniversitySpinner.getId() ) {
@@ -329,7 +346,10 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-    // function to generate a random string of length n
+
+    /**
+     * This is a function to generate random key
+     */
     private String randomKeyGenerator(int n)
     {
 

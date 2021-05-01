@@ -37,8 +37,12 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * This is the class of the EditPost page
+ */
 public class EditPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
+    // Properties
     private EditText changeTitleEditText;
     private EditText changePriceEditText;
     private EditText changeDescriptionEditText;
@@ -55,7 +59,6 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
     private StorageReference storageReference;
     private FirebaseFirestore db;
 
-    //bunlar pekKUllanılmamaış
     private ArrayList<Book> allBooks;
     private ArrayList<String> allBookNames;
     private String selectedBookName;
@@ -73,7 +76,11 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
 
     private ImageView editPostPhotoImageView;
 
-
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -81,6 +88,11 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -97,43 +109,30 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if ( requestCode == 1 && resultCode == RESULT_OK && data != null ) {
-            postImageUri = data.getData();
-
-            Picasso.get().load(postImageUri).into(editPostPhotoImageView);
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post2);
 
-
-
+        // Take the currentPost and currentUser from the global class Booked
         currentPost = Booked.getCurrentPost();
         currentUser = Booked.getCurrentUser();
 
         setEditTextFields();
         setSpinners();
+
+        // Initialize the buttons
         applyChangesBtn = (Button) findViewById(R.id.applyChangePostBtn);
         editPostPhotoImageView = (ImageView) findViewById(R.id.editPostPhotoImageView);
 
-
-
-
-        // FILL MUST BE AFTER
+        // Fill the related textviews, spinners, etc.
         fill();
 
+        // Initialize the database objects
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
         db = FirebaseFirestore.getInstance();
 
+        // Pull two arraylists, allBooks and allBookNames from the database
         allBooks = new ArrayList<>();
         allBookNames = new ArrayList<>();
         db.collection("booksObj").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -141,12 +140,13 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
                     for ( DocumentSnapshot document : task.getResult() ) {
+
+                        // Pull the book and add to arraylists
                         allBooks.add(document.toObject(Book.class));
                         allBookNames.add(document.toObject(Book.class).getBookName());
-
-                        //Book newBook = new Book(document.getString("title"), document.getString("picture"), document.getString("id"));
-
                     }
+
+                    // Set the adapter and listener
                     Toast.makeText(EditPost.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
                     ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost.this,android.R.layout.simple_spinner_item, allBookNames);
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -159,6 +159,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
             }
         });
 
+        // When the ImageView is clicked, open the file chooser
         editPostPhotoImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,6 +167,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
             }
         });
 
+        // When the apply button is clicked, update the information in the database
         applyChangesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -179,8 +181,8 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                     Toast.makeText(EditPost.this, "Please enter a description", Toast.LENGTH_SHORT).show();
                 }
                 else {
+                    // Update
                     uploadFile();
-                    //changeBookProfileOffers(offers);
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
@@ -189,6 +191,9 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
 
     }
 
+    /**
+     * Fills the EditTexts
+     */
     private void setEditTextFields()
     {
         changeTitleEditText = (EditText) findViewById(R.id.changeTitleEditText);
@@ -197,6 +202,9 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
 
     }
 
+    /**
+     * Initializes the spinners
+     */
     private void setSpinners()
     {
         changeUniversitySpinner = (Spinner) findViewById(R.id.changeUniversitySpinner);
@@ -215,12 +223,11 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
 
         changeUniversitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
         changeCourseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-
     }
 
-
-
-
+    /**
+     * Fills the spinners, ImageView, and EditTexts with the related information
+     */
     private void fill() {
         changeTitleEditText.setText(currentPost.getTitle());
         changeDescriptionEditText.setText(currentPost.getDescription());
@@ -231,6 +238,9 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         Picasso.get().load(currentPost.getPicture()).fit().into(editPostPhotoImageView);
     }
 
+    /**
+     * Uploads information to database
+     */
     private void uploadFile() {
         if ( postImageUri != null ) {
             StorageReference fileReference = storageReference.child("posts_pictures/" + currentPost.getId());
@@ -240,16 +250,15 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(EditPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
-                            // CURRENT POST IS NOT INITIALIZED YET; EDIT THE POST
-                            //currentPost.addPicture(fileReference.getDownloadUrl().toString());
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
-                                    // PRICE I PARSE LA
+                                    // Create a new post
                                     currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                                             Integer.parseInt(changePriceEditText.getText().toString().trim()), uri.toString(), selectedBook, currentUser, currentPost.getId(), currentPost.getReports());
                                     Toast.makeText(EditPost.this,"Post created", Toast.LENGTH_SHORT).show();
 
+                                    // Update the posts
                                     db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -257,7 +266,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                                         }
                                     });
 
-
+                                    // Update the bookProfiles
                                     db.collection("bookProfileObj").document(currentPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                                         @Override
                                         public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -268,8 +277,6 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                                             changeBookProfileOffers(offers);
                                         }
                                     });
-
-
                                 }
                             });
                         }
@@ -281,9 +288,9 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                         }
                     });
         } else {
+            // Make the same if the user didn't pick an image
             currentPost = new Post(changeTitleEditText.getText().toString().trim(), changeDescriptionEditText.getText().toString().trim(), selectedUniversity,selectedCourse,
                     Integer.parseInt(changePriceEditText.getText().toString().trim()), currentPost.getPicture(), selectedBook, currentUser, currentPost.getId(), currentPost.getReports());
-            //Toast.makeText(EditPost2.this,"Post created", Toast.LENGTH_SHORT).show();
 
             db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -307,6 +314,9 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         }
     }
 
+    /**
+     * This method opens the file picker
+     */
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -314,6 +324,31 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         startActivityForResult(intent,1);
     }
 
+    /**
+     * This method is called when another application is opened. In our case it's file picker.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if ( requestCode == 1 && resultCode == RESULT_OK && data != null ) {
+            // Set the related image data
+            postImageUri = data.getData();
+
+            // Load the image
+            Picasso.get().load(postImageUri).into(editPostPhotoImageView);
+        }
+    }
+
+    /**
+     * This updates the offers (posts) part of the BookProfiles
+     * @param offers
+     */
     private void changeBookProfileOffers(ArrayList<Post> offers )
     {
         db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -326,6 +361,13 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
     }
 
 
+    /**
+     * This method checks the origin of the action and holds the data depending on which spinner it is
+     * @param parent
+     * @param view
+     * @param position
+     * @param id
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
