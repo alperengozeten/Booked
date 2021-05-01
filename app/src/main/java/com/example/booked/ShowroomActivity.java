@@ -28,6 +28,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * ShowroomActivity page Class
+ */
 public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
 
     private RecyclerView recyclerView;
@@ -50,60 +53,54 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
 
     private Showroom showroom;
 
+    /**
+     * This method is called first when this activity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_showroom);
 
-
+        // Initialize the database instance
         db = FirebaseFirestore.getInstance();
 
+        // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the recycler view
         recyclerView = (RecyclerView) findViewById(R.id.showroomPostList);
-
         recyclerView.setHasFixedSize(true);
 
         // Set the layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        // Pull the posts from the database
         posts = new ArrayList<>();
-
-
         db.collection("postsObj").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if ( task.isSuccessful() ) {
                     for (DocumentSnapshot document : task.getResult() ) {
 
+                        // Add the post to the posts array
                         posts.add(document.toObject(Post.class));
-
-                        /**HashMap<String, Object> hashBook = (HashMap<String, Object>) document.get("book");
-                        Book postBook = new Book( (String) hashBook.get("bookName"), (String) hashBook.get("picture"), (String) hashBook.get("id"));
-
-                        HashMap<String, Object> hashUser = (HashMap<String, Object>) document.get("user");
-                        User postUser = new User((String) hashUser.get("name"), (String) hashUser.get("email"), (String) hashUser.get("avatar"), (ArrayList<String>) hashUser.get("socialMedia"),
-                                (String) hashUser.get("phoneNumber"), (String) hashUser.get("university"), (boolean) hashUser.get("notifications"),
-                                (boolean) hashUser.get("banned"), (ArrayList<Book>) hashUser.get("wishlist"));
-
-                        Post postToBeAdded = new Post(document.getString("title"), document.getString("description"), document.getString("university"),
-                                document.getString("course"), document.getLong("price").intValue(), document.getString("picture"), postBook,
-                                postUser, document.getString("id"));
-
-
-                        posts.add(postToBeAdded);*/
                     }
                     Toast.makeText(ShowroomActivity.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
 
+                    // Create the adapters
+                    showroom = new Showroom(posts);
                     mAdapter = new MyShowroomPostAdapter( showroom, ShowroomActivity.this);
                     recyclerView.setAdapter(mAdapter);
 
+                    // This sets the search views to make the search
                     searchView = (SearchView) findViewById(R.id.showroomSearchView);
                     searchView.setImeOptions(EditorInfo.IME_ACTION_DONE);
                     searchView.setIconifiedByDefault(false);
 
+                    // Set filter listener
                     searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                         @Override
                         public boolean onQueryTextSubmit(String query) {
@@ -120,22 +117,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             }
         });
 
-
-        // TO BE REPLACED WITH THE DATABASE
-        //User currentUser = new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University");
-        //User secondUser = new User("Batın", "alperengozeten@gmail.com", "None", "05392472224", "ODTU University");
-        //Book book = new Book("Introduction to Python", "No pic");
-
-        //bunun aynısı yukarda da yokmu
-        showroom = new Showroom(posts);
-/**
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Alperen");
-        names.add("Alpozo");
-        names.add("Alponzo");
-        names.add("Safa");
-        names.add("LOLO");
-*/
+        // Find and initialize the buttons
         menuImageBtn = (ImageButton) findViewById(R.id.menuImageBtn);
         showroomAddPostBtn = (ImageButton) findViewById(R.id.showroomAddPostBtn);
 
@@ -144,6 +126,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         aToZBtn = (Button) findViewById(R.id.aToZBtn);
         zToABtn = (Button) findViewById(R.id.zToABtn);
 
+        // Menu button opens up the menu dialog
         menuImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,15 +134,16 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             }
         });
 
+        // add post button opens up the add post page
         showroomAddPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
                 Intent intent = new Intent(getApplicationContext(), AddPost.class);
                 startActivity(intent);
             }
         });
 
+        // atoz button applies sorting
         aToZBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -167,6 +151,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             }
         });
 
+        // ztoa button applies sorting
         zToABtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,6 +160,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             }
         });
 
+        // priceLowToHighBtn applies sorting
         priceLowToHighBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -182,6 +168,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
             }
         });
 
+        // priceHighToLowBtn applies sorting
         priceHighToLowBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -190,6 +177,11 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         });
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -197,6 +189,11 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -212,11 +209,15 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method opens up the menu dialog
+     */
     public void openMenuDialog() {
         ShowroomMenuDialog menuDialog = new ShowroomMenuDialog();
         menuDialog.show(getSupportFragmentManager(),"menu dialog");
     }
 
+    // Apply the filterings through calling the filter method of the adapter
     @Override
     public void applyTexts(String filteredUniversity, String filteredCourse, String firstPrice, String secondPrice) {
         //Toast.makeText(this,"First price is " + firstPrice +" Second Price is " + secondPrice + "Filtered Uni: " +filteredUniversity + " Filtered Course:" + filteredCourse, Toast.LENGTH_SHORT).show();
@@ -226,6 +227,7 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
         ((MyShowroomPostAdapter) mAdapter).filter(filteredUniversity, filteredCourse, intFirstPrice, intSecondPrice);
     }
 
+    // resets the filters
     public void resetFilters() {
         ((MyShowroomPostAdapter) mAdapter).resetFilters();
     }

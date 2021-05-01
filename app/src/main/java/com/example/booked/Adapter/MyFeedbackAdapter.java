@@ -25,6 +25,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * This is an adapter class for the recycler view in the feedbacks activity
+ */
 public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.FeedbackViewHolder> {
 
     private ArrayList<String> names;
@@ -37,12 +40,24 @@ public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.Fe
 
     private User currentSeller;
 
+    /**
+     * This constructor takes the names and feedbacks arrays and also the FeedbacksActivity as context
+     * @param names
+     * @param feedbacks
+     * @param context
+     */
     public MyFeedbackAdapter(ArrayList<String> names, ArrayList<String> feedbacks, Context context) {
         this.names = names;
         this.feedbacks = feedbacks;
         this.context = context;
     }
 
+    /**
+     * This method creates and returns a FeedbackViewHolder object which holds the references to the visuals
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public FeedbackViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -50,19 +65,29 @@ public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.Fe
 
         FeedbackViewHolder holder = new FeedbackViewHolder(view);
 
+        // Also initialize the database instance here
         db = FirebaseFirestore.getInstance();
 
         return holder;
     }
 
+    /**
+     * This method is called in the creation of each part (row) in the recycler view
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull FeedbackViewHolder holder, int position) {
+        // Set the username for the username text view
         holder.feedbackUsernameTextView.setText("From: " + names.get(position));
+        // Set the feedback for the feedback text view
         holder.feedbackTextView.setText("Message: " + feedbacks.get(position));
 
+        // If the user clicks visit button, it leads to the page of that user by searching for the user's info in the database
         holder.feedbackVisitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Search for the user's info in the database
                 db.collection("usersObj").whereEqualTo("name", names.get(position)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -72,6 +97,8 @@ public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.Fe
                             currentSeller = documentSnapshot.toObject(User.class);
                             Toast.makeText(context, "User Pulled", Toast.LENGTH_LONG).show();
 
+                            // Set the currentSeller for the Booked class so that we can pull this object in the OtherUsersProfile page
+                            // from the booked class
                             Booked.setCurrentSeller(currentSeller);
                             Intent sellerPage = new Intent(context, OtherUsersProfile.class);
                             context.startActivity(sellerPage);
@@ -82,11 +109,18 @@ public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.Fe
         });
     }
 
+    /**
+     * Returns the number of rows
+     * @return
+     */
     @Override
     public int getItemCount() {
         return names.size();
     }
 
+    /**
+     * This class helps to hold the references of the gui
+     */
     public class FeedbackViewHolder extends RecyclerView.ViewHolder {
 
         TextView feedbackUsernameTextView;

@@ -21,6 +21,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * Feedbacks Activity Page class
+ */
 public class FeedbacksActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
@@ -32,27 +35,35 @@ public class FeedbacksActivity extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    /**
+     * First method that is called when this activity is open
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feedbacks);
 
+        // Create the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the firestore database instance
         db = FirebaseFirestore.getInstance();
 
+        // Create two arraylist for the usernames and feedbacks
         names = new ArrayList<>();
         feedbacks = new ArrayList<>();
 
+        // Find the recycler view
         recyclerView = (RecyclerView) findViewById(R.id.feedbackList);
-
         recyclerView.setHasFixedSize(true);
 
         // Set the layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+        // Pull the data about usernames and feedbacks using a for loop
         db.collection("feedbacks").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -69,6 +80,11 @@ public class FeedbacksActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -76,6 +92,11 @@ public class FeedbacksActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
