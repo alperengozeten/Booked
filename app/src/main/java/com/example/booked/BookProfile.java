@@ -27,6 +27,10 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
+/**
+ * This is the class of BookProfile
+ *
+ */
 
 public class BookProfile extends AppCompatActivity implements AddEvaluationDialog.CommentListener {
 
@@ -43,6 +47,10 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     boolean isEvaluatedBefore;
 
+    /**
+     * This is the first method called when an instance of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +82,11 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         setStars();
     }
 
+    /**
+     * This method checks if there are evaluations on this book
+     * @return true if there are evaluations on this book profile
+     * @return false if there are not any evaluations on this book profile
+     */
     private boolean isEvaluatedBefore() {
 
         for( Evaluation e : myBookProfile.getEvalutions() )
@@ -86,6 +99,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         return false;
     }
 
+    /**
+     * This method creates the rating stars on book profile
+     */
     private void setStars() {
 
         ImageView[] stars = {s1,s2,s3,s4,s5};
@@ -117,7 +133,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
-
+    /**
+     * This method initializes TextViews of this class
+     */
     void setTextViews()
     {
         title = (TextView) findViewById(R.id.bookprofiletitle);
@@ -130,6 +148,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
+    /**
+     * This method initializes Buttons of this class
+     */
     @SuppressLint("SetTextI18n")
     void setButtons()
     {
@@ -212,6 +233,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         });
     }
 
+    /**
+     * This method shows offers(posts) made on this book profile
+     */
     void viewOffers()
     {
         offersList = (RecyclerView) findViewById(R.id.profileoffers);
@@ -223,6 +247,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
+    /**
+     * This method shows comments made on this book profile
+     */
     void viewComments()
     {
         commentList = (RecyclerView) findViewById(R.id.bookprofile_comments);
@@ -238,13 +265,18 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
-
+    /**
+     * This method initializes the current Book Profile and sorts offers
+     */
     void setBookProfile()
     {
         myBookProfile  = Booked.getCurrentBookProfile();
         myBookProfile.sortByPrice(true);
     }
 
+    /**
+     * This method updates the comments and rating of the Book Profile when a new comment is made
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void positiveClicked(String comment, double rate) {
@@ -283,6 +315,11 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -290,6 +327,11 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

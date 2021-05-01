@@ -12,9 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This is the class of AddEvaluationDialog
+ *
+ */
+
 public class AddEvaluationDialog extends DialogFragment {
 
-
+    /**
+     * This interface is used in order to be notified when user adds a comment(evaluation)
+     */
     public interface CommentListener{
         void positiveClicked(String comment, double rate );
         //void negativeClicked();
@@ -22,12 +29,21 @@ public class AddEvaluationDialog extends DialogFragment {
 
    CommentListener myListener;
 
+    /**
+     * This method is called first and it attaches the dialog to activity page
+     * @param context
+     */
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         myListener = (CommentListener) context;
     }
 
+    /**
+     * This method creates the dialog and its properties such as rating bar, save button
+     * @param savedInstanceState
+     * @return is the created dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
