@@ -109,11 +109,28 @@ public class SignUpActivity extends AppCompatActivity  {
             mUserName.requestFocus();
             return;
         }
+        else {
+            mEmail.setError( null);
+        }
 
         if ( !Patterns.EMAIL_ADDRESS.matcher(email).matches() ) {
             mEmail.setError("Please provide a valid email address!");
             mEmail.requestFocus();
             return;
+        }
+        else {
+            mEmail.setError( null);
+        }
+
+        //if it is not edu.tr mail, show an error
+        if (!email.substring(email.indexOf("@")).contains(".edu.tr"))
+        {
+            mEmail.setError("This is not a edu.tr mail");
+            mEmail.requestFocus();
+            return;
+        }
+        else {
+            mEmail.setError( null);
         }
 
         if (password.isEmpty() ) {
@@ -121,11 +138,17 @@ public class SignUpActivity extends AppCompatActivity  {
             mPassword.requestFocus();
             return;
         }
+        else {
+            mEmail.setError( null);
+        }
 
         if (password.length() < 6) {
             mPassword.setError("Please enter a password with at least 6 characters");
             mPassword.requestFocus();
             return;
+        }
+        else {
+            mEmail.setError( null);
         }
 
         mAuth.createUserWithEmailAndPassword( email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
