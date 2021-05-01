@@ -239,7 +239,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
                      uploadFile();
 
-                     notifyUser();
+//                     notifyUser();
 
                      Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                      startActivity(intent);
