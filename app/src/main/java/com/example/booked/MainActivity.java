@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class MainActivity extends AppCompatActivity {
 
+    // Properties
     ImageButton showroomImageBtn;
     ImageButton myPostsImageBtn;
     ImageButton profileImageBtn;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is in all pages which creates the top menu
      * @param menu
-     * @return
+     * @return true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method is in all pages which creates the functionality of the top menu
      * @param item
-     * @return
+     * @return true
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

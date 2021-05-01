@@ -16,7 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
 /**
- * A class for the Forgot Password Screen
+ * A class for the Forgot Password Page
  *
  * @author NoExpection
  * @version 2021 Spring

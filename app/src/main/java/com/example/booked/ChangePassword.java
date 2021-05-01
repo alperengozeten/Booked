@@ -21,9 +21,15 @@ import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+/**
+ * A class for the Change Password Page
+ *
+ * @author NoExpection
+ * @version 2021 Spring
+ */
 public class ChangePassword extends AppCompatActivity {
 
-
+    // Properties
     TextView mOldPassword;
     TextView mNewPassword;
     TextView mNewPasswordAgain;
@@ -33,6 +39,11 @@ public class ChangePassword extends AppCompatActivity {
     FirebaseAuth mAuth;
     FirebaseUser mUser;
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -40,6 +51,11 @@ public class ChangePassword extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return true
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -55,6 +71,11 @@ public class ChangePassword extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,80 +92,85 @@ public class ChangePassword extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mUser = mAuth.getCurrentUser();
 
+        // Sets ClickListener object for Confirm button.
         passwordConfirmBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                // call changePassword method.
                 changePassword();
-//                if(checkPassword()){
-//                    changePassword();
-////                    Intent intent = new Intent(getApplicationContext(), SuccessfulChangePassword.class);
-////                    startActivity(intent);
-//                }
             }
         });
     }
 
-    private boolean checkPassword(){
-        String oldPassword = mOldPassword.getText().toString().trim();
-        return true;
-
-
-
-    }
-
+    /**
+     * Validates all of the input and changes the password.
+     */
     private void changePassword(){
         String email = mUser.getEmail();
         String oldPassword = mOldPassword.getText().toString().trim();
         String newPassword = mNewPassword.getText().toString().trim();
         String newPasswordAgain = mNewPasswordAgain.getText().toString().trim();
 
+        // if the old password field has fewer characters than 6 characters, show an error message.
         if (oldPassword.length() < 6) {
             mOldPassword.setError("Please enter your password");
             mOldPassword.requestFocus();
             return;
         }
 
+        // if the new password field is empty, show an error message.
         if (newPassword.isEmpty() ) {
             mNewPassword.setError("Please enter a password");
             mNewPassword.requestFocus();
             return;
         }
+
+        // if the new password field has fewer characters than 6 characters, show an error message.
         if (newPassword.length() < 6) {
             mNewPassword.setError("Please enter a password with at least 6 characters");
             mNewPassword.requestFocus();
             return;
         }
 
+        // if the user enter the same password for old password field and new
+        // password field, show an error message.
         if ( oldPassword.equals(newPassword)) {
             mNewPassword.setError("Please enter a new password");
             mNewPassword.requestFocus();
             return;
         }
 
+        // if the second new password field is empty, show an error message.
         if (newPasswordAgain.isEmpty() ) {
             mNewPasswordAgain.setError("Please enter a password");
             mNewPasswordAgain.requestFocus();
             return;
         }
 
+        // if the new password fields do not match, show an error message.
         if( !(newPassword.equals(newPasswordAgain)) ) {
             mNewPasswordAgain.setError("Password Mismatch");
             mNewPasswordAgain.requestFocus();
         }
+        // otherwise, check the old password.
         else {
+            // reauthenticates the user using the entered old password.
             AuthCredential credential = EmailAuthProvider.getCredential(email,oldPassword);
 
             mUser.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+                    // if the old password is correct, update the password.
                     if(task.isSuccessful()){
                         mUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
+                                // if this task fails, show an error message.
                                 if(!task.isSuccessful()){
                                     Toast.makeText(ChangePassword.this, "Something went wrong. Please try again later", Toast.LENGTH_SHORT).show();
-                                }else {
+                                }
+                                // otherwise, direct user to SuccessfulPasswordChange activity.
+                                else {
                                     Toast.makeText(ChangePassword.this, "Password Successfully Modified", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), SuccessfulPasswordChange.class);
                                     startActivity(intent);
@@ -153,6 +179,7 @@ public class ChangePassword extends AppCompatActivity {
                             }
                         });
                     }
+                    // otherwise, show an error message.
                     else {
                         Toast.makeText(ChangePassword.this, "Current password is wrong", Toast.LENGTH_SHORT).show();
                     }

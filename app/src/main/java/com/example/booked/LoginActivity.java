@@ -25,7 +25,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.ArrayList;
 
 /**
- * A class for the Login Screen
+ * A class for the Login Page
  *
  * @author NoExpection
  * @version 2021 Spring

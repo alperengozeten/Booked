@@ -26,7 +26,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 
 /**
- * A class for the Register Screen
+ * A class for the Register Page
  *
  * @author NoExpection
  * @version 2021 Spring
