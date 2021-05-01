@@ -64,9 +64,6 @@ public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApap
                 Intent intent = new Intent(holder.visitSeller.getContext(), OtherUsersProfile.class);
                 startActivity(holder.visitSeller.getContext(),intent,null);
 
-                //denemek için (yukarısı yazınca  silinecek)
-                holder.visitSeller.setText("visited");
-
             }
         });
 

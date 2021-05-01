@@ -257,7 +257,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         }
 
         myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
+        setStars();
         commentAdapter.notifyDataSetChanged();
+
         //setlemek yerine updatele
         db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -267,11 +269,12 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
                 }
             });
 
-
+        isEvaluatedBefore = true;
+        addEvaluation.setText("Change Your Evaluation");
 
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
-        setStars();
+
 
     }
 

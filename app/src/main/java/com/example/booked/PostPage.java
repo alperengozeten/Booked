@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.booked.models.Post;
+import com.example.booked.models.Report;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +37,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     ImageButton report;
     Post currentPost;
     ImageView postImageView;
-
+    boolean reportedBefore;
     private User currentSeller;
 
     private FirebaseFirestore db;
@@ -53,7 +54,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
         setCurrentPost();
 
-        setTextViews();
+        setViews();
 
         setButtons();
 
@@ -67,7 +68,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     }
 
     @SuppressLint("SetTextI18n")
-    public void setTextViews()
+    public void setViews()
     {
         price = (TextView) findViewById(R.id.postPrice);
         price.setText(String.valueOf(currentPost.getPrice()) + "₺");
@@ -129,6 +130,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
                             Toast.makeText(PostPage.this, "Book Profile Pulled", Toast.LENGTH_LONG).show();
 
+
                             Intent profilePage = new Intent(getApplicationContext(), BookProfile.class);
                             startActivity(profilePage);
                         }
@@ -145,6 +147,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         report.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                reportedBefore = isReportedBefore();
                 DialogFragment popUp = new ReportDialog();
                 popUp.show(getSupportFragmentManager(), "ReportDialog");
 
@@ -156,12 +159,30 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
     @Override
     public void positiveClicked(String[] reportTypes, int position) {
         //en fazla 1 kere reportlama ekle
-
-        currentPost.report(reportTypes[position],position,Booked.getCurrentUser());
-        db.collection("postsObj").document(currentPost.getId()).update("reports",currentPost.getReports());
-
+        if (reportedBefore)
+        {
+            Toast.makeText(PostPage.this, "You have already reported this post", Toast.LENGTH_LONG).show();
+        }
+        else {
+            currentPost.report(reportTypes[position], position, Booked.getCurrentUser());
+            db.collection("postsObj").document(currentPost.getId()).update("reports", currentPost.getReports());
+            Toast.makeText(PostPage.this, "Your report is saved", Toast.LENGTH_LONG).show();
+            reportedBefore = true;
+        }
 
     }
+
+    private boolean isReportedBefore()
+    {
+        for(Report r : currentPost.getReports())
+        {
+            if(r.getOwner().equals(Booked.getCurrentUser())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     @Override
     public void negativeClicked() {
