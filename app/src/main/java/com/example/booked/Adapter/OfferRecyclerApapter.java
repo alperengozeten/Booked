@@ -7,14 +7,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.Booked;
 import com.example.booked.OtherUsersProfile;
+import com.example.booked.PostPage;
 import com.example.booked.R;
 import com.example.booked.models.BookProfile;
+import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldPath;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
@@ -57,13 +66,24 @@ public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApap
         holder.visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+                db.collection("usersObj").whereEqualTo(FieldPath.documentId(), myBookProfile.getOffers().get(position).getSeller().getDocumentId())
+                        .get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        //burada currentPost.getSeller vardı
+                        for (DocumentSnapshot documentSnapshot : task.getResult() ) {
+
+                            Booked.setCurrentSeller(documentSnapshot.toObject(User.class));
+
+                            Intent intent = new Intent(holder.visitSeller.getContext(), OtherUsersProfile.class);
+                            startActivity(holder.visitSeller.getContext(),intent,null);
+                        }
+                    }
+                });
                 // seller page e gidilecek:
-                Booked.setCurrentSeller(myBookProfile.getOffers().get(position).getSeller());
-
-                Intent intent = new Intent(holder.visitSeller.getContext(), OtherUsersProfile.class);
-                startActivity(holder.visitSeller.getContext(),intent,null);
-
+               // Booked.setCurrentSeller(myBookProfile.getOffers().get(position).getSeller());
             }
         });
 
