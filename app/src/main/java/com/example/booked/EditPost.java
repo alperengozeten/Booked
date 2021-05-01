@@ -113,6 +113,10 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post2);
 
+        // Set the top icons
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Take the currentPost and currentUser from the global class Booked
         currentPost = Booked.getCurrentPost();
         currentUser = Booked.getCurrentUser();
