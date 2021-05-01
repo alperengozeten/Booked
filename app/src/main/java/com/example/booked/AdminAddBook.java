@@ -26,6 +26,9 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
+/**
+ * This is the class of the AdminAddBook page
+ */
 public class AdminAddBook extends AppCompatActivity {
 
     private EditText newBookTitleEditText;
@@ -40,19 +43,28 @@ public class AdminAddBook extends AppCompatActivity {
     private Uri newBookImageUri;
     private String title;
 
+    /**
+     * This is the first method called when an instance of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_add_book);
 
+        // Set the boolean photoPicked to false
         isPhotoPicked = false;
+
+        // Initialize the edit texts and buttons
         newBookTitleEditText = (EditText) findViewById(R.id.newBookTitleEditText);
         newBookImageView = (ImageView) findViewById(R.id.newBookImageView);
         addNewBookBtn = (Button) findViewById(R.id.addNewBookBtn);
 
+        // Initialize the database objects
         db = FirebaseFirestore.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
+        // newBookImage view opens a file chooser when clicked
         newBookImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,12 +72,16 @@ public class AdminAddBook extends AppCompatActivity {
             }
         });
 
+        // add button adds the changes to the database
         addNewBookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Get the title
                 title = newBookTitleEditText.getText().toString();
 
+                // Check if the title is not null and photo is picked
                 if ( isPhotoPicked && title != null ) {
+                    // Call uploadFile() method
                     uploadFile();
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                     startActivity(intent);
@@ -77,15 +93,18 @@ public class AdminAddBook extends AppCompatActivity {
         });
     }
 
+    /**
+     * Uploads the changes to the firestore and storage databases
+     */
     private void uploadFile() {
         if ( newBookImageUri != null ) {
 
-
+            // Create a new book with the title
             Book newBook = new Book( title);
-
 
             StorageReference fileReference = storageReference.child("book_pictures/" + newBook.getId());
 
+            // Upload the image to the storage
             fileReference.putFile(newBookImageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
@@ -95,9 +114,9 @@ public class AdminAddBook extends AppCompatActivity {
                                 @Override
                                 public void onSuccess(Uri uri) {
                                     newBook.setPicture(uri.toString());
-                                    // NEW BOOK PROFILE
-                                    // SAVE THESE DATA TO FIRESTORE
 
+
+                                    // Save the book to the firestore database
                                     db.collection("booksObj").document(newBook.getId()).set(newBook).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
@@ -105,9 +124,10 @@ public class AdminAddBook extends AppCompatActivity {
                                         }
                                     });
 
-
+                                    // Create new book profile with the given book
                                     BookProfile bookProfile = new BookProfile(newBook);
 
+                                    // Call the updateBookProfile() method of the Booked class which updates the database
                                     if (Booked.updateBookProfileInDatabase(newBook.getId(), bookProfile))
                                         Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
 
@@ -120,9 +140,6 @@ public class AdminAddBook extends AppCompatActivity {
 
                                 }
                             });
-
-                            // CURRENT POST IS NOT INITIALIZED YET; MAKE NEW POST
-                            //currentPost.addPicture(fileReference.getDownloadUrl().toString());
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
@@ -136,6 +153,9 @@ public class AdminAddBook extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method is called to open file chooser when the imageview is clicked to add a photo
+     */
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -143,20 +163,32 @@ public class AdminAddBook extends AppCompatActivity {
         startActivityForResult(intent,1);
     }
 
+    /**
+     * This method is called when the application directs to another application. In our case it's document picker
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        super.onActivityResult(requestCode, resultCode, data);
-
         if ( requestCode == 1 && resultCode == RESULT_OK && data != null ) {
 
+            // Set the imageUri and the isPhotoPicked booleans
             newBookImageUri = data.getData();
             isPhotoPicked = true;
+
+            // Load the image
             Picasso.get().load(newBookImageUri).into(newBookImageView);
         }
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -164,6 +196,11 @@ public class AdminAddBook extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

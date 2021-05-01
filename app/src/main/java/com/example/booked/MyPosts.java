@@ -25,6 +25,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * This is the clas of the MyPosts activity
+ */
 public class MyPosts extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -39,17 +42,23 @@ public class MyPosts extends AppCompatActivity {
 
     private ImageButton myPostsAddPostBtn;
 
+    /**
+     * This is the first method called when an object of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_posts);
 
-        //getSupportActionBar().setTitle("My Posts");
+        // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the database object
         db = FirebaseFirestore.getInstance();
 
+        // Initialize the post add button and set an onclick listener to it
         myPostsAddPostBtn = (ImageButton) findViewById(R.id.myPostsAddPostBtn);
         myPostsAddPostBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,17 +68,18 @@ public class MyPosts extends AppCompatActivity {
             }
         });
 
+        // Initialize the recycler view
         recyclerView = (RecyclerView) findViewById(R.id.postList);
-
         recyclerView.setHasFixedSize(true);
 
         // Set the layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // TO BE REPLACED WITH THE DATABASE
+        // Pull the current user from the global class Booked
         User currentUser = Booked.getCurrentUser();
 
+        // Pull all the posts of this current user, use whereEqualTo() method to search the username
         posts = new ArrayList<>();
         db.collection("postsObj").whereEqualTo("seller.documentId" , currentUser.getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -80,20 +90,20 @@ public class MyPosts extends AppCompatActivity {
                         posts.add(document.toObject(Post.class));
                     }
                     Toast.makeText(MyPosts.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
+
+                    // Set the adapters
                     mAdapter = new MyPostAdapter(posts, MyPosts.this);
                     recyclerView.setAdapter(mAdapter);
                 }
             }
         });
-
-        /*
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Alperen");
-        names.add("Alpozo");
-        names.add("Alponzo");
-         */
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -101,6 +111,11 @@ public class MyPosts extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

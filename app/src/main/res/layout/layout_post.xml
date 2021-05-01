@@ -54,6 +54,7 @@
         android:id="@+id/postEditBtn"
         android:layout_width="48dp"
         android:layout_height="46dp"
+        android:layout_marginBottom="2dp"
         android:background="@color/primaryBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/deleteMyPost"
@@ -63,6 +64,8 @@
         android:id="@+id/deleteMyPost"
         android:layout_width="52dp"
         android:layout_height="50dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/primaryBackgroundColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_trash_can" />
