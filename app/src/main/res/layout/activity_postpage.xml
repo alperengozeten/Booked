@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#54CC82"
+    android:layout_gravity="center"
+    android:layout_weight="1"
+    android:fillViewport="true"
+    tools:context=".PostPage">
+
+<androidx.constraintlayout.widget.ConstraintLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#54CC82"
+    android:paddingBottom="30dp"
     tools:context=".PostPage">
 
     <TextView
         android:id="@+id/postTitle"
         android:layout_width="335dp"
-        android:layout_height="75dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintHeight_min="75dp"
         android:layout_marginTop="28dp"
         android:background="#81E7C5"
         android:gravity="center"
@@ -147,12 +160,11 @@
         android:id="@+id/reportPost"
         android:layout_width="27dp"
         android:layout_height="29dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="22dp"
         android:background="@drawable/report_logo"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.922"
-        app:layout_constraintStart_toStartOf="@+id/postTitle"
-        app:layout_constraintTop_toTopOf="@+id/postTitle" />
+        app:layout_constraintBottom_toTopOf="@+id/postImageView"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <ImageView
         android:id="@+id/postImageView"
@@ -165,3 +177,4 @@
         tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

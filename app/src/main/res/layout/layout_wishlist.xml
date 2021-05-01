@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/wishListImageView"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,14 +20,17 @@
         android:id="@+id/wishListTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="110dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginStart="30dp"
+        android:ellipsize="end"
         android:gravity="center"
+        android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/wishListImageView"
-        app:layout_constraintTop_toTopOf="@+id/wishListImageView" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="250dp" />
 
     <View
         android:id="@+id/divider4"

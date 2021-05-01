@@ -133,7 +133,11 @@
         android:layout_width="303dp"
         android:layout_height="43dp"
         android:layout_marginTop="23dp"
+        android:gravity="center"
+        android:background="@drawable/choose_uni"
         app:layout_constraintEnd_toEndOf="parent"
+        android:textAlignment="center"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

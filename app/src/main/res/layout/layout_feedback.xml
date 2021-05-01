@@ -22,6 +22,7 @@
     <TextView
         android:id="@+id/feedbackTextView"
         android:layout_width="wrap_content"
+        app:layout_constraintWidth_max="275dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
@@ -50,6 +51,7 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/feedbackUsernameTextView" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

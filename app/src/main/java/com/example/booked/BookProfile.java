@@ -143,7 +143,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         textNumOfComments = (TextView) findViewById(R.id.commentNum);
 
         title.setText(myBookProfile.getBook().getBookName());
-        rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
+        rating.setText(String.valueOf("    " + Math.round(myBookProfile.getRating() * 100 ) / 100.0));
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
 
     }

@@ -8,8 +8,8 @@
 
     <ImageView
         android:id="@+id/postPictureImageView"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,20 +20,24 @@
         android:id="@+id/postDescriptionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
         android:text="TextView"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/postPictureImageView"
-        app:layout_constraintTop_toTopOf="@+id/postPictureImageView" />
+        app:layout_constraintTop_toTopOf="@+id/postPictureImageView"
+        app:layout_constraintWidth_max="250dp" />
 
     <TextView
         android:id="@+id/postPriceTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="30dp"
         android:text="TextView"
         android:textSize="16sp"
         android:textStyle="bold"
