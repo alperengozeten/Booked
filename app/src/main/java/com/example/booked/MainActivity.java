@@ -15,6 +15,9 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
+/**
+ * This is the class of the MainActivity page
+ */
 public class MainActivity extends AppCompatActivity {
 
     ImageButton showroomImageBtn;
@@ -24,12 +27,16 @@ public class MainActivity extends AppCompatActivity {
     Button showroomBtn;
     Button myPostsBtn;
     Button profileBtn;
-    Button mLogOutBtn;
 
     private Button adminPanel;
 
     FirebaseAuth mAuth;
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -37,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
@@ -52,14 +64,16 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This is the first method called when an instance of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        // Initialize the admin panel button and set a listener to it
         adminPanel = (Button) findViewById(R.id.adminNewBookBtn);
         adminPanel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,27 +83,25 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the buttons
         showroomImageBtn = (ImageButton) findViewById(R.id.showroomImageBtn);
         myPostsImageBtn = (ImageButton) findViewById(R.id.myPostsImageBtn);
         profileImageBtn = (ImageButton) findViewById(R.id.profileImageBtn);
 
+        // Initialize the image buttons
         showroomBtn = (Button) findViewById(R.id.showroomBtn);
         myPostsBtn = (Button) findViewById(R.id.myPostsBtn);
         profileBtn = (Button) findViewById(R.id.profileBtn);
-        mLogOutBtn = (Button) findViewById( R.id.logOutButton1);
 
+        // Initialize the firebase authentication instance
         mAuth = FirebaseAuth.getInstance();
 
+        // If the email of the user is not verified, then sign the user out
         if (mAuth.getCurrentUser() != null) {
-//            if ( mAuth.getCurrentUser().isEmailVerified() ) {
-//                Toast.makeText(MainActivity.this, "Logged in Successfully", Toast.LENGTH_LONG).show();
-//                startActivity(new Intent(getApplicationContext(), MainActivity.class));
-//                finish();
-//            }
-//            else {
             if (!(mAuth.getCurrentUser().isEmailVerified() )) {
                 mAuth.signOut();
                 Toast.makeText(MainActivity.this, "Please log in again!", Toast.LENGTH_LONG).show();
@@ -98,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        // When the showroom button is clicked, it leads to Showroom Page
         showroomImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -106,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When the showroom button is clicked, it leads to Showroom Page
         showroomBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,6 +128,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When the my posts button is clicked, it leads to MyPosts page
         myPostsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When the my posts button is clicked, it leads to MyPosts page
         myPostsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -130,6 +146,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When the profile button is clicked, it leads to MyProfile page
         profileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,21 +155,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // When the profile button is clicked, it leads to MyProfile page
         profileImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( getApplicationContext(), MyProfile.class);
                 startActivity(intent);
-            }
-        });
-
-        mLogOutBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mAuth.signOut();
-
-                startActivity( new Intent(getApplicationContext(), LoginActivity.class));
-                finish();
             }
         });
     }
