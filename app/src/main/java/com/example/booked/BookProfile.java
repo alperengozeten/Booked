@@ -160,13 +160,17 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
                 else
                 {
                 Booked.getCurrentUser().addBookToWishlist(myBookProfile.getBook());
-                db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).set(Booked.getCurrentUser())
+                Booked.updateUserInDatabase(Booked.getCurrentUser().getDocumentId(),Booked.getCurrentUser());
+
+                Toast.makeText(BookProfile.this, "Wish List Updated", Toast.LENGTH_LONG).show();
+
+                /**db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).set(Booked.getCurrentUser())
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Toast.makeText(BookProfile.this, "Wish List Updated", Toast.LENGTH_LONG).show();
+
                             }
-                        });
+                        });*/
                 }
             }
         });
@@ -261,13 +265,14 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         commentAdapter.notifyDataSetChanged();
 
         //setlemek yerine updatele
-        db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
+        Booked.updateBookProfileInDatabase(myBookProfile.getBook().getId(), myBookProfile);
+        /**db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
             .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(BookProfile.this, "Evaluations Updated", Toast.LENGTH_LONG).show();
                 }
-            });
+            });*/
 
         isEvaluatedBefore = true;
         addEvaluation.setText("Change Your Evaluation");

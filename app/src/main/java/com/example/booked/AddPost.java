@@ -234,26 +234,13 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
                                     Booked.getCurrentBookProfile().addPost(newPost);
 
                                     //burada key i çıkarılabilir daha sonra yukarısıyla senkronize edilerek , şuan dokunmadım
-                                    db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    Booked.updatePostInDatabase(key, newPost);
+                                    /**db.collection("postsObj").document(key).set(newPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(AddPost.this,"Post uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
-                                    });
-
-/**
-                                    db.collection("bookProfileObj").document(newPost.getBook().getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-
-
-
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                            Toast.makeText(AddPost2.this,"Current profile setlendi", Toast.LENGTH_LONG).show();
-                                            Booked.setCurrentBookProfile(documentSnapshot.toObject(BookProfile.class));
-                                            Booked.getCurrentBookProfile().addPost(newPost);
-                                        }
                                     });*/
-
 
 
 
@@ -280,13 +267,16 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
     private void addToOffers()
     {
-        db.collection("bookProfileObj").document(newPost.getBook().getId()).set(Booked.getCurrentBookProfile())
+        if (Booked.updateBookProfileInDatabase(newPost.getBook().getId(), Booked.getCurrentBookProfile()))
+            Toast.makeText(AddPost.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
+
+        /**db.collection("bookProfileObj").document(newPost.getBook().getId()).set(Booked.getCurrentBookProfile())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddPost.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
+
                     }
-                });
+                });*/
     }
 
 
@@ -322,6 +312,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         else if ( parent.getId() == bookNameSpinner.getId() ) {
             selectedBookName = bookNameSpinner.getItemAtPosition(position).toString();
             selectedBook = allBooks.get(position);
+
             db.collection("bookProfileObj").document(selectedBook.getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
 
                 @Override

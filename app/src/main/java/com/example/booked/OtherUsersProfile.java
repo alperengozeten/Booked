@@ -87,7 +87,7 @@ public class OtherUsersProfile extends AppCompatActivity {
         // buraya iki yerden geliniyo 1)visit button in book profile 2) visit sellerProfile in postpage gitmeden: önce current sellerı (global) eşitlersek olur
         currentSeller = Booked.getCurrentSeller();
 
-        Book book = new Book("Introduction to Python", "No pic");
+
 
         //otherUsersProfilePhotoImageView.setImageURI(Uri.parse(currentSeller.getAvatar()));
 

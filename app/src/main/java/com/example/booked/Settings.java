@@ -104,6 +104,8 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                //user setle databasee
+
             }
         });
     }
