@@ -121,6 +121,10 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_post2);
 
+        // Set the top icons
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Initialize the database objects
         storageReference = FirebaseStorage.getInstance().getReference("images");
 
