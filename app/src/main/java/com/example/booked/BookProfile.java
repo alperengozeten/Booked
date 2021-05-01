@@ -3,6 +3,7 @@ package com.example.booked;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +41,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     ImageView s1,s2,s3,s4,s5, bookProfileImageView;
     private FirebaseFirestore db;
 
+    boolean isEvaluatedBefore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +53,8 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
         db = FirebaseFirestore.getInstance();
 
-        createBookProfile();
+        setBookProfile();
+        isEvaluatedBefore = isEvaluatedBefore();
 
         bookProfileImageView = (ImageView) findViewById(R.id.bookProfileImageView);
         Picasso.get().load(myBookProfile.getBook().getPicture()).fit().into(bookProfileImageView);
@@ -68,6 +72,18 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         s4 = (ImageView) findViewById(R.id.rate4);
         s5 = (ImageView) findViewById(R.id.rate5);
         setStars();
+    }
+
+    private boolean isEvaluatedBefore() {
+
+        for( Evaluation e : myBookProfile.getEvalutions() )
+        {
+            if(e.getEvaluater().equals(Booked.getCurrentUser())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     private void setStars() {
@@ -114,9 +130,16 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
     }
 
+    @SuppressLint("SetTextI18n")
     void setButtons()
     {
         addEvaluation = (Button) findViewById(R.id.bookprofile_evaluate);
+
+        if(!isEvaluatedBefore)
+        {
+            addEvaluation.setText("Add Evaluation");
+        }
+
         addEvaluation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -212,7 +235,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     }
 
 
-    void createBookProfile()
+    void setBookProfile()
     {
         myBookProfile  = Booked.getCurrentBookProfile();
         myBookProfile.sortByPrice(true);
@@ -222,24 +245,34 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     @Override
     public void positiveClicked(String comment, double rate) {
 
-        //evaluation silme
-        //daha önce eklediyse ekleyemsein
-        myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
+        if(isEvaluatedBefore)
+        {
+            for(int i = 0; i < myBookProfile.getEvalutions().size(); i++)
+            {
+                if(myBookProfile.getEvalutions().get(i).getEvaluater().equals(Booked.getCurrentUser())) {
+                    myBookProfile.getEvalutions().remove(i);
+                }
+            }
 
+        }
+
+        myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
+        commentAdapter.notifyDataSetChanged();
         //setlemek yerine updatele
         db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
-        .addOnSuccessListener(new OnSuccessListener<Void>() {
+            .addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(BookProfile.this, "Evaluations Updated", Toast.LENGTH_LONG).show();
-            }
-        });
+                public void onSuccess(Void aVoid) {
+                    Toast.makeText(BookProfile.this, "Evaluations Updated", Toast.LENGTH_LONG).show();
+                }
+            });
+
 
 
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
         setStars();
-        commentAdapter.notifyDataSetChanged();
+
     }
 
     @Override

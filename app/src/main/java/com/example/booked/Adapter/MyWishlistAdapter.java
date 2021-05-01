@@ -59,8 +59,6 @@ public class MyWishlistAdapter extends RecyclerView.Adapter<MyWishlistAdapter.Wi
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO
-                // Buraya book'u ekle
 
                 db.collection("bookProfileObj").document(wishlist.get(position).getId()).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
                     @Override

@@ -213,5 +213,21 @@ public class User{
         return this.userName + " from " + this.university + " University";
     }
 
+    @Override
+    public boolean equals(Object o) {
+
+        if( o == null ){
+            return false;
+        }
+        else if( o instanceof User){
+            User otherUser = (User) o;
+            return this.getDocumentId().equals( otherUser.getDocumentId());
+        }
+        else {
+            return false;
+        }
+
+    }
+
 }
 

@@ -8,31 +8,29 @@ public class Admin extends User {
     }
 
 
-    public boolean banUser( User aUser, Program prog) {
-        return prog.users.remove(aUser);
+    public boolean banUser( User aUser) {
+        return true;
     }
 
 
-    public boolean addBook( Book book, Program prog){
+    public boolean addBook( Book book){
 
-        return prog.books.add(book) && prog.bookProfiles.add(new BookProfile(book));
+        return true;
 
 
 
     }
 
-    public void deletePost( Post aPost, Program prog) {
+    public void deletePost( Post aPost) {
 
-        //prog.showroom.deletePost(aPost, prog);
+
 
     }
 
     // thebook is added
-    public void setBook( Book theBook, String newTitle, String newPic, Program prog) {
+    public void setBook( Book theBook, String newTitle, String newPic) {
 
-        prog.getBookProfile(theBook).setBook(new Book(newTitle, newPic));
 
-        prog.books.set(prog.books.indexOf(theBook), new Book(newTitle, newPic));
 
     }
 }
