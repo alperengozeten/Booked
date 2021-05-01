@@ -65,11 +65,11 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
                 currentUser.setUniversity(selectedUniversity);
                 currentUser.setPhoneNumber(telephone.getText().toString());
                 currentUser.setUserName(username.getText().toString());
-                //currentUser.clearSocialMedia();
+
                 currentUser.setSocialMedia(0,facebook.getText().toString());
                 currentUser.setSocialMedia(1,twitter.getText().toString());
                 currentUser.setSocialMedia(2,instagram.getText().toString());
-                //social media?
+
 
                 Booked.updateUserInDatabase(currentUser.getDocumentId(), currentUser);
                 /*
