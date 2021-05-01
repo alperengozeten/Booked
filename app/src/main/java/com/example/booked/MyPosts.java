@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * This is the clas of the MyPosts activity
+ * This is the class of the MyPosts activity
  */
 public class MyPosts extends AppCompatActivity {
 
