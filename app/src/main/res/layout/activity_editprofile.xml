@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.041" />
 
-    <EditText
+    <TextView
         android:id="@+id/username"
         android:layout_width="303dp"
         android:layout_height="43dp"
@@ -35,10 +35,9 @@
         android:background="@color/textBackground"
         android:ems="10"
         android:gravity="center"
-        android:hint="User Name"
-        android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textColorHint="@color/white"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

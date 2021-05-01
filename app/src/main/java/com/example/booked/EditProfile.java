@@ -11,6 +11,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -28,7 +29,8 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     User currentUser;
     Button confirmButton;
-    EditText username, telephone, facebook, twitter , instagram;
+    EditText telephone, facebook, twitter , instagram;
+    TextView username;
 
     private Spinner chooseUniversitySpinner;
 
@@ -94,7 +96,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     void setEditTexts()
     {
-        username = (EditText) findViewById(R.id.username);
+        username = (TextView) findViewById(R.id.username);
         telephone = (EditText) findViewById(R.id.telephone);
         twitter = (EditText) findViewById(R.id.twitter);
         facebook = (EditText) findViewById(R.id.facebook);
