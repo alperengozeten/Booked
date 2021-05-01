@@ -29,6 +29,9 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
+/**
+ * This is the class of the OtherUsersProfile page
+ */
 public class OtherUsersProfile extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -53,44 +56,49 @@ public class OtherUsersProfile extends AppCompatActivity {
 
     private ArrayList<Post> posts;
 
+    /**
+     * This is the first method called when an instance of this class is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_other_users_profile);
 
+        // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the database instance
         db = FirebaseFirestore.getInstance();
 
+        // Initialize the text views
         otherUsersProfilePostTextView = (TextView) findViewById(R.id.otherUsersProfilePostTextView);
         otherUsersProfileUsernameTextView = (TextView) findViewById(R.id.otherUsersProfileUsernameTextView);
         otherUsersProfileUniversityNameTextView = (TextView) findViewById(R.id.otherUsersProfileUniversityNameTextView);
 
+        // Initialize the image buttons
         otherUsersProfileFacebookBtn = (ImageButton) findViewById(R.id.otherUsersProfileFacebookBtn);
         otherUsersProfileTwitterBtn = (ImageButton) findViewById(R.id.otherUsersProfileTwitterBtn);
         otherUsersProfileInstagramBtn = (ImageButton) findViewById(R.id.otherUsersProfileInstagramBtn);
         otherUsersProfileMailBtn = (ImageButton) findViewById(R.id.otherUsersProfileMailBtn);
         otherUsersProfilePhoneBtn = (ImageButton) findViewById(R.id.otherUsersProfilePhoneBtn);
 
+        // Initialize the imageview for the profile photo
         otherUsersProfilePhotoImageView = (ImageView) findViewById(R.id.otherUsersProfilePhotoImageView);
 
+        // Initialize the recycler view for the posts
         recyclerView = (RecyclerView) findViewById(R.id.otherUserPostList);
-
         recyclerView.setHasFixedSize(true);
 
         // Set the layout manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        // TO BE REPLACED WITH THE DATABASE
-        // buraya iki yerden geliniyo 1)visit button in book profile 2) visit sellerProfile in postpage gitmeden: önce current sellerı (global) eşitlersek olur
+        // Pull the current seller from the global class Booked
         currentSeller = Booked.getCurrentSeller();
 
-
-
-        //otherUsersProfilePhotoImageView.setImageURI(Uri.parse(currentSeller.getAvatar()));
-
+        // Pull all the posts of this user from the database using whereEqualTo() method and a for-loop
         posts = new ArrayList<>();
         db.collection("postsObj").whereEqualTo("seller.documentId", currentSeller.getDocumentId()).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -107,19 +115,20 @@ public class OtherUsersProfile extends AppCompatActivity {
             }
         });
 
-
+        // If there's no avatar in the user's profile, then load a placeholder. Load user's photo, otherwise.
         if ( currentSeller.getAvatar() != "" ) {
-            //profilePhotoImageView.setImageURI(Uri.parse(currentUser.getAvatar()));
             Picasso.get().load(currentSeller.getAvatar()).fit().into(otherUsersProfilePhotoImageView);
         }
         else {
             Picasso.get().load(R.drawable.ic_user_male).error(R.drawable.ic_user_male).fit().into(otherUsersProfilePhotoImageView);
         }
 
+        // Set the textviews with related information about the user
         otherUsersProfileUsernameTextView.setText(currentSeller.getName().toString());
         otherUsersProfileUniversityNameTextView.setText(currentSeller.getUniversity().toString());
         otherUsersProfilePostTextView.setText(currentSeller.getName().toString() + "'s Posts");
 
+        // Open the social media dialog box if the user has social media info
         otherUsersProfileFacebookBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,6 +140,7 @@ public class OtherUsersProfile extends AppCompatActivity {
             }
         });
 
+        // Open the social media dialog box if the user has social media info
         otherUsersProfileTwitterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -142,6 +152,7 @@ public class OtherUsersProfile extends AppCompatActivity {
             }
         });
 
+        // Open the social media dialog box if the user has social media info
         otherUsersProfileInstagramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -153,6 +164,7 @@ public class OtherUsersProfile extends AppCompatActivity {
             }
         });
 
+        // Open the social media dialog box with the email info
         otherUsersProfileMailBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,6 +172,7 @@ public class OtherUsersProfile extends AppCompatActivity {
             }
         });
 
+        // Open the social media dialog box with the phone info
         otherUsersProfilePhoneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -168,11 +181,20 @@ public class OtherUsersProfile extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method creates and opens up SocialMediaDialog
+     * @param socialMedia
+     */
     public void openDialog(String socialMedia) {
         SocialMediaDialog dialog = new SocialMediaDialog(socialMedia);
         dialog.show(getSupportFragmentManager(),"social media dialog");
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -180,6 +202,11 @@ public class OtherUsersProfile extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
