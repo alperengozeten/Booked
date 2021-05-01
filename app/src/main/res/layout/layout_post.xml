@@ -54,10 +54,17 @@
         android:id="@+id/postEditBtn"
         android:layout_width="48dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="1dp"
         android:background="@color/primaryBackgroundColor"
-        app:layout_constraintBottom_toBottomOf="@+id/divider"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/deleteMyPost"
         app:srcCompat="@drawable/ic_set" />
+
+    <ImageButton
+        android:id="@+id/deleteMyPost"
+        android:layout_width="52dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_trash_can" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

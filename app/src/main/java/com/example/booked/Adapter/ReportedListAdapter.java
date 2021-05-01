@@ -83,9 +83,11 @@ public class ReportedListAdapter extends RecyclerView.Adapter<ReportedListAdapte
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Booked.deletePost(reportedPosts.get(position));
                 reportedPosts.remove(position);
                 notifyDataSetChanged();
-                // databaseden de silinecek
+
             }
         });
 

@@ -17,7 +17,11 @@ import com.example.booked.Booked;
 import com.example.booked.EditPost;
 import com.example.booked.PostPage;
 import com.example.booked.R;
+import com.example.booked.models.BookProfile;
 import com.example.booked.models.Post;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -53,6 +57,15 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
             Picasso.get().load(posts.get(position).getPicture()).fit().centerCrop().into(holder.postPictureImageView);
         }
 
+        holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Booked.deletePost(posts.get(position));
+                posts.remove(position);
+                notifyDataSetChanged();
+            }
+        });
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +88,7 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
         });
     }
 
+
     @Override
     public int getItemCount() {
         return posts.size();
@@ -86,12 +100,13 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
         TextView postDescriptionTextView;
         TextView postPriceTextView;
         ImageButton postEditBtn;
+        ImageButton deleteButton;
         ConstraintLayout parentLayout;
 
 
         public PostViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            deleteButton = itemView.findViewById(R.id.deleteMyPost);
             postPictureImageView = itemView.findViewById(R.id.postPictureImageView);
             postDescriptionTextView = itemView.findViewById(R.id.postDescriptionTextView);
             postPriceTextView = itemView.findViewById(R.id.postPriceTextView);

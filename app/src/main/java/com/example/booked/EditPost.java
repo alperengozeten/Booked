@@ -114,32 +114,18 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_post2);
 
+
+
         currentPost = Booked.getCurrentPost();
         currentUser = Booked.getCurrentUser();
 
-        changeTitleEditText = (EditText) findViewById(R.id.changeTitleEditText);
-        changePriceEditText = (EditText) findViewById(R.id.changePriceEditText);
-        changeDescriptionEditText = (EditText) findViewById(R.id.changeDescriptionEditText);
-
-        changeUniversitySpinner = (Spinner) findViewById(R.id.changeUniversitySpinner);
-        changeCourseSpinner = (Spinner) findViewById(R.id.changeCourseSpinner);
-        changeBookSpinner = (Spinner) findViewById(R.id.changeBookSpinner);
-
+        setEditTextFields();
+        setSpinners();
         applyChangesBtn = (Button) findViewById(R.id.applyChangePostBtn);
-
-        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(this,R.array.universities, android.R.layout.simple_spinner_item);
-        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this,R.array.courses, android.R.layout.simple_spinner_item);
-
-        universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        changeUniversitySpinner.setAdapter(universityAdapter);
-        changeCourseSpinner.setAdapter(courseAdapter);
-
-        changeUniversitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
-        changeCourseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
-
         editPostPhotoImageView = (ImageView) findViewById(R.id.editPostPhotoImageView);
+
+
+
 
         // FILL MUST BE AFTER
         fill();
@@ -202,6 +188,38 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         });
 
     }
+
+    private void setEditTextFields()
+    {
+        changeTitleEditText = (EditText) findViewById(R.id.changeTitleEditText);
+        changePriceEditText = (EditText) findViewById(R.id.changePriceEditText);
+        changeDescriptionEditText = (EditText) findViewById(R.id.changeDescriptionEditText);
+
+    }
+
+    private void setSpinners()
+    {
+        changeUniversitySpinner = (Spinner) findViewById(R.id.changeUniversitySpinner);
+        changeCourseSpinner = (Spinner) findViewById(R.id.changeCourseSpinner);
+        changeBookSpinner = (Spinner) findViewById(R.id.changeBookSpinner);
+
+
+        ArrayAdapter<CharSequence> universityAdapter = ArrayAdapter.createFromResource(this,R.array.universities, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> courseAdapter = ArrayAdapter.createFromResource(this,R.array.courses, android.R.layout.simple_spinner_item);
+
+        universityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        courseAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        changeUniversitySpinner.setAdapter(universityAdapter);
+        changeCourseSpinner.setAdapter(courseAdapter);
+
+        changeUniversitySpinner.setOnItemSelectedListener( (AdapterView.OnItemSelectedListener) this);
+        changeCourseSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
+
+    }
+
+
+
 
     private void fill() {
         changeTitleEditText.setText(currentPost.getTitle());

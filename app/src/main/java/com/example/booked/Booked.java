@@ -8,6 +8,11 @@ import com.example.booked.models.BookProfile;
 import com.example.booked.models.Evaluation;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class Booked extends Application {
 
@@ -66,24 +71,30 @@ public class Booked extends Application {
         Booked.currentBookProfile = currentBookProfile;
     }
 
-    public static void setExample()
-    {
-        //currentUser = new User("eren", "atmaziya6@gmail.com", "None", "05443332211", "Bilo University");
 
-        /**currentBook = new Book(" book1","pic1");
-        currentBookProfile = new BookProfile(currentBook);
-       // currentPost = new Post("Old book", "iyi durumda iş görür ", "Cs-115",70, "No pic", currentBook, currentUser);
 
-        currentBookProfile.addEvalution(new Evaluation("coh iyi",3,new User("Alperen", "alperengozeten@gmail.com", "None", "05392472224", "Bilkent University")));
-        currentBookProfile.addEvalution(new Evaluation("daha da iyi",4, currentUser));
-        currentBookProfile.addPost(new Post("B book", "A In good state", "Cs-115",70,"No pic", currentBook,
-                new User("berkay", "berkay@gmail.com", "None", "05443332211", "Bilk University")));
+    public static void deletePost(Post p) {
 
-        currentBookProfile.addPost(new Post("A book", "iyidir", "Cs-115",40,"No pic", currentBook,
-                new User("omer", "ömer@gmail.com", "None", "05443332211", "Bilke University")));
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        currentBookProfile.addPost(new Post("C book", "iyidir", "Cs-115",50,"No pic", currentBook,
-                new User("yarkın", "ömer@gmail.com", "None", "05443332211", "Bilke University")));*/
+        db.collection("postsObj").document(p.getId()).delete();
+
+        db.collection("bookProfileObj").document(p.getBook().getId()).get()
+                .addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        ArrayList<Post> offers = documentSnapshot.toObject(BookProfile.class).getOffers();
+                        offers.remove(p);
+
+                        updateBookProfileOffers(offers, p.getBook().getId());
+                    }
+                });
     }
 
+    private static void updateBookProfileOffers(ArrayList<Post> offers, String id) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("bookProfileObj").document(id).update("offers",offers);
+
+    }
 }

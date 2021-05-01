@@ -76,13 +76,13 @@ public class ReportedPosts extends AppCompatActivity {
 
     void viewReports() {
         reportedList = (RecyclerView) findViewById(R.id.reportedList);
-        Log.d("reportedv1",reportedPostList.toString());
+
         reportedAdapter= new ReportedListAdapter(reportedPostList);
-        Log.d("reportedv2",reportedPostList.toString());
+
         reportedList.setAdapter(reportedAdapter);
-        Log.d("reportedv3",reportedPostList.toString());
+
         reportedList.setLayoutManager(new LinearLayoutManager(this));
-        Log.d("reportedv4",reportedPostList.toString());
+
         reportedAdapter.notifyDataSetChanged();
     }
 
