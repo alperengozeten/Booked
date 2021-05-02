@@ -35,7 +35,7 @@ public class Booked extends Application {
     static Book currentBook;// = new Book("Example Book","picbook");
     private static User currentSeller;
 
-    private static final String CHANNEL_ID = "post_notifications";
+    public static final String CHANNEL_ID = "post_notifications";
 
     public Booked() {
     }
