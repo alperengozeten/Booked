@@ -66,6 +66,7 @@ public class MessageRoomActivity extends AppCompatActivity {
                 if ( !(textSendEditText.getText() == null || textSendEditText.getText().toString().equals("")) ) {
                     Message newMessage = new Message(currentSeller.getDocumentId(), currentUser.getDocumentId(), textSendEditText.getText().toString());
                     Booked.sendMessage(newMessage);
+                    textSendEditText.setText("");
                     Toast.makeText(MessageRoomActivity.this, "Message sent", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(MessageRoomActivity.this, "Type a message", Toast.LENGTH_SHORT).show();
