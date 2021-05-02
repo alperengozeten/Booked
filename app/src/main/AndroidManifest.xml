@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
         <activity android:name=".MyMessages"></activity>
-        <activity android:name=".MessageRoom" />
+        <activity android:name=".MessageRoomActivity" />
         <activity android:name=".FeedbacksActivity" />
         <activity android:name=".AdminPanel" />
         <activity android:name=".ReportedPosts" />

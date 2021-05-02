@@ -1,7 +1,6 @@
 package com.example.booked.Adapter;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.Booked;
+import com.example.booked.MessageRoomActivity;
 import com.example.booked.R;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -73,7 +73,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
 
                                 Booked.setCurrentSeller(u);
 
-                                Intent intent = new Intent(holder.goMessages.getContext(), com.example.booked.MessageRoom.class);
+                                Intent intent = new Intent(holder.goMessages.getContext(), MessageRoomActivity.class);
                                 startActivity(holder.goMessages.getContext(),intent,null);
 
                             }

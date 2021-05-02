@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.booked.Adapter.OtherUsersPostAdapter;
-import com.example.booked.models.Book;
 import com.example.booked.models.MessageRoom;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
@@ -266,13 +265,13 @@ public class OtherUsersProfile extends AppCompatActivity {
                 public void onComplete(@NonNull Task<Void> task) {
                     if ( task.isSuccessful() ) {
                         Toast.makeText(OtherUsersProfile.this, "Message Room created", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OtherUsersProfile.this, com.example.booked.MessageRoom.class);
+                        Intent intent = new Intent(OtherUsersProfile.this, MessageRoomActivity.class);
                         startActivity(intent);
                     }
                 }
             });
         } else {
-            Intent intent = new Intent(OtherUsersProfile.this, com.example.booked.MessageRoom.class);
+            Intent intent = new Intent(OtherUsersProfile.this, MessageRoomActivity.class);
             startActivity(intent);
         }
     }
