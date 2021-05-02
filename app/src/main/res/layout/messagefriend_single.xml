@@ -3,28 +3,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="110dp">
 
     <TextView
         android:id="@+id/messageFriendName"
-        android:layout_width="196dp"
-        android:layout_height="99dp"
-        android:layout_marginStart="52dp"
+        android:layout_width="300dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/forgot_password"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/goMessageRoom"
-        android:layout_width="114dp"
-        android:layout_height="79dp"
-        android:layout_marginTop="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toEndOf="@+id/messageFriendName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_iconfinder_send_online_post_start_launch_2205231_1" />
+        android:layout_width="90dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="300dp"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/message_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

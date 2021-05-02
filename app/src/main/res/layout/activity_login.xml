@@ -44,22 +44,6 @@
         app:layout_constraintTop_toBottomOf="@+id/blueBackground"
         android:inputType="text" />
 
-    <EditText
-        android:id="@+id/passwordEditTextL"
-        android:layout_width="280dp"
-        android:layout_height="40dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="26dp"
-        android:background="@color/textBackground"
-        android:hint="Password"
-        android:textAlignment="center"
-        android:textColorHint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/emailAddressEditTextL"
-        android:inputType="textPassword" />
-
     <Button
         android:id="@+id/loginBtn"
         android:layout_width="170dp"
@@ -104,6 +88,23 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUpBtnL" />
+
+
+    <EditText
+            android:id="@+id/passwordEditTextL"
+            android:layout_width="280dp"
+            android:layout_height="40dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="26dp"
+            android:background="@color/textBackground"
+            android:hint="Password"
+            android:textAlignment="center"
+            android:textColorHint="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/emailAddressEditTextL"
+            android:inputType="textPassword" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
