@@ -142,8 +142,8 @@ public class Booked extends Application {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                        ArrayList<Message> messages;
-                        messages = task.getResult().toObject(MessageRoom.class).getMessages();
+                        ArrayList<Message> messages = task.getResult().toObject(MessageRoom.class).getMessages();
+                        messages.add(m);
                         updateMessages(messages, findTheirMessageRoom(m.getReceiverId(),m.getSenderId()) );
                     }
                 });
