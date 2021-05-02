@@ -158,7 +158,7 @@ public class Booked extends Application {
 
     }
 
-    public static ArrayList<Message> getMessagesBetweenThem(String userId1, String userId2)
+   /** public static ArrayList<Message> getMessagesBetweenThem(String userId1, String userId2)
     {
         ArrayList<Message> allMessages = new ArrayList<Message>();
 
@@ -176,6 +176,6 @@ public class Booked extends Application {
         });
 
         return allMessages;
-    }
+    }*/
 
 }

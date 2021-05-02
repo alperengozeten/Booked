@@ -1,6 +1,7 @@
 package com.example.booked.Adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +28,14 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
 
     ArrayList<String> myMessageFriends;
     User u;
+    ArrayList<User> users;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     public MessageFriendsAdapter(ArrayList<String> myMessageFriends) {
         this.myMessageFriends = myMessageFriends;
+
+        users = new ArrayList<User>();
+
     }
 
     public class MessageFriendsHolder extends RecyclerView.ViewHolder
@@ -55,8 +61,19 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
     @Override
     public void onBindViewHolder(@NonNull MessageFriendsHolder holder, int position) {
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        /**holder.friendName.setText(users.get(position).getName());
 
+        holder.goMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Booked.setCurrentSeller(users.get(position));
+
+                Intent intent = new Intent(holder.goMessages.getContext(), MessageRoomActivity.class);
+                startActivity(holder.goMessages.getContext(),intent,null);
+
+            }
+        });*/
 
 
         db.collection("usersObj").document(myMessageFriends.get(position)).get()
@@ -66,21 +83,31 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
 
                         u = task.getResult().toObject(User.class);
                         holder.friendName.setText(u.getName());
+                        users.add(u);
 
                         holder.goMessages.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                Booked.setCurrentSeller(u);
+                                Log.d("messageAdapter",users.get(position).getName() + position);
+
+                                for(User u : users) {
+                                    if (u.getDocumentId().equals(myMessageFriends.get(position))) {
+                                        Booked.setCurrentSeller(u);
+                                    }
+                                }
+
 
                                 Intent intent = new Intent(holder.goMessages.getContext(), MessageRoomActivity.class);
                                 startActivity(holder.goMessages.getContext(),intent,null);
 
                             }
                         });
+
+
+
                     }
                 });
-
 
     }
 
@@ -90,6 +117,7 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
     public int getItemCount() {
         return myMessageFriends.size();
     }
+
 
 
 

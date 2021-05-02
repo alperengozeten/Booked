@@ -30,7 +30,7 @@ public class MyMessages extends AppCompatActivity {
 
     RecyclerView myMessageFriendsRcycler;
     MessageFriendsAdapter messageFriendsAdapter;
-    ArrayList<User> myFriends;
+
     ArrayList<String> myFriendsIds;
 
     FirebaseFirestore db;
@@ -41,57 +41,21 @@ public class MyMessages extends AppCompatActivity {
         setContentView(R.layout.activity_my_messages);
 
         db = FirebaseFirestore.getInstance();
-        myFriends = new ArrayList<User>();
+
         myFriendsIds = new ArrayList<String>();
 
 
         setMyFriendsIds();
-        //setMyFriends();
 
-        //setMessageFriendsView();
 
 
 
     }
 
-    private void setMyFriends() {
 
-        for( String userId : myFriendsIds )
-        {
-            db.collection("usersObj").document(userId).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                @Override
-                public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    myFriends.add(documentSnapshot.toObject(User.class));
-                }
-            });
-        }
-
-    }
 
     private void setMyFriendsIds() {
 
-       /** db.collection("messageRooms").whereEqualTo("senderId",Booked.getCurrentUser().getDocumentId()).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-                        {
-                            myFriendsIds.add(documentSnapshot.toObject(MessageRoom.class).getReceiverId());
-                        }
-                    }
-                });
-
-        db.collection("messageRooms").whereEqualTo("receiverId",Booked.getCurrentUser().getDocumentId()).get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for(QueryDocumentSnapshot documentSnapshot: queryDocumentSnapshots)
-                        {
-                            myFriendsIds.add(documentSnapshot.toObject(MessageRoom.class).getSenderId());
-
-                        }
-                    }
-                });*/
 
         db.collection("messageRooms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -104,20 +68,21 @@ public class MyMessages extends AppCompatActivity {
                         assert mR != null;
                         if( mR.getReceiverId().equals(Booked.getCurrentUser().getDocumentId()))
                         {
+
                             myFriendsIds.add(mR.getSenderId());
                         }
                         else if ( mR.getSenderId().equals(Booked.getCurrentUser().getDocumentId()))
                         {
+
                             myFriendsIds.add(mR.getReceiverId());
                         }
 
 
                     }
 
-                    setMessageFriendsView();
-
                 }
 
+                setMessageFriendsView();
             }
         });
 
@@ -126,17 +91,19 @@ public class MyMessages extends AppCompatActivity {
 
 
     private void setMessageFriendsView() {
-        Log.d("message",myFriendsIds.toString());
-        myMessageFriendsRcycler = (RecyclerView) findViewById(R.id.myMessageFriends);
 
+        myMessageFriendsRcycler = (RecyclerView) findViewById(R.id.myMessageFriends);
+        myMessageFriendsRcycler.setLayoutManager(new LinearLayoutManager(this));
+
+        Log.d("messageSon",myFriendsIds.toString());
         messageFriendsAdapter =  new MessageFriendsAdapter(myFriendsIds);
 
         myMessageFriendsRcycler.setAdapter(messageFriendsAdapter);
-        myMessageFriendsRcycler.setLayoutManager(new LinearLayoutManager(this));
 
         messageFriendsAdapter.notifyDataSetChanged();
 
     }
+
 
 
 }
