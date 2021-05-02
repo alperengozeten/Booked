@@ -2,6 +2,8 @@ package com.example.booked;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.media.Image;
@@ -15,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.booked.Adapter.MessageAdapter;
 import com.example.booked.models.Message;
 import com.example.booked.models.MessageRoom;
 import com.example.booked.models.User;
@@ -43,6 +46,10 @@ public class MessageRoomActivity extends AppCompatActivity {
 
     private MessageRoom messageRoom;
 
+    private MessageAdapter messageAdapter;
+
+    private RecyclerView messageRecyclerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +59,13 @@ public class MessageRoomActivity extends AppCompatActivity {
 
         currentUser = Booked.getCurrentUser();
         currentSeller = Booked.getCurrentSeller();
+
+        messageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
+        messageRecyclerView.setHasFixedSize(true);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
+        linearLayoutManager.setStackFromEnd(true);
+        messageRecyclerView.setLayoutManager(linearLayoutManager);
 
         getMessages();
 
@@ -95,6 +109,9 @@ public class MessageRoomActivity extends AppCompatActivity {
                 if ( task.isSuccessful() ) {
                     messageRoom = task.getResult().toObject(MessageRoom.class);
                     Toast.makeText(MessageRoomActivity.this, "Message room pulled", Toast.LENGTH_SHORT).show();
+
+                    messageAdapter = new MessageAdapter(MessageRoomActivity.this,messageRoom.getMessages());
+                    messageRecyclerView.setAdapter(messageAdapter);
                 }
             }
         });
