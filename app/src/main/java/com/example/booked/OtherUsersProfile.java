@@ -257,6 +257,7 @@ public class OtherUsersProfile extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //
     public void createMessageRoom(boolean messageRoomExists) {
         if ( !messageRoomExists ) {
             MessageRoom newMessageRoom = new MessageRoom(currentSeller.getDocumentId(), currentUser.getDocumentId());
