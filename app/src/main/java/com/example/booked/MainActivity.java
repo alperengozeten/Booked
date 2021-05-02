@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Button showroomBtn;
     Button myPostsBtn;
     Button profileBtn;
-
+    Button myMessages;
     private Button adminPanel;
 
     FirebaseAuth mAuth;
@@ -105,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         showroomImageBtn = (ImageButton) findViewById(R.id.showroomImageBtn);
         myPostsImageBtn = (ImageButton) findViewById(R.id.myPostsImageBtn);
         profileImageBtn = (ImageButton) findViewById(R.id.profileImageBtn);
+        myMessages = (Button) findViewById(R.id.myMessages);
 
         // Initialize the image buttons
         showroomBtn = (Button) findViewById(R.id.showroomBtn);
@@ -177,6 +178,15 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        myMessages.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent( getApplicationContext(), MyMessages.class);
+                startActivity(intent);
+            }
+        });
+
     }
 
     /**
