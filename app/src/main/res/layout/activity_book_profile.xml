@@ -35,11 +35,11 @@
             android:id="@+id/theRating"
             android:layout_width="87dp"
             android:layout_height="31dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="292dp"
             android:text="Rating"
             android:textSize="18sp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle" />
 
         <TextView
@@ -49,9 +49,7 @@
             android:layout_marginTop="8dp"
             android:background="#81E7C5"
             android:gravity="center_vertical"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.123"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/theRating"
             app:layout_constraintTop_toBottomOf="@+id/theRating" />
 
         <ImageView
@@ -66,9 +64,8 @@
             android:id="@+id/bookprofile_comments"
             android:layout_width="357dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/commentNum"
             app:layout_constraintTop_toBottomOf="@+id/commentNum" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -76,7 +73,7 @@
             android:layout_width="351dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="20dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="30dp"
             android:background="@drawable/offer_border"
             android:maxHeight="100dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -102,17 +99,16 @@
             android:id="@+id/commentNum"
             android:layout_width="150dp"
             android:layout_height="27dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="30dp"
             android:textSize="24dp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bookProfileRating"
             app:layout_constraintTop_toBottomOf="@+id/bookProfile_addTowWishlist" />
 
         <ImageView
             android:id="@+id/bookProfileImageView"
-            android:layout_width="149dp"
-            android:layout_height="161dp"
-            android:layout_marginStart="20dp"
+            android:layout_width="167dp"
+            android:layout_height="185dp"
+            android:layout_marginStart="15dp"
             android:layout_marginTop="20dp"
             app:layout_constraintStart_toEndOf="@+id/bookProfileRating"
             app:layout_constraintTop_toBottomOf="@+id/bookprofiletitle"
@@ -195,13 +191,12 @@
             android:id="@+id/bookProfile_addTowWishlist"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="10dp"
             android:backgroundTint="@color/blueBackgroundColor"
             android:text="ADD TO WISHLIST"
             android:textColor="#FFFFFF"
-            app:layout_constraintEnd_toStartOf="@+id/bookProfileImageView"
-            app:layout_constraintHorizontal_bias="0.412"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/bookProfileRating"
             app:layout_constraintTop_toBottomOf="@+id/bookProfileRating" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
