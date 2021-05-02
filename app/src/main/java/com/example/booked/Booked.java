@@ -2,13 +2,20 @@ package com.example.booked;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
 import com.example.booked.models.Book;
 import com.example.booked.models.BookProfile;
+import com.example.booked.models.Message;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -117,5 +124,32 @@ public class Booked extends Application {
 
     }
 
+    public static void sendMessage(Message m)
+    {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("messageRooms").document(findTheirMessageRoom(m.getReceiverId(),m.getSenderId())).collection("messages").add(m);
+
+    }
+
+    public static ArrayList<Message> getMessagesBetweenThem(String userId1, String userId2)
+    {
+        ArrayList<Message> allMessages = new ArrayList<Message>();
+
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("messageRooms").document(findTheirMessageRoom(userId1,userId2)).collection("messages").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for(QueryDocumentSnapshot document: queryDocumentSnapshots)
+                {
+                    allMessages.add(document.toObject(Message.class));
+                }
+            }
+        });
+
+        return allMessages;
+    }
 
 }
