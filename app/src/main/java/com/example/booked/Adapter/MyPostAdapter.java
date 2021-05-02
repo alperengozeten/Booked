@@ -1,5 +1,6 @@
 package com.example.booked.Adapter;
 
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -11,10 +12,13 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.booked.Booked;
 import com.example.booked.EditPost;
+import com.example.booked.MyPosts;
 import com.example.booked.PostPage;
 import com.example.booked.R;
 import com.example.booked.models.BookProfile;
@@ -84,6 +88,7 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
 
                 // Delete post from the database using the deletePost() method of the Global class
                 Booked.deletePost(posts.get(position));
+                notifyUser();
                 posts.remove(position);
                 notifyDataSetChanged();
             }
@@ -111,6 +116,26 @@ public class MyPostAdapter extends androidx.recyclerview.widget.RecyclerView.Ada
                 context.startActivity(intent);
             }
         });
+    }
+
+    /**
+     * Sends a notification to user when the user deleted a post.
+     */
+    public void notifyUser() {
+        Intent resultIntent = new Intent(context, MyPosts.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 2,
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, Booked.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Post Deleted!")
+                .setContentText("Post has been deleted.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(context);
+        mNotificationManager.notify(2, mBuilder.build());
     }
 
     /**

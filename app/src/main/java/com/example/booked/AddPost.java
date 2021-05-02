@@ -8,6 +8,7 @@ import androidx.core.app.NotificationManagerCompat;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -85,8 +86,6 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
     private Post newPost;
 
-    private static final String CHANNEL_ID = "add_post";
-
     /**
      * This method is in all pages which creates the top menu
      * @param menu
@@ -102,7 +101,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
     /**
      * This method is in all pages which creates the functionality of the top menu
      * @param item
-     * @return
+     * @return true
      */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -119,7 +118,6 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         return super.onOptionsItemSelected(item);
     }
 
-
     /**
      * This is the first method called when an instance of this class is created
      * @param savedInstanceState
@@ -134,7 +132,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Create notification channel
-        createNotificationChannel();
+//        createNotificationChannel();
 
         // Initialize the database objects
         storageReference = FirebaseStorage.getInstance().getReference("images");
@@ -243,28 +241,28 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
                      Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                      startActivity(intent);
+                     finish();
                 }
             }
         });
     }
 
-    private void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channelOne = new NotificationChannel(
-                    CHANNEL_ID, "channel 1", NotificationManager.IMPORTANCE_DEFAULT);
-            channelOne.setDescription( "Add Post Notification");
-
-            NotificationManager manager = getSystemService( NotificationManager.class);
-            manager.createNotificationChannel( channelOne);
-        }
-    }
-
+    /**
+     * Sends a notification to user when the user added a new post.
+     */
     private void notifyUser() {
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this,CHANNEL_ID)
+
+        Intent resultIntent = new Intent(this, MyPosts.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 1,
+                                                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Booked.CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
                 .setContentTitle("New Post!")
                 .setContentText("Your new post has been created and featured in Showroom.")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
 
         NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
         mNotificationManager.notify(1, mBuilder.build());

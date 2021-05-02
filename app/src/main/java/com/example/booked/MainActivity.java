@@ -3,7 +3,10 @@ package com.example.booked;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -32,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private Button adminPanel;
 
     FirebaseAuth mAuth;
+
+//    private static final String CHANNEL_ID = "add_post";
 
     /**
      * This method is in all pages which creates the top menu
@@ -70,9 +75,12 @@ public class MainActivity extends AppCompatActivity {
      * @param savedInstanceState
      */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Create notification channel for Post notifications
+        createNotificationChannel();
 
         // Initialize the admin panel button and set a listener to it
         adminPanel = (Button) findViewById(R.id.adminNewBookBtn);
@@ -169,5 +177,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    /**
+     * Creates notification channel for Post notifications.
+     */
+    public void createNotificationChannel() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channelOne = new NotificationChannel(
+                    Booked.CHANNEL_ID, "channel 1", NotificationManager.IMPORTANCE_DEFAULT);
+            channelOne.setDescription( "Post Notifications");
+
+            NotificationManager manager = getSystemService( NotificationManager.class);
+            manager.createNotificationChannel( channelOne);
+        }
     }
 }
