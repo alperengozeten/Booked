@@ -10,5 +10,8 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="18sp"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
         tools:text="This is the social media info"></TextView>
 </RelativeLayout>
