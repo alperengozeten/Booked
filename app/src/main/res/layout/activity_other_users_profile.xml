@@ -28,7 +28,7 @@
         android:id="@+id/otherUsersProfileUsernameTextView"
         android:layout_width="160dp"
         android:layout_height="32dp"
-        android:layout_marginTop="160dp"
+        android:layout_marginTop="120dp"
         android:background="@drawable/box"
         android:backgroundTintMode="screen"
         android:gravity="center"
@@ -141,5 +141,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileInstagramBtn" />
+
+    <Button
+        android:id="@+id/otherUserSendMessageBtn"
+        android:layout_width="160dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="40dp"
+        android:background="@color/blue_button"
+        android:text="Send Message"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/otherUsersProfilePhotoImageView"
+        app:layout_constraintTop_toBottomOf="@+id/otherUsersProfileUniversityNameTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

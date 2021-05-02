@@ -12,15 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Booked">
-        <activity android:name=".FeedbacksActivity"></activity>
+        <activity android:name=".MessageRoom"></activity>
+        <activity android:name=".FeedbacksActivity" />
         <activity android:name=".AdminPanel" />
         <activity android:name=".ReportedPosts" />
         <activity android:name=".AdminAddBook" />
         <activity android:name=".SignUpActivity" />
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop">
-        </activity>
+            android:launchMode="singleTop"></activity>
         <activity android:name=".ForgotPasswordActivity" />
         <activity android:name=".EmailVerificationCheckActivity" />
         <activity android:name=".SuccessfulVerificationActivity" />
