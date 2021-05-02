@@ -15,6 +15,7 @@ import androidx.annotation.NonNull;
 import com.example.booked.models.Book;
 import com.example.booked.models.BookProfile;
 import com.example.booked.models.Message;
+import com.example.booked.models.MessageRoom;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -137,7 +138,23 @@ public class Booked extends Application {
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-        db.collection("messageRooms").document(findTheirMessageRoom(m.getReceiverId(),m.getSenderId())).collection("messages").add(m);
+        db.collection("messageRooms").document(findTheirMessageRoom(m.getReceiverId(),m.getSenderId())).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        ArrayList<Message> messages;
+                        messages = task.getResult().toObject(MessageRoom.class).getMessages();
+                        updateMessages(messages, findTheirMessageRoom(m.getReceiverId(),m.getSenderId()) );
+                    }
+                });
+
+    }
+
+    private static void updateMessages(ArrayList<Message> messages, String id) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("messageRooms").document(id).update("messages",messages);
+
 
     }
 
