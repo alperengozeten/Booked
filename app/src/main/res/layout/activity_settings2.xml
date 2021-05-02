@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/primaryBackgroundColor"
-    tools:context=".Settings">
+    tools:context=".SettingsActivity">
 
 
     <Button
@@ -56,7 +56,7 @@
         android:layout_width="140pt"
         android:layout_height="25pt"
         android:layout_marginBottom="80dp"
-        android:text="Enable Notıfıcatıons"
+        android:text="NOTIFICATION SETTINGS"
         app:backgroundTint="#231F52"
         android:textColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/logOutBtn"

@@ -6,12 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -107,7 +104,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

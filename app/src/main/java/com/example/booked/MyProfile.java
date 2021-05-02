@@ -6,7 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -314,7 +313,7 @@ public class MyProfile extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

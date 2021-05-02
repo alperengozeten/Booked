@@ -7,15 +7,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.example.booked.Adapter.ReportedListAdapter;
-import com.example.booked.models.Book;
 import com.example.booked.models.Post;
-import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -98,7 +95,7 @@ public class ReportedPosts extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

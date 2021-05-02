@@ -12,17 +12,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.booked.models.User;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.util.HashMap;
 
 
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
@@ -160,7 +156,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

@@ -2,9 +2,13 @@ package com.example.booked;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationManagerCompat;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,7 +22,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * This is the class of the Settings page
  */
-public class Settings extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
      ImageButton logOutImageBtn;
      ImageButton feedbackImageBtn;
@@ -34,6 +38,7 @@ public class Settings extends AppCompatActivity {
      FirebaseAuth mAuth;
 
     private User currentUser;
+    private NotificationManagerCompat notificationManager;
 
     /**
      * This method is in all pages which creates the top menu
@@ -56,7 +61,7 @@ public class Settings extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:
@@ -75,6 +80,8 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings2);
+
+        notificationManager = NotificationManagerCompat.from(this);
 
         // Set the top icons
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
@@ -124,18 +131,29 @@ public class Settings extends AppCompatActivity {
         notificationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                //user setle databasee
-                currentUser.setNotifications(true);
+                openNotificationSettings();
             }
         });
+    }
+
+    private void openNotificationSettings() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            Intent intent1 = new Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
+            intent1.putExtra( Settings.EXTRA_APP_PACKAGE, getPackageName());
+            startActivity( intent1);
+        }
+        else {
+            Intent intent2 = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            intent2.setData(Uri.parse("package:" + getPackageName()));
+            startActivity( intent2);
+        }
     }
 
     /**
      * This method creates and opens a new FeedbackDialog
      */
     public void openFeedbackDialog(){
-        FeedbackDialog feedbackDialog = new FeedbackDialog(Settings.this, currentUser.getName());
+        FeedbackDialog feedbackDialog = new FeedbackDialog(SettingsActivity.this, currentUser.getName());
         feedbackDialog.show(getSupportFragmentManager(),"feedback dialog");
 
     }
