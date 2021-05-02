@@ -1,6 +1,7 @@
 package com.example.booked;
 
 import android.annotation.SuppressLint;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -181,6 +184,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
                 Booked.getCurrentUser().addBookToWishlist(myBookProfile.getBook());
                 Booked.updateUserInDatabase(Booked.getCurrentUser().getDocumentId(),Booked.getCurrentUser());
 
+                notifyUser();
                 Toast.makeText(BookProfile.this, "Wish List Updated", Toast.LENGTH_LONG).show();
 
                 /**db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).set(Booked.getCurrentUser())
@@ -229,6 +233,23 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
                 offerAdapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void notifyUser() {
+        Intent resultIntent = new Intent(this, WishlistActivity.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 4,
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Booked.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Wishlist Updated!")
+                .setContentText("Book has been added to your wishlist.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+        mNotificationManager.notify(4, mBuilder.build());
     }
 
     /**
