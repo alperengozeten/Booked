@@ -159,6 +159,10 @@ public class User{
         return this.university;
     }
 
+    public boolean getNotification() {
+        return this.notifications;
+    }
+
     // Mutator Methods
     public void setSocialMedia(ArrayList<String> socialMedia) {
         this.socialMedia = socialMedia;

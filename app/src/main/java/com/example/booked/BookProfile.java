@@ -3,7 +3,6 @@ package com.example.booked;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.Adapter.CommentRecyclerAdapter;
 import com.example.booked.Adapter.OfferRecyclerApapter;
 import com.example.booked.models.Evaluation;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
@@ -336,7 +334,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.settings_icon:
-                Intent settingsIntent = new Intent(getApplicationContext(), Settings.class);
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
                 startActivity( settingsIntent);
                 return true;
             case android.R.id.home:

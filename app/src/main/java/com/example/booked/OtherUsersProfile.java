@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.booked.Adapter.OtherUsersPostAdapter;
 import com.example.booked.models.Book;
-import com.example.booked.models.MessageRoom;
 import com.example.booked.models.Post;
 import com.example.booked.models.User;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,14 +48,9 @@ public class OtherUsersProfile extends AppCompatActivity {
     private ImageButton otherUsersProfileMailBtn;
     private ImageButton otherUsersProfilePhoneBtn;
 
-    private Button otherUserSendMessageBtn;
-
     private ImageView otherUsersProfilePhotoImageView;
 
     private User currentSeller;
-    private User currentUser;
-
-    private boolean messageRoomExists;
 
     private FirebaseFirestore db;
 
@@ -91,9 +84,6 @@ public class OtherUsersProfile extends AppCompatActivity {
         otherUsersProfileMailBtn = (ImageButton) findViewById(R.id.otherUsersProfileMailBtn);
         otherUsersProfilePhoneBtn = (ImageButton) findViewById(R.id.otherUsersProfilePhoneBtn);
 
-        // Initialize the button
-        otherUserSendMessageBtn = (Button) findViewById(R.id.otherUserSendMessageBtn);
-
         // Initialize the imageview for the profile photo
         otherUsersProfilePhotoImageView = (ImageView) findViewById(R.id.otherUsersProfilePhotoImageView);
 
@@ -107,9 +97,6 @@ public class OtherUsersProfile extends AppCompatActivity {
 
         // Pull the current seller from the global class Booked
         currentSeller = Booked.getCurrentSeller();
-
-        // Pull the current user
-        currentUser = Booked.getCurrentUser();
 
         // Pull all the posts of this user from the database using whereEqualTo() method and a for-loop
         posts = new ArrayList<>();
@@ -140,28 +127,6 @@ public class OtherUsersProfile extends AppCompatActivity {
         otherUsersProfileUsernameTextView.setText(currentSeller.getName().toString());
         otherUsersProfileUniversityNameTextView.setText(currentSeller.getUniversity().toString());
         otherUsersProfilePostTextView.setText(currentSeller.getName().toString() + "'s Posts");
-
-        // Set listener for send message button
-        otherUserSendMessageBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                messageRoomExists = false;
-                db.collection("messageRooms").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if ( task.isSuccessful() ) {
-                            for ( DocumentSnapshot documentSnapshot: task.getResult()) {
-                                if (documentSnapshot.getId().equals(Booked.findTheirMessageRoom(currentSeller.getDocumentId(),currentUser.getDocumentId()))) {
-                                    messageRoomExists = true;
-                                }
-                            }
-                            createMessageRoom(messageRoomExists);
-                        }
-                    }
-                });
-            }
-        });
 
         // Open the social media dialog box if the user has social media info
         otherUsersProfileFacebookBtn.setOnClickListener(new View.OnClickListener() {
@@ -255,24 +220,5 @@ public class OtherUsersProfile extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    public void createMessageRoom(boolean messageRoomExists) {
-        if ( !messageRoomExists ) {
-            MessageRoom newMessageRoom = new MessageRoom(currentSeller.getDocumentId(), currentUser.getDocumentId());
-            db.collection("messageRooms").document(Booked.findTheirMessageRoom(currentSeller.getDocumentId(), currentUser.getDocumentId())).set(newMessageRoom).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if ( task.isSuccessful() ) {
-                        Toast.makeText(OtherUsersProfile.this, "Message Room created", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(OtherUsersProfile.this, com.example.booked.MessageRoom.class);
-                        startActivity(intent);
-                    }
-                }
-            });
-        } else {
-            Intent intent = new Intent(OtherUsersProfile.this, com.example.booked.MessageRoom.class);
-            startActivity(intent);
-        }
     }
 }
