@@ -58,6 +58,10 @@ public class MessageRoomActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message_room);
 
+        // Set the top icons
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         db = FirebaseFirestore.getInstance();
 
         currentUser = Booked.getCurrentUser();

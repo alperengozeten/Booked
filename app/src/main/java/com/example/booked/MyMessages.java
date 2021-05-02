@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.booked.Adapter.MessageFriendsAdapter;
@@ -39,6 +43,10 @@ public class MyMessages extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_messages);
+
+        // Set the top icons
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         db = FirebaseFirestore.getInstance();
 
@@ -104,6 +112,36 @@ public class MyMessages extends AppCompatActivity {
 
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.action_menu, menu);
+        return true;
+    }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.settings_icon:
+                Intent settingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+                startActivity( settingsIntent);
+                return true;
+            case android.R.id.home:
+                Intent bookIntent = new Intent(getApplicationContext(),MainActivity.class);
+                startActivity(bookIntent);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
 
 }
