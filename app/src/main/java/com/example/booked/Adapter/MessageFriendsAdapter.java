@@ -1,6 +1,7 @@
 package com.example.booked.Adapter;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.Booked;
 import com.example.booked.R;
 import com.example.booked.models.User;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
@@ -20,9 +25,10 @@ import static androidx.core.content.ContextCompat.startActivity;
 
 public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAdapter.MessageFriendsHolder> {
 
-    ArrayList<User> myMessageFriends;
+    ArrayList<String> myMessageFriends;
+    User u;
 
-    public MessageFriendsAdapter(ArrayList<User> myMessageFriends) {
+    public MessageFriendsAdapter(ArrayList<String> myMessageFriends) {
         this.myMessageFriends = myMessageFriends;
     }
 
@@ -48,19 +54,33 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
 
     @Override
     public void onBindViewHolder(@NonNull MessageFriendsHolder holder, int position) {
-        holder.friendName.setText(myMessageFriends.get(position).getName());
 
-        holder.goMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-                Booked.setCurrentSeller(myMessageFriends.get(position));
 
-                Intent intent = new Intent(holder.goMessages.getContext(), com.example.booked.MessageRoom.class);
-                startActivity(holder.goMessages.getContext(),intent,null);
 
-            }
-        });
+        db.collection("usersObj").document(myMessageFriends.get(position)).get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                        u = task.getResult().toObject(User.class);
+                        holder.friendName.setText(u.getName());
+
+                        holder.goMessages.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+
+                                Booked.setCurrentSeller(u);
+
+                                Intent intent = new Intent(holder.goMessages.getContext(), com.example.booked.MessageRoom.class);
+                                startActivity(holder.goMessages.getContext(),intent,null);
+
+                            }
+                        });
+                    }
+                });
+
 
     }
 

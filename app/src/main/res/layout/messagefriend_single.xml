@@ -7,12 +7,12 @@
 
     <TextView
         android:id="@+id/messageFriendName"
-        android:layout_width="164dp"
+        android:layout_width="196dp"
         android:layout_height="99dp"
         android:layout_marginStart="52dp"
         android:gravity="center"
         android:text="TextView"
-        android:textSize="24sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
