@@ -3,7 +3,10 @@ package com.example.booked;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -187,12 +190,35 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                 else {
                     // Update
                     uploadFile();
+
+                    notifyUser();
+
                     Intent intent = new Intent( getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                 }
             }
         });
 
+    }
+
+    /**
+     * Sends a notification to user when the user edited a post.
+     */
+    private void notifyUser() {
+        Intent resultIntent = new Intent(this, MyPosts.class);
+        PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 3,
+                resultIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, Booked.CHANNEL_ID)
+                .setSmallIcon(R.drawable.ic_launcher_foreground)
+                .setContentTitle("Post Edited!")
+                .setContentText("Post has been edited and featured in Showroom.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setAutoCancel(true)
+                .setContentIntent(resultPendingIntent);
+
+        NotificationManagerCompat mNotificationManager = NotificationManagerCompat.from(this);
+        mNotificationManager.notify(3, mBuilder.build());
     }
 
     /**
