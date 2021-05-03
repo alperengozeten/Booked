@@ -32,4 +32,4 @@ Safa Eren Kuday:  Activities: Book Profile page (including evaluations, comments
                   Firebase Firestore: saving and retrieving of book, book Profile, user, post objects, and message rooms;
                   also implementation of model classes, comparators and global class
 
-Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts.
+Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts. Also added comments to classes. Helped with visuals of the app and debugging
