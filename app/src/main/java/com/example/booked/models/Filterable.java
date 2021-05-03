@@ -16,8 +16,6 @@ public interface Filterable {
 
     Showroom filterByPrice( int minPrice, int maxPrice);
 
-    Showroom filterByWord( String word); // filterBySearchBar daha iyi gibi
-
-    // fark etmez filterByWord() de uygun
+    Showroom filterByWord( String word);
 
 }

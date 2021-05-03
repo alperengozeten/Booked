@@ -8,10 +8,10 @@
 
     <TextView
         android:id="@+id/commentOwner"
-        android:layout_width="82dp"
+        android:layout_width="151dp"
         android:layout_height="37dp"
         android:layout_marginStart="20dp"
-        android:gravity="center"
+        android:gravity="center|left"
         android:text="TextView"
         android:textColorHighlight="#673AB7"
         android:textStyle="bold"
@@ -33,7 +33,7 @@
         android:id="@+id/star1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
+        android:layout_marginStart="68dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toEndOf="@+id/commentOwner"
         app:layout_constraintTop_toTopOf="parent"
