@@ -20,7 +20,7 @@ public class Book {
     {
         bookName = name;
         picture = pic;
-        //randomKeyGenerator(10);
+
     }
 
     public Book(String bookName, String picture, String id) {

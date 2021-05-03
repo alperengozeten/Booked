@@ -20,7 +20,9 @@ import com.example.booked.models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-
+/**
+ * This page helps user to change his*her profile information.
+ * */
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     User currentUser;
@@ -30,8 +32,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     private Spinner chooseUniversitySpinner;
 
-    private FirebaseAuth mAuth;
-    private FirebaseFirestore db;
 
     private String selectedUniversity;
 
@@ -45,9 +45,6 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
         currentUser = Booked.getCurrentUser();
 
-        mAuth = FirebaseAuth.getInstance();
-
-        db = FirebaseFirestore.getInstance();
 
         setEditTexts();
 
@@ -55,9 +52,13 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
+    /**
+     * This methods sets the buttons on the page
+     * */
     void setButtons() {
         confirmButton = (Button) findViewById(R.id.confirmButton);
 
+        //when user click on confirm, information will be uploaded to database
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,13 +75,7 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
 
 
                 Booked.updateUserInDatabase(currentUser.getDocumentId(), currentUser);
-                /*
-                db.collection("usersObj").document(mAuth.getCurrentUser().getUid()).set(currentUser).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        Toast.makeText(EditProfile.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
-                    }
-                });*/
+
 
                 //open new page
                 Intent profile = new Intent(getApplicationContext(), MyProfile.class);
@@ -90,6 +85,10 @@ public class EditProfile extends AppCompatActivity implements AdapterView.OnItem
         });
     }
 
+    /**
+     * This method initializes and sets the texts on the edit text
+     * and spinner for university
+     * */
     void setEditTexts()
     {
         username = (TextView) findViewById(R.id.username);

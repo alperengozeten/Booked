@@ -30,6 +30,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**
+ * This page shows users, their list of message friends.
+ * */
 public class MyMessages extends AppCompatActivity {
 
     RecyclerView myMessageFriendsRcycler;
@@ -52,16 +55,14 @@ public class MyMessages extends AppCompatActivity {
 
         myFriendsIds = new ArrayList<String>();
 
-
         setMyFriendsIds();
-
-
-
 
     }
 
 
-
+    /**
+    * This method pull the list of Id which belong to message friends of current user, from the database.
+    * */
     private void setMyFriendsIds() {
 
 
@@ -97,7 +98,10 @@ public class MyMessages extends AppCompatActivity {
     }
 
 
-
+    /**
+    *   This method sets rcyclerview and its adapter.
+    *
+    * */
     private void setMessageFriendsView() {
 
         myMessageFriendsRcycler = (RecyclerView) findViewById(R.id.myMessageFriends);

@@ -2,6 +2,9 @@ package com.example.booked.models;
 
 import java.util.Comparator;
 
+/**
+ * This class for posts to be sorted accordingly their users' name.
+ * */
 public class UserNameComparator implements Comparator<Post> {
 
 
