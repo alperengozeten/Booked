@@ -29,6 +29,7 @@ Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, Si
 Ömer Asım Doğan: XML classes of Login Page, Sign Up Page, Verification Pages. Finding icons and drawables for the app. Also making general management of all XML files of the application including activities, dialog boxes, recycler views etc.
 
 Safa Eren Kuday:  Activities: Book Profile page (including evaluations, comments, offers and offer filters); post page and report post dialog, edit profile page, admin panel (and its visibility), reported posts, myMessages, rcyclerview adapters of mymessage , comments, offers and reportedPost
-                  Firebase Firestore: saving and retrieving of book, book Profile, user, post objects, and message rooms; also implementation of model classes and global class
+                  Firebase Firestore: saving and retrieving of book, book Profile, user, post objects, and message rooms;
+                  also implementation of model classes, comparators and global class
 
 Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts.

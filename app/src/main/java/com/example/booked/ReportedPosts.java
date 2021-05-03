@@ -21,6 +21,8 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**This class shows admins reported posts and how many time they are reported.
+ * */
 public class ReportedPosts extends AppCompatActivity {
 
     ArrayList<Post> reportedPostList;
@@ -49,6 +51,9 @@ public class ReportedPosts extends AppCompatActivity {
 
     }
 
+    /**
+     * this methods pulls reported posts from database.
+     * */
     private void pullFromDateBase() {
 
 
@@ -70,7 +75,9 @@ public class ReportedPosts extends AppCompatActivity {
                 });
     }
 
-
+    /**
+     * This method set rcylerview and its adapter.
+     * */
     void viewReports() {
         reportedList = (RecyclerView) findViewById(R.id.reportedList);
 
