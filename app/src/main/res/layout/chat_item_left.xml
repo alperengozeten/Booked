@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/background_left"
         android:text="Hello"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:id="@+id/showMessage"
         android:textSize="18sp"
         android:padding="8dp"/>
