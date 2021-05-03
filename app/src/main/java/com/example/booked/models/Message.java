@@ -1,12 +1,16 @@
 package com.example.booked.models;
 
+/**
+ * This is the Message model class. Message is used by users to communicate
+ */
 public class Message {
 
+    //Properties
     private String receiverId;
     private String senderId;
     private String message;
 
-
+    //Constructors
     public Message() {
     }
 
@@ -16,6 +20,12 @@ public class Message {
         this.message = message;
     }
 
+    //Methods
+
+    /**
+     *
+     * @return
+     */
     public String getMessage() {
         return message;
     }

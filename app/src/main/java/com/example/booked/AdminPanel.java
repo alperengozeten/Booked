@@ -23,6 +23,7 @@ public class AdminPanel extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // set buttons
         seeReports = (Button) findViewById(R.id.adminpanel_reportedpost);
         seeReports.setOnClickListener(new View.OnClickListener() {
             @Override

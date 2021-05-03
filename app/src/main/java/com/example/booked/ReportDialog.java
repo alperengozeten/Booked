@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * This class refers to report dialog when user click on report post button.
+ * */
 public class ReportDialog extends DialogFragment {
 
 
@@ -34,12 +37,14 @@ public class ReportDialog extends DialogFragment {
 
         AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(getActivity());
 
+        //report types
         String reports[] = {"Inappropriate Content", "Spam or Misleading Content", "Irrelevant Price", "Hateful or Abusive Content"};
 
+        //title
         dialogbuilder.setTitle("Why do you report this post?");
 
 
-
+        // report options users can choose
         dialogbuilder.setSingleChoiceItems(reports, position, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -47,6 +52,7 @@ public class ReportDialog extends DialogFragment {
             }
         });
 
+        //submit and cancel buttons
         dialogbuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

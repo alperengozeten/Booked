@@ -157,11 +157,14 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     {
         addEvaluation = (Button) findViewById(R.id.bookprofile_evaluate);
 
+        // evaluation button's text is add evaluation if user haven't added a evaluation
+        //if user have added a evaluation button text is "change your evaluation"
         if(!isEvaluatedBefore)
         {
             addEvaluation.setText("Add Evaluation");
         }
 
+        //opens a dialog for user to evaluate the book
         addEvaluation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,28 +178,25 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
             @Override
             public void onClick(View v) {
 
-                if( Booked.getCurrentUser().getWishlist().contains(myBookProfile.getBook()) ) // bunu başa ekleyeyip visble lığını ayarlayabilirz
+                if( Booked.getCurrentUser().getWishlist().contains(myBookProfile.getBook()) )
                 {
+                    // send a warning if user have already added the book to wishlist
                     Toast.makeText(BookProfile.this, "You already have this book in your Wish List", Toast.LENGTH_LONG).show();
                 }
                 else
                 {
+                // updates users wish list in database unless the book is already in the wish list
                 Booked.getCurrentUser().addBookToWishlist(myBookProfile.getBook());
                 Booked.updateUserInDatabase(Booked.getCurrentUser().getDocumentId(),Booked.getCurrentUser());
 
                 notifyUser();
                 Toast.makeText(BookProfile.this, "Wish List Updated", Toast.LENGTH_LONG).show();
 
-                /**db.collection("usersObj").document(Booked.getCurrentUser().getDocumentId()).set(Booked.getCurrentUser())
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-
-                            }
-                        });*/
                 }
             }
         });
+
+        // filter buttons for offers
 
         lowToHigh = (Button) findViewById(R.id.bookProfile_lowToHigh);
         lowToHigh.setOnClickListener(new View.OnClickListener() {
@@ -235,6 +235,9 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
         });
     }
 
+    /**
+     * This method informs user with a notificatiion when they add a book to their wish list
+     */
     private void notifyUser() {
         Intent resultIntent = new Intent(this, WishlistActivity.class);
         PendingIntent resultPendingIntent = PendingIntent.getActivity(this, 4,
@@ -301,6 +304,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     @Override
     public void positiveClicked(String comment, double rate) {
 
+        // in this part, if user made a comment before, old comments are deleted in order to prevent users to rate a book more then once
         if(isEvaluatedBefore)
         {
             for(int i = 0; i < myBookProfile.getEvalutions().size(); i++)
@@ -312,23 +316,19 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
 
         }
 
+        //updates bookProfile page
         myBookProfile.addEvalution(new Evaluation(comment, rate, Booked.getCurrentUser()));
         setStars();
         commentAdapter.notifyDataSetChanged();
 
-        //setlemek yerine updatele
+       //updates bookProfile in database
         Booked.updateBookProfileInDatabase(myBookProfile.getBook().getId(), myBookProfile);
-        /**db.collection("bookProfileObj").document(myBookProfile.getBook().getId()).set(myBookProfile)
-            .addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(BookProfile.this, "Evaluations Updated", Toast.LENGTH_LONG).show();
-                }
-            });*/
+
 
         isEvaluatedBefore = true;
         addEvaluation.setText("Change Your Evaluation");
 
+        // sets the rating and number of comments
         textNumOfComments.setText(String.valueOf(myBookProfile.getEvalutions().size() + " comments"));
         rating.setText(String.valueOf(Math.round(myBookProfile.getRating() * 100 ) / 100.0));
 

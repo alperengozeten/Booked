@@ -2,6 +2,9 @@ package com.example.booked.models;
 
 import java.util.Comparator;
 
+/**
+ * This class is for posts to be sorted accordingly their titles.
+ * */
 public class TitleComparator implements Comparator<Post> {
 
 
