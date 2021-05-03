@@ -272,6 +272,7 @@ public class BookProfile extends AppCompatActivity implements AddEvaluationDialo
     void viewComments()
     {
         commentList = (RecyclerView) findViewById(R.id.bookprofile_comments);
+        commentList.setHasFixedSize(true);
         commentAdapter = new CommentRecyclerAdapter(myBookProfile);
 
         commentList.setAdapter(commentAdapter);
