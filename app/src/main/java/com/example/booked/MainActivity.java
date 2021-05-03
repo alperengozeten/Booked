@@ -27,11 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton showroomImageBtn;
     ImageButton myPostsImageBtn;
     ImageButton profileImageBtn;
-
-    Button showroomBtn;
-    Button myPostsBtn;
-    Button profileBtn;
-    Button myMessages;
+    ImageButton myMessagesImageBtn;
     private Button adminPanel;
 
     FirebaseAuth mAuth;
@@ -101,16 +97,11 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Initialize the buttons
+        // Initialize the image buttons
         showroomImageBtn = (ImageButton) findViewById(R.id.showroomImageBtn);
         myPostsImageBtn = (ImageButton) findViewById(R.id.myPostsImageBtn);
         profileImageBtn = (ImageButton) findViewById(R.id.profileImageBtn);
-        myMessages = (Button) findViewById(R.id.myMessages);
-
-        // Initialize the image buttons
-        showroomBtn = (Button) findViewById(R.id.showroomBtn);
-        myPostsBtn = (Button) findViewById(R.id.myPostsBtn);
-        profileBtn = (Button) findViewById(R.id.profileBtn);
+        myMessagesImageBtn = (ImageButton) findViewById(R.id.myMessagesImageBtn);
 
         // Initialize the firebase authentication instance
         mAuth = FirebaseAuth.getInstance();
@@ -134,38 +125,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // When the showroom button is clicked, it leads to Showroom Page
-        showroomBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getApplicationContext(), ShowroomActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // When the my posts button is clicked, it leads to MyPosts page
-        myPostsBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getApplicationContext(), MyPosts.class);
-                startActivity(intent);
-            }
-        });
-
         // When the my posts button is clicked, it leads to MyPosts page
         myPostsImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( getApplicationContext(), MyPosts.class);
-                startActivity(intent);
-            }
-        });
-
-        // When the profile button is clicked, it leads to MyProfile page
-        profileBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent( getApplicationContext(), MyProfile.class);
                 startActivity(intent);
             }
         });
@@ -179,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        myMessages.setOnClickListener(new View.OnClickListener() {
+        myMessagesImageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent( getApplicationContext(), MyMessages.class);

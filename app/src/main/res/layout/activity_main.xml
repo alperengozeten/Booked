@@ -7,28 +7,6 @@
     tools:context=".MainActivity"
     android:background="@color/primaryBackgroundColor">
 
-    <Button
-        android:id="@+id/profileBtn"
-        style="@android:style/Widget.Holo.Light.Button"
-        android:layout_width="144dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="100dp"
-        android:text="Profile"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
-        android:id="@+id/myPostsBtn"
-        style="@android:style/Widget.Holo.Light.Button"
-        android:layout_width="144dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="200dp"
-        android:text="My Posts"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <ImageButton
         android:id="@+id/showroomImageBtn"
         android:layout_width="275dp"
@@ -70,17 +48,6 @@
         app:layout_constraintTop_toBottomOf="@+id/myPostsImageBtn" />
 
     <Button
-        android:id="@+id/showroomBtn"
-        style="@android:style/Widget.Holo.Light.Button"
-        android:layout_width="144dp"
-        android:layout_height="68dp"
-        android:layout_marginBottom="300dp"
-        android:text="Showroom"
-        android:textColor="#000000"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <Button
         android:id="@+id/adminNewBookBtn"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
@@ -90,16 +57,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/myMessagesImageBtn" />
-
-    <Button
-        android:id="@+id/myMessages"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="My messages"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
