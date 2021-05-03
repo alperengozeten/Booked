@@ -32,8 +32,12 @@ import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+/**
+ * This class is the chatting part of the Messaging utility
+ */
 public class MessageRoomActivity extends AppCompatActivity {
 
+    // Properties
     private FirebaseFirestore db;
 
     private User currentUser;
@@ -53,6 +57,10 @@ public class MessageRoomActivity extends AppCompatActivity {
 
     private RecyclerView messageRecyclerView;
 
+    /**
+     * This is the first method called when an instance of MessageRoomActivity is created
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,25 +70,34 @@ public class MessageRoomActivity extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Initialize the database object
         db = FirebaseFirestore.getInstance();
 
+        // Take the info of the users from the global class Booked
         currentUser = Booked.getCurrentUser();
         currentSeller = Booked.getCurrentSeller();
 
+        // Initialize the recycler view
         messageRecyclerView = (RecyclerView) findViewById(R.id.messageRecyclerView);
         messageRecyclerView.setHasFixedSize(true);
 
+        // Set the layout manager
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getApplicationContext());
         linearLayoutManager.setStackFromEnd(true);
         messageRecyclerView.setLayoutManager(linearLayoutManager);
 
+        // Pull the messages for the first time. Later, the messages will be updated by snapshot listener on the
+        // database, not by this method
         getMessages();
 
+        // Set the ImageViews and TextViews
         setImageViewTextView();
 
+        // Initialize the EditText and ImageButton
         messageSendBtn = (ImageButton) findViewById(R.id.messageSendBtn);
         textSendEditText = (EditText) findViewById(R.id.textSendEditText);
 
+        // Set a listener for the send button which saves the message to the database
         messageSendBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,6 +113,9 @@ public class MessageRoomActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Initialize the ImageViews and TextViews
+     */
     private void setImageViewTextView() {
         contactUserNameTextView = (TextView) findViewById(R.id.contactUserNameTextView);
         contactUserNameTextView.setText(currentSeller.getName());
@@ -109,6 +129,9 @@ public class MessageRoomActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Pulls the messages between the two users from the database
+     */
     private void getMessages() {
         db.collection("messageRooms").document(Booked.findTheirMessageRoom(currentSeller.getDocumentId(), currentUser.getDocumentId())).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -125,6 +148,10 @@ public class MessageRoomActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Holds a snapshot listener on the database, so that it updates data of the activity with getMessages() method whenever the
+     * node in the database is changed
+     */
     @Override
     protected void onStart() {
         super.onStart();
