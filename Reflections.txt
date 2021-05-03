@@ -1,0 +1,24 @@
+What did we learn?
+
+- We all learned about being a team and learned about the difficulties and advantages of group work. We all got the chance to pursue an actual project with a time constraint and learned to manage problems and stress. Also, we specialized in many different fields and combined our knowledge into one.
+
+What didn’t we like during this development process?
+
+-It was challenging to learn Android Studio and databases from zero. There was no accurate information about little things in android studio that needed to be done.
+
+What struggled us most?
+
+- In the beginning, we had significant concerns about the project since we haven’t had enough knowledge about android studio and databases. While knowing nothing about android studio and databases, it is also hard to know what to look for. Also, as a group, we were worried about managing all the code and piecing things together.
+The learning period was also a bit time-consuming and stressful. Yet, in the end, we managed our code using Github, and each one of us became really experienced with it. After watching many tutorials and hands-on experience, we expanded our knowledge in Android Studio, databases, and XML designs. We should even say that we had a chance to develop our Java knowledge considerably.
+
+What could we do differently?
+
+- We could start to database part of our project earlier so that we can reduce the further stress closer to the project deadline.
+
+The total time it took
+
+- We’ve started to work on our project from the beginning of the semester and regularly gathered to discuss news and different ideas. We based our project modeling and design on our UI Design and Detailed Design Reports in the implementation stage. We started to code about 20 days ago (about 14 April), and we devoted most of our time in a day to our project in this period.
+
+Final thoughts
+
+- We are delighted with the project that we built! Now, we can display our project in our CVs and Linkedin accounts proudly. We are also so glad that we accomplished things that seemed impossible at first and achieved even more than we expected. Lastly, one important thing that made us proud is the messaging functionality that we added in our extra times in the last few days.
