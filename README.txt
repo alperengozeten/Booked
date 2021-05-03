@@ -24,7 +24,7 @@ tried all features of our app to ensure it's fully functional.
 Halil Alperen Gözeten: Implementation and database connections of the Messaging pages with Safa. XML designs and Activity (Controller) implementations of Showroom, Main Activity, Profile, Other User's Profile, Wishlist, and My Posts pages. Also provided Recycler Views and adapters for Showroom, My Posts, Wishlist, and Other Users Profile Pages. Contributed to Model Classes also.
 Firebase Storage implementation for all app and also helped on Firebase Firestore with Safa to manage all the data. Created Wishlist, Admin Feedback Pages and connected these pages with database. Create Book page for Admin and its connection with databases.
 
-Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates.
+Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates, has implemented notification channel and specified notification for activities.
 
 Ömer Asım Doğan: XML classes of Login Page, Sign Up Page, Verification Pages. Finding icons and drawables for the app. Also making general management of all XML files of the application including activities, dialog boxes, recycler views etc.
 
