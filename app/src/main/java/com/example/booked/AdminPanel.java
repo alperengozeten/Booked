@@ -11,10 +11,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+/**
+ * Admin panel class is used by admins to see reports and feedback given by users. Admins can also
+ * add a book so that users can choose this book when they are creating new posts
+ *
+ * @author NoExpection
+ * @version 2021 Spring
+ */
+
 public class AdminPanel extends AppCompatActivity {
 
     Button seeReports, feedbacks, addBook ;
 
+    /**
+     * This method is called first to create Admin Panel page and its properties
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +64,11 @@ public class AdminPanel extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -59,6 +76,11 @@ public class AdminPanel extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

@@ -28,6 +28,11 @@ import com.squareup.picasso.Picasso;
 
 /**
  * This is the class of the AdminAddBook page
+ * This class is used when the admin wants to add a book so that users can choose this book when
+ * they are creating a new post
+ *
+ * @author NoExpection
+ * @version 2021 Spring
  */
 public class AdminAddBook extends AppCompatActivity {
 
@@ -154,7 +159,7 @@ public class AdminAddBook extends AppCompatActivity {
     }
 
     /**
-     * This method is called to open file chooser when the imageview is clicked to add a photo
+     * This method is called to open file chooser when the imageView is clicked to add a photo
      */
     private void openFileChooser() {
         Intent intent = new Intent();

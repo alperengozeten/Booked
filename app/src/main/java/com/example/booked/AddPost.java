@@ -43,7 +43,10 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 
 /**
- * This is the class of the AddPost page
+ * This class is used when the user wants to add a post by clicking the "plus" button in my posts page
+ *
+ * @author NoExpection
+ * @version 2021 Spring
  */
 public class AddPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 

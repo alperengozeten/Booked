@@ -21,6 +21,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
+/**
+ * This dialog class  pops up when the user clicks give feedback button in settings page
+ *
+ * @author NoExpection
+ * @version 2021 Spring
+ */
 public class FeedbackDialog extends AppCompatDialogFragment {
     private EditText feedbackEditText;
 
@@ -37,30 +43,38 @@ public class FeedbackDialog extends AppCompatDialogFragment {
         this.username = username;
     }
 
+    /**
+     * This method creates the dialog and its properties such as submit, close button and feedback editText
+     * @param savedInstanceState
+     * @return is the created dialog
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-
+        // Inflating the layout for the dialog
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_feedback_dialog, null);
 
-        db = FirebaseFirestore.getInstance();
-
-        mAuth = FirebaseAuth.getInstance();
-
+        //Title for builder
         builder.setView(view);
         builder.setTitle("Feedback");
 
+        //Initializing database and editTexts
+        db = FirebaseFirestore.getInstance();
+
+        mAuth = FirebaseAuth.getInstance();
         feedbackEditText =  (EditText) view.findViewById(R.id.feedbackEditText);
 
+        //Negative button to close the feedback dialog
         builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
             }
         });
+        //Positive button to submit the feedback
         builder.setPositiveButton("Submit", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -68,7 +82,7 @@ public class FeedbackDialog extends AppCompatDialogFragment {
                     Toast.makeText(context, "Please enter a feedback", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    // MAKE IT A MAP
+                    // Create HashMap to save the feedbacks
                     HashMap<String,Object> newData = new HashMap<>();
                     newData.put("feedback", (String) feedbackEditText.getText().toString());
                     newData.put("username", (String) username);
@@ -84,8 +98,6 @@ public class FeedbackDialog extends AppCompatDialogFragment {
 
 
         });
-
-
 
 
         return builder.create();

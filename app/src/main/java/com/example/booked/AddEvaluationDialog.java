@@ -13,8 +13,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 /**
- * This is the class of AddEvaluationDialog
+ * This dialog class pops up when the user clicks the button in book profile page
  *
+ * @author NoExpection
+ * @version 2021 Spring
  */
 
 public class AddEvaluationDialog extends DialogFragment {

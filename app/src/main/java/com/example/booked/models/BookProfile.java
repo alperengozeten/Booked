@@ -5,7 +5,7 @@ import java.util.Collections;
 
 /**
  * This is the model class of BookProfile
- * evaluation da typo var (2), delete methodu commentli
+ *  delete methodu commentli
  */
 
 public class BookProfile implements Sortable{

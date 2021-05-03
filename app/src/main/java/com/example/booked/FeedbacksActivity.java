@@ -22,7 +22,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * Feedbacks Activity Page class
+ * This activity page is used to display the feedback given by users to admins
+ *
+ * @author NoExpection
+ * @version 2021 Spring
  */
 public class FeedbacksActivity extends AppCompatActivity {
 
