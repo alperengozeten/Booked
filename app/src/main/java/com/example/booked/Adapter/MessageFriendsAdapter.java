@@ -31,13 +31,17 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
     ArrayList<User> users;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
+    /**Constructor to initialize myMessagefriends
+     * */
     public MessageFriendsAdapter(ArrayList<String> myMessageFriends) {
         this.myMessageFriends = myMessageFriends;
 
         users = new ArrayList<User>();
-
     }
 
+    /**
+     * This is an inner class whose objects holds reference to the gui elements
+     */
     public class MessageFriendsHolder extends RecyclerView.ViewHolder
     {
         TextView friendName;
@@ -50,6 +54,12 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
         }
     }
 
+    /**
+     * This method creates a MessageFriendsHolder object which holds references to the gui (view) elements
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public MessageFriendsHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -57,24 +67,13 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
         return new MessageFriendsHolder(view);
     }
 
-
+    /**
+     * This method is called when binding rows (elements)
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull MessageFriendsHolder holder, int position) {
-
-        /**holder.friendName.setText(users.get(position).getName());
-
-        holder.goMessages.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Booked.setCurrentSeller(users.get(position));
-
-                Intent intent = new Intent(holder.goMessages.getContext(), MessageRoomActivity.class);
-                startActivity(holder.goMessages.getContext(),intent,null);
-
-            }
-        });*/
-
 
         db.collection("usersObj").document(myMessageFriends.get(position)).get()
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
@@ -82,15 +81,15 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
 
                         u = task.getResult().toObject(User.class);
-                        holder.friendName.setText(u.getName());
+                        holder.friendName.setText(u.getName());     //users name
                         users.add(u);
 
                         holder.goMessages.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
 
-                                Log.d("messageAdapter",users.get(position).getName() + position);
 
+                                // go to message room of that user
                                 for(User u : users) {
                                     if (u.getDocumentId().equals(myMessageFriends.get(position))) {
                                         Booked.setCurrentSeller(u);
@@ -103,16 +102,14 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
 
                             }
                         });
-
-
-
                     }
                 });
-
     }
 
-
-
+    /**
+     * This method returns the number of elements(rows)
+     * @return
+     */
     @Override
     public int getItemCount() {
         return myMessageFriends.size();

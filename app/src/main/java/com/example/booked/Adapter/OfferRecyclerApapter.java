@@ -27,17 +27,25 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
-
+/**
+ * Adapter for offer rcyclerview in book profile page
+ * */
 public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApapter.OfferViewHolder> {
 
 
     BookProfile myBookProfile;
 
+    /**Constructor to initialze myBookProfile
+     * @param profile
+     * */
     public OfferRecyclerApapter(BookProfile profile)
     {
         myBookProfile = profile;
     }
 
+    /**
+     * This is an inner class whose objects holds reference to the gui elements
+     */
     public class OfferViewHolder extends RecyclerView.ViewHolder{
         TextView sellerText, priceText;
         Button visitSeller;
@@ -50,7 +58,12 @@ public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApap
         }
     }
 
-
+    /**
+     * This method creates aOfferViewHolder object which holds references to the gui (view) elements
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public OfferViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -58,11 +71,19 @@ public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApap
         return new OfferViewHolder(view);
     }
 
+    /**
+     * This method is called when binding rows (elements)
+     * @param holder
+     * @param position
+     */
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull OfferViewHolder holder, int position) {
+        // set texts according to the post's properties
         holder.sellerText.setText(myBookProfile.getOffers().get(position).getSeller().getName());
         holder.priceText.setText( String.valueOf(myBookProfile.getOffers().get(position).getPrice()) + "₺");
+
+        //onclick listener for visit button which lead user to seler's (updated) profile page
         holder.visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,13 +103,16 @@ public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApap
                         }
                     }
                 });
-                // seller page e gidilecek:
-               // Booked.setCurrentSeller(myBookProfile.getOffers().get(position).getSeller());
+
             }
         });
 
     }
 
+    /**
+     * This method returns the number of elements(rows)
+     * @return
+     */
     @Override
     public int getItemCount() {
         return myBookProfile.getOffers().size();
