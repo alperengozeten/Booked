@@ -186,12 +186,12 @@ public class LoginActivity extends AppCompatActivity {
                                 // pull the user from database
                                 currentUser = documentSnapshot.toObject(User.class);
                                 Booked.setCurrentUser(currentUser);
+                                startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                                finish();
 
                             }
                         });
                         Toast.makeText(LoginActivity.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(getApplicationContext(), MainActivity.class));
-                        finish();
                     }
                     // otherwise, set an error message.
                     else {
