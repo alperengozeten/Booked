@@ -28,74 +28,124 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
+/**This class stores necessary and temporary information while app is running.
+ * Global class.
+ * @author NoExpection
+ * @version 2021 Spring
+ * */
 public class Booked extends Application {
 
     private static User currentUser;
     private static Post currentPost;
     static BookProfile currentBookProfile; // = new BookProfile(currentBook);
-    static Book currentBook;// = new Book("Example Book","picbook");
+    static Book currentBook;
     private static User currentSeller;
-
     public static final String CHANNEL_ID = "post_notifications";
 
     public Booked() {
     }
 
+    //accessor methods
+
+    /**Get method for currentBook in the global class.
+     * */
     public static  Book getCurrentBook() {
         return currentBook;
     }
 
-
-    public static com.example.booked.models.BookProfile getCurrentBookProfile() {
-        return currentBookProfile;
-    }
-    public static User getCurrentUser() {
-        return currentUser;
-    }
-
-    public static void setCurrentUser(User currentUser) {
-        Booked.currentUser = currentUser;
-    }
-
-    public static Post getCurrentPost() {
-        return currentPost;
-    }
-
-    public static void setCurrentPost(Post currentPost) {
-        Booked.currentPost = currentPost;
-    }
-
-    public static void setCurrentSeller(User currentSeller) {
-        Booked.currentSeller = currentSeller;
-    }
-
+    /**Get method for currentSeller in the global class.
+     * */
     public static User getCurrentSeller() {
         return currentSeller;
     }
 
+    /**Get method for currentBookProfile in the global class.
+     * */
+    public static com.example.booked.models.BookProfile getCurrentBookProfile() {
+        return currentBookProfile;
+    }
+
+    /**Get method for currentUser in the global class.
+     * */
+    public static User getCurrentUser() {
+        return currentUser;
+    }
+
+    /**Get method for currentPost in the global class.
+     * */
+    public static Post getCurrentPost() {
+        return currentPost;
+    }
+
+
+    //mutator methods
+
+    /**Set method for currentPost in the global class.
+     * @param currentPost
+     * */
+    public static void setCurrentPost(Post currentPost) {
+        Booked.currentPost = currentPost;
+    }
+
+    /**Set method for currentSeller in the global class.
+     * @param currentSeller
+     * */
+    public static void setCurrentSeller(User currentSeller) {
+        Booked.currentSeller = currentSeller;
+    }
+
+    /**Set method for currentUser in the global class.
+     * @param currentUser
+     * */
+    public static void setCurrentUser(User currentUser) {
+        Booked.currentUser = currentUser;
+    }
+
+    /**Set method for currentBookProfile in the global class.
+     * @param currentBookProfile
+     * */
     public static void setCurrentBookProfile(BookProfile currentBookProfile) {
         Booked.currentBookProfile = currentBookProfile;
     }
 
+    //database methods
+
+    /**This method updates post's information in database
+     * @param documentId
+     * @param newPost
+     *
+     * */
     public static boolean updatePostInDatabase(String documentId, Post newPost)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         return db.collection("postsObj").document(documentId).set(newPost).isComplete();
     }
 
+    /**This method updates bookProfile's information in database
+     * @param documentId
+     * @param newBookProfile
+     *
+     * */
     public static boolean updateBookProfileInDatabase(String documentId, BookProfile newBookProfile)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         return db.collection("bookProfileObj").document(documentId).set(newBookProfile).isComplete();
     }
 
+    /**This method updates user's information in database
+     * @param documentId
+     * @param newUser
+     *
+     * */
     public static boolean updateUserInDatabase(String documentId, User newUser)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         return db.collection("usersObj").document(documentId).set(newUser).isComplete();
     }
 
-
+    /**This method delete a post from everywhere,when user or admin wanted to so.
+     * @param p post will be deleted
+     * */
     public static void deletePost(Post p) {
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -108,12 +158,13 @@ public class Booked extends Application {
                     public void onSuccess(DocumentSnapshot documentSnapshot) {
                         ArrayList<Post> offers = documentSnapshot.toObject(BookProfile.class).getOffers();
                         offers.remove(p);
-
+                        // update in database
                         updateBookProfileOffers(offers, p.getBook().getId());
                     }
                 });
     }
-
+    /** Update book profile when a post deleted
+     * */
     private static void updateBookProfileOffers(ArrayList<Post> offers, String id) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -121,6 +172,10 @@ public class Booked extends Application {
 
     }
 
+
+    /**
+     * This method creates a unique messageRoom id for two user, when they start to send message to each other
+     * */
     public static String findTheirMessageRoom(String id1, String id2)
     {
         if( id1.compareTo(id2) > 0)
@@ -134,6 +189,12 @@ public class Booked extends Application {
 
     }
 
+
+    /**
+     * This method call when users send messages to each other,
+     * it saves messages to database also
+     * @param m message
+     * */
     public static void sendMessage(Message m)
     {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -142,14 +203,20 @@ public class Booked extends Application {
                 .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        //get messages
                         ArrayList<Message> messages = task.getResult().toObject(MessageRoom.class).getMessages();
+                        //add new message
                         messages.add(m);
+                        //update database
                         updateMessages(messages, findTheirMessageRoom(m.getReceiverId(),m.getSenderId()) );
                     }
                 });
 
     }
 
+    /**
+     * Updates messages in database
+     * */
     private static void updateMessages(ArrayList<Message> messages, String id) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -158,24 +225,6 @@ public class Booked extends Application {
 
     }
 
-   /** public static ArrayList<Message> getMessagesBetweenThem(String userId1, String userId2)
-    {
-        ArrayList<Message> allMessages = new ArrayList<Message>();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("messageRooms").document(findTheirMessageRoom(userId1,userId2)).collection("messages").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot document: queryDocumentSnapshots)
-                {
-                    allMessages.add(document.toObject(Message.class));
-                }
-            }
-        });
-
-        return allMessages;
-    }*/
 
 }

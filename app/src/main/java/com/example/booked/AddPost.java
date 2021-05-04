@@ -45,7 +45,7 @@ import java.util.ArrayList;
 /**
  * This class is used when the user wants to add a post by clicking the "plus" button in my posts page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class AddPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

@@ -34,8 +34,6 @@ public class MyPosts extends AppCompatActivity {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager layoutManager;
 
-    //private User currentUser;
-
     private FirebaseFirestore db;
 
     private ArrayList<Post> posts;

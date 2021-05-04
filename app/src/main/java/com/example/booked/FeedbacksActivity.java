@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * This activity page is used to display the feedback given by users to admins
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class FeedbacksActivity extends AppCompatActivity {

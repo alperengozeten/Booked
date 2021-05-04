@@ -24,7 +24,7 @@ import com.google.firebase.auth.FirebaseUser;
 /**
  * A class for the Change Password Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class ChangePassword extends AppCompatActivity {

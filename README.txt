@@ -6,7 +6,10 @@ Title: Booked
 
 Description: A mobile trading application between university students 
 
-Status: Working, but needs a few visual and systematic improvements
+How to Run: One needs only Android Studio to run our program. We've uploaded our work with libraries (dependencies) included to make it possible to run directly and that made it a large program. If it doesn't run (probably won't happen), try File --> Sync Project with Gradle Files.
+Also, our app only accepts e-mails with "edu.tr" domain.
+
+Github Page: https://github.com/alperengozeten/Booked
 
 So Far: Firstly, the user enters the app using their "edu.tr" mails. We used Firebase Auth to send verification mails and check the credentials of the user. We also allowed the 
 user to reset their passwords, sign up, and sign in. After logging in the user is in the Main Page We have implemented the Showroom where we list all the posts in our app and also we can make detailed searchs, filterings, and sortings in there. We also have user profiles (shows
@@ -24,7 +27,7 @@ tried all features of our app to ensure it's fully functional.
 Halil Alperen Gözeten: Implementation and database connections of the Messaging pages with Safa. XML designs and Activity (Controller) implementations of Showroom, Main Activity, Profile, Other User's Profile, Wishlist, and My Posts pages. Also provided Recycler Views and adapters for Showroom, My Posts, Wishlist, and Other Users Profile Pages. Contributed to Model Classes also.
 Firebase Storage implementation for all app and also helped on Firebase Firestore with Safa to manage all the data. Created Wishlist, Admin Feedback Pages and connected these pages with database. Create Book page for Admin and its connection with databases.
 
-Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates.
+Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates, has implemented notification channel and specified notification for activities.
 
 Ömer Asım Doğan: XML classes of Login Page, Sign Up Page, Verification Pages. Finding icons and drawables for the app. Also making general management of all XML files of the application including activities, dialog boxes, recycler views etc.
 
@@ -32,4 +35,4 @@ Safa Eren Kuday:  Activities: Book Profile page (including evaluations, comments
                   Firebase Firestore: saving and retrieving of book, book Profile, user, post objects, and message rooms;
                   also implementation of model classes, comparators and global class
 
-Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts.
+Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts. Also added comments to classes. Helped with visuals of the app and debugging

@@ -16,19 +16,30 @@ public class Book {
     public Book() {// dont delete this
     }
 
+    /**This constructor initializes bookName
+     * @param name
+     * */
     public Book(String name) {
         this.bookName = name;
         randomKeyGenerator(10);
         picture = "";
     }
 
+    /**This constructor initializes bookName and picture
+     * @param name
+     * @param pic
+     * */
     public Book(String name, String pic)
     {
         bookName = name;
         picture = pic;
-
     }
 
+    /**This constructor initializes bookName, picture and id
+     * @param bookName
+     * @param picture
+     * @param id
+     * */
     public Book(String bookName, String picture, String id) {
         this.bookName = bookName;
         this.picture = picture;

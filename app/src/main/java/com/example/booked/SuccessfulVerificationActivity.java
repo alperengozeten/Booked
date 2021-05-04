@@ -13,7 +13,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * A class for the Successful Email Verification Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class SuccessfulVerificationActivity extends AppCompatActivity {

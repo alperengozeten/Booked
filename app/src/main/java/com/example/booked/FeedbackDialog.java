@@ -24,7 +24,7 @@ import java.util.HashMap;
 /**
  * This dialog class  pops up when the user clicks give feedback button in settings page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class FeedbackDialog extends AppCompatDialogFragment {

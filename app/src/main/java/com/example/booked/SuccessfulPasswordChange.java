@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 /**
  * A class for the Successful Password Change Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class SuccessfulPasswordChange extends AppCompatActivity  {

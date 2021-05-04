@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
  * This class is used when the admin wants to add a book so that users can choose this book when
  * they are creating a new post
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class AdminAddBook extends AppCompatActivity {
@@ -136,12 +136,6 @@ public class AdminAddBook extends AppCompatActivity {
                                     if (Booked.updateBookProfileInDatabase(newBook.getId(), bookProfile))
                                         Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
 
-                                    /**db.collection("bookProfileObj").document(newBook.getId()).set(bookProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
-                                        }
-                                    });*/
 
                                 }
                             });

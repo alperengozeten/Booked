@@ -2,6 +2,10 @@ package com.example.booked.models;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the user of the app
+ */
+
 public class User{
 
     String documentId;
@@ -17,17 +21,15 @@ public class User{
     boolean admin;
 
 
-    public boolean isNotifications() {
-        return notifications;
+    //this for fireabse
+    public User() {
     }
 
-    public boolean isBanned() {
-        return isBanned;
-    }
-
-    public User() { //do not delete this
-    }
-
+    /**Constructor to initialize username, email and id
+     * @param userName
+     * @param email
+     * @param documentId
+     * */
     public User(String userName, String email,String documentId) {
         this.email = email;
         this.userName = userName;
@@ -45,6 +47,10 @@ public class User{
         admin = false;
     }
 
+    /**Constructor to initialize username and email
+     * @param userName
+     * @param email
+     * */
     public User(String email, String userName) {
         this.email = email;
         this.userName = userName;
@@ -78,6 +84,17 @@ public class User{
         admin = false;
     }
 
+    /**Constructor to initialize almost all properties
+     * @param userName
+     * @param email
+     * @param avatar
+     * @param socialMedia
+     * @param phoneNumber
+     * @param university
+     * @param notifications
+     * @param isBanned
+     * @param wishlist
+     * */
     public User(String userName, String email, String avatar, ArrayList<String> socialMedia, String phoneNumber, String university, boolean notifications, boolean isBanned, ArrayList<Book> wishlist) {
         this.userName = userName;
         this.email = email;
@@ -94,42 +111,13 @@ public class User{
         admin = false;
     }
 
+    // Accessor Methods
     public String getDocumentId() {
         return documentId;
     }
-
-    public void setDocumentId(String documentId) {
-        this.documentId = documentId;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
-    public void setSocialMedia(int position, String socialMediaProfileLink ) {
-        socialMedia.set(position, socialMediaProfileLink);
-    }
-
     public boolean isAdmin() {
         return admin;
     }
-
-    public void setAdmin(boolean admin) {
-        this.admin = admin;
-    }
-
-    // Gereksiz gibi duruyo zaten setPhoneNumber var
-    public void addPhoneNumber() {
-
-    }
-
-    // Accessor Methods
 
     public ArrayList<String> getSocialMedia() {
         return this.socialMedia;
@@ -163,6 +151,15 @@ public class User{
         return this.notifications;
     }
 
+    public boolean isNotifications() {
+        return notifications;
+    }
+
+    public boolean isBanned() {
+        return isBanned;
+    }
+
+
     // Mutator Methods
     public void setSocialMedia(ArrayList<String> socialMedia) {
         this.socialMedia = socialMedia;
@@ -185,7 +182,6 @@ public class User{
     }
 
     public void setPhoneNumber( String aPhoneNumber) {
-        // belirli sayıda karaktere sınırla
         this.phoneNumber = aPhoneNumber;
     }
 
@@ -209,12 +205,46 @@ public class User{
         return wishlist;
     }
 
+    public void setDocumentId(String documentId) {
+        this.documentId = documentId;
+    }
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+
+    public void setSocialMedia(int position, String socialMediaProfileLink ) {
+        socialMedia.set(position, socialMediaProfileLink);
+    }
+
+    /**
+     * This method is used to check if the user is an admin
+     * @param admin
+     */
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
+    }
+
+    /**
+     * toString method of the user
+     * @return
+     */
     @Override
     public String toString() {
         return this.userName + " from " + this.university + " University";
     }
 
+    /**
+     * This method compares Ids of two users
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
 

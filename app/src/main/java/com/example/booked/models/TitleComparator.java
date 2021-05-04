@@ -7,11 +7,14 @@ import java.util.Comparator;
  * */
 public class TitleComparator implements Comparator<Post> {
 
-
+    /** This method compares titles of two post alphabetically.
+     * @param p1 first post to compare
+     * @param p2 second post to compare
+     * */
     @Override
     public int compare(Post p1, Post p2) {
 
-        return p1.getTitle().compareTo(p2.getTitle());
+        return p1.getTitle().toLowerCase().compareTo(p2.getTitle().toLowerCase());
     }
 
 }

@@ -4,38 +4,42 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
+/**
+ * Showroom lists posts. Users can buy and sell books from here
+ */
 public class Showroom implements Filterable, Sortable{
 
     ArrayList<Post> posts;
 
+    /**
+     * Constructor that initializes posts as empty list
+     * */
     public Showroom()
     {
         posts = new ArrayList<Post>();
     }
 
+    /**
+     * Constructor that initializes posts with given Arraylist
+     * @param posts List of posts
+     * */
     public Showroom(ArrayList<Post> posts)
     {
         this.posts = posts;
     }
 
+    /**
+     * Accessor method of posts.
+     * */
     public ArrayList<Post> getPosts() {
         return posts;
     }
 
-    /**void createPost(String title, String description, String course, int price, Book aBook, User seller)
-    {
-        Post aPost = new Post(title, description, course, price, course, aBook, seller);
-        //prog.bookProfiles.get(prog.books.indexOf(aBook)).addPost(aPost);
 
-        posts.add(aPost);
-    }*/
-
-    boolean deletePost(Post aPost)
-    {
-        //prog.bookProfiles.get(prog.books.indexOf(aPost.getBook())).deletePost(aPost);
-        return posts.remove(aPost);
-    }
-
+    /**This filter posts according to their university property.
+     * @param aUniversity
+     * @return
+     */
     @Override
     public Showroom filterByUniversity(String aUniversity) {
 
@@ -51,6 +55,10 @@ public class Showroom implements Filterable, Sortable{
         return new Showroom(postsFiltered);
     }
 
+    /**This filter posts according to their course property.
+     * @param course
+     * @return
+     */
     @Override
     public Showroom filterByCourse(String course) {
 
@@ -66,6 +74,11 @@ public class Showroom implements Filterable, Sortable{
         return new Showroom(postsFiltered);
     }
 
+    /**This filter posts according to its price and boundaries given.
+     * @param minPrice
+     * @param maxPrice
+     * @return
+     */
     @Override
     public Showroom filterByPrice(int minPrice, int maxPrice) {
         ArrayList<Post> postsFiltered = new ArrayList<Post>();
@@ -80,6 +93,10 @@ public class Showroom implements Filterable, Sortable{
         return new Showroom(postsFiltered);
     }
 
+    /**This filter posts according to given word
+     * @param word
+     * @return
+     */
     @Override
     public Showroom filterByWord(String word) {
         ArrayList<Post> postsFiltered = new ArrayList<Post>();
@@ -98,6 +115,11 @@ public class Showroom implements Filterable, Sortable{
         }
     }
 
+    /**
+     * This method sorts showroom's post list according to prices.
+     * @param isLowToHigh if it is true showroom will be sorted from the lowest price to the highest
+     *               if it is false showroom will be sorted from the highest  price to the lowest
+     * */
     @Override
     public void sortByPrice(boolean isLowToHigh) {
 
@@ -109,6 +131,11 @@ public class Showroom implements Filterable, Sortable{
         }
     }
 
+    /**
+     * This method sorts showroom's post list alphabetically.
+     * @param isAToZ if it is true showroom will be sorted alphabetically from a to z
+     *               if it is false showroom will be sorted alphabetically from z to a
+     * */
     @Override
     public void sortByLetter(boolean isAToZ) {
 

@@ -11,9 +11,16 @@ public class Message {
     private String message;
 
     //Constructors
+
+    //for firebase
     public Message() {
     }
 
+    /**This constructor initializes receiver and sender ıd and message text.
+     * @param senderId
+     * @param receiverId
+     * @param message refers to message text
+     * */
     public Message(String receiverId, String senderId, String message) {
         this.receiverId = receiverId;
         this.senderId = senderId;
@@ -22,28 +29,27 @@ public class Message {
 
     //Methods
 
-    /**
-     *
-     * @return
-     */
+    // accessor methods
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public String getReceiverId() {
         return receiverId;
     }
 
-    public void setReceiverId(String receiverId) {
-        this.receiverId = receiverId;
-    }
-
     public String getSenderId() {
         return senderId;
+    }
+
+
+    // mutator methods
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public void setReceiverId(String receiverId) {
+        this.receiverId = receiverId;
     }
 
     public void setSenderId(String senderId) {

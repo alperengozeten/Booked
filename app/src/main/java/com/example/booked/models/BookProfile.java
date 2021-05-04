@@ -17,9 +17,14 @@ public class BookProfile implements Sortable{
     Book book;
 
     //Constructors
-    public BookProfile() {//dont delete this
+
+    // for firebase
+    public BookProfile() {
     }
 
+    /**This constructor initializes book.
+     * @param book
+     * */
     public BookProfile(Book book)
     {
         this.book = book;

@@ -43,7 +43,7 @@ import java.util.ArrayList;
 /**
  * This is the class of the EditPost page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class EditPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -114,6 +114,11 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

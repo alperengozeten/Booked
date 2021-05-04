@@ -18,6 +18,9 @@ public class ReportDialog extends DialogFragment {
 
     int position = 0;
 
+    /**
+     * This interface is used in order to listen positive and negative click on report dialog.
+     */
     public interface ReportypeListener{
         void positiveClicked(String[] reportTypes, int position );
         void negativeClicked();
@@ -31,6 +34,11 @@ public class ReportDialog extends DialogFragment {
         myListener = (ReportypeListener) context;
     }
 
+    /**
+     * This method creates the dialog
+     * @param savedInstanceState
+     * @return
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
