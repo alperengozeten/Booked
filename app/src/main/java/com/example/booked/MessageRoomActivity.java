@@ -141,7 +141,6 @@ public class MessageRoomActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if ( task.isSuccessful() ) {
                     messageRoom = task.getResult().toObject(MessageRoom.class);
-                    Toast.makeText(MessageRoomActivity.this, "Message room pulled", Toast.LENGTH_SHORT).show();
 
                     messageAdapter = new MessageAdapter(MessageRoomActivity.this,messageRoom.getMessages());
                     messageRecyclerView.setAdapter(messageAdapter);
