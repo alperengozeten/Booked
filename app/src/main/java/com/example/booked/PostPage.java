@@ -150,7 +150,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
                             Booked.setCurrentBookProfile(documentSnapshot.toObject(com.example.booked.models.BookProfile.class));
 
-                            Toast.makeText(PostPage.this, "Book Profile Pulled", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(PostPage.this, "Book Profile Pulled", Toast.LENGTH_LONG).show();
 
 
                             Intent profilePage = new Intent(getApplicationContext(), BookProfile.class);

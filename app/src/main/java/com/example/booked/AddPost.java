@@ -280,7 +280,7 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AddPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(AddPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -315,8 +315,8 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
      */
     private void addToOffers()
     {
-        if (Booked.updateBookProfileInDatabase(newPost.getBook().getId(), Booked.getCurrentBookProfile()))
-            Toast.makeText(AddPost.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
+        Booked.updateBookProfileInDatabase(newPost.getBook().getId(), Booked.getCurrentBookProfile());
+        //Toast.makeText(AddPost.this,"Post uploaded to book profile offers", Toast.LENGTH_LONG).show();
     }
 
     /**

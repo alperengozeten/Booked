@@ -286,7 +286,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(EditPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(EditPost.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -299,7 +299,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                                     db.collection("postsObj").document(currentPost.getId()).set(currentPost).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(EditPost.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(EditPost.this,"Information uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
@@ -391,7 +391,7 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         db.collection("bookProfileObj").document(currentPost.getBook().getId()).update("offers", offers).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(EditPost.this, "Book Profile updated", Toast.LENGTH_SHORT).show();
             }
         });
 
