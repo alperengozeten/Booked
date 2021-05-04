@@ -31,7 +31,7 @@ import com.squareup.picasso.Picasso;
  * This class is used when the admin wants to add a book so that users can choose this book when
  * they are creating a new post
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class AdminAddBook extends AppCompatActivity {

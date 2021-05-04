@@ -18,7 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 /**
  * A class for the Forgot Password Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class ForgotPasswordActivity extends AppCompatActivity {

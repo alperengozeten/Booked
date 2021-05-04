@@ -28,7 +28,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import static androidx.core.content.ContextCompat.startActivity;
 
 /**
- * Adapter for offer rcyclerview in book profile page
+ * Adapter for offer recyclerview in book profile page
  * */
 public class OfferRecyclerApapter extends RecyclerView.Adapter<OfferRecyclerApapter.OfferViewHolder> {
 

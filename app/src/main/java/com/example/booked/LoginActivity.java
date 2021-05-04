@@ -27,7 +27,7 @@ import java.util.ArrayList;
 /**
  * A class for the Login Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class LoginActivity extends AppCompatActivity {

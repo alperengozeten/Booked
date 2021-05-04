@@ -45,7 +45,10 @@ public class ReportedPosts extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         reportedPostList = new ArrayList<Post>();
 
-
+    /**
+     * This method called first to initialize properties and create view
+     * @param savedInstanceState
+     */
         pullFromDateBase();
 
         viewReports();

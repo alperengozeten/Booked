@@ -15,7 +15,7 @@ import android.widget.Button;
  * Admin panel class is used by admins to see reports and feedback given by users. Admins can also
  * add a book so that users can choose this book when they are creating new posts
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 

@@ -15,7 +15,7 @@ import androidx.fragment.app.DialogFragment;
 /**
  * This dialog class pops up when the user clicks the button in book profile page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 

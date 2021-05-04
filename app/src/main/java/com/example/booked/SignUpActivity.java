@@ -28,7 +28,7 @@ import java.util.HashMap;
 /**
  * A class for the Register Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class SignUpActivity extends AppCompatActivity  {

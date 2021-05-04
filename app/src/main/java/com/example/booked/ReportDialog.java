@@ -34,6 +34,11 @@ public class ReportDialog extends DialogFragment {
         myListener = (ReportypeListener) context;
     }
 
+    /**
+     * This method creates the dialog
+     * @param savedInstanceState
+     * @return
+     */
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

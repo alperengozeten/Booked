@@ -13,7 +13,7 @@ import com.example.booked.R;
 import com.example.booked.models.BookProfile;
 
 /**
- * This class is adapter of rcycview in the Book Profile comments
+ * This class is adapter of recyclerview in the Book Profile comments
  * */
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.CommentViewHolder> {
 

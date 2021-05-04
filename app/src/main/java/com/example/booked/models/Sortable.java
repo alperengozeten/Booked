@@ -1,5 +1,8 @@
 package com.example.booked.models;
 
+/**
+ * This interface allows user to sort lists, it is used in Showroom and BookProfile pages
+ */
 public interface Sortable {
 
 

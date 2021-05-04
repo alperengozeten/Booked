@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import java.util.Collections;
 
+/**
+ * Showroom lists posts. Users can buy and sell books from here
+ */
 public class Showroom implements Filterable, Sortable{
 
     ArrayList<Post> posts;

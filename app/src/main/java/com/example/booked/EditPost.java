@@ -43,7 +43,7 @@ import java.util.ArrayList;
 /**
  * This is the class of the EditPost page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class EditPost extends AppCompatActivity implements AdapterView.OnItemSelectedListener {

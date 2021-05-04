@@ -2,6 +2,10 @@ package com.example.booked.models;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the user of the app
+ */
+
 public class User{
 
     String documentId;
@@ -178,7 +182,6 @@ public class User{
     }
 
     public void setPhoneNumber( String aPhoneNumber) {
-        // belirli sayıda karaktere sınırla
         this.phoneNumber = aPhoneNumber;
     }
 
@@ -220,15 +223,28 @@ public class User{
         socialMedia.set(position, socialMediaProfileLink);
     }
 
-
+    /**
+     * This method is used to check if the user is an admin
+     * @param admin
+     */
     public void setAdmin(boolean admin) {
         this.admin = admin;
     }
+
+    /**
+     * toString method of the user
+     * @return
+     */
     @Override
     public String toString() {
         return this.userName + " from " + this.university + " University";
     }
 
+    /**
+     * This method compares Ids of two users
+     * @param o
+     * @return
+     */
     @Override
     public boolean equals(Object o) {
 

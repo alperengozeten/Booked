@@ -104,7 +104,7 @@ public class MyMessages extends AppCompatActivity {
 
 
     /**
-    *   This method sets rcyclerview and its adapter.
+    *   This method sets recyclerview and its adapter.
     *
     * */
     private void setMessageFriendsView() {

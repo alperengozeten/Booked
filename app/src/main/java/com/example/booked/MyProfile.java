@@ -92,7 +92,7 @@ public class MyProfile extends AppCompatActivity {
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_book_icon);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Inıtialize other buttons
+        // Initialize other buttons
         editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
         changePasswordBtn = (Button) findViewById(R.id.changePasswordBtn);
         postsBtn = (Button) findViewById(R.id.postsBtn);
@@ -109,7 +109,7 @@ public class MyProfile extends AppCompatActivity {
         profileUniversityNameTextView = (TextView) findViewById(R.id.otherUsersProfileUniversityNameTextView);
         profileUsernameTextView = (TextView) findViewById(R.id.otherUsersProfileUsernameTextView);
 
-        // Inıtialize imageview
+        // Initialize imageview
         profilePhotoImageView = (ImageView) findViewById(R.id.usersProfilePhotoImageView);
 
         // If the user has an avatar, then load it. Else, load an error photo

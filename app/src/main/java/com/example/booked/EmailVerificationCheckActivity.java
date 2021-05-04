@@ -22,7 +22,7 @@ import java.util.HashMap;
 /**
  * A class for the Email Verification Check Page
  *
- * @author NoExpection
+ * @author NoException
  * @version 2021 Spring
  */
 public class EmailVerificationCheckActivity extends AppCompatActivity {

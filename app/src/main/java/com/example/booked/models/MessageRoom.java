@@ -2,6 +2,9 @@ package com.example.booked.models;
 
 import java.util.ArrayList;
 
+/**
+ * Messageroom is used by users to communicate with each other about posts
+ */
 public class MessageRoom {
 
     private String senderId;

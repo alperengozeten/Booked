@@ -24,6 +24,9 @@ import java.util.ArrayList;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+/**
+ * This is the adapter used in MyMessageFriends page
+ */
 public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAdapter.MessageFriendsHolder> {
 
     ArrayList<String> myMessageFriends;
