@@ -42,6 +42,11 @@ public class MyMessages extends AppCompatActivity {
 
     FirebaseFirestore db;
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

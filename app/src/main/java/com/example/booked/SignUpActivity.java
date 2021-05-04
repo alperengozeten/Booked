@@ -170,16 +170,7 @@ public class SignUpActivity extends AppCompatActivity  {
                                 user = new User( userName,email ,mAuth.getUid());
                                 Booked.setCurrentUser(user);
 
-                                /**HashMap<String,Object> newData = new HashMap<>();
-                                newData.put("username", user.getName());
-                                newData.put("email", user.getEmail());
-                                newData.put("avatar", user.getAvatar());
-                                newData.put("socialmedia", user.getSocialMedia());
-                                newData.put("phonenumber", user.getPhoneNumber());
-                                newData.put("university", user.getUniversity());
-                                newData.put("notifications", user.isNotifications());
-                                newData.put("isbanned", user.isBanned());
-                                newData.put("wishlist", user.getWishlist());*/
+
                                 db.collection("usersObj").document(mAuth.getUid()).set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {

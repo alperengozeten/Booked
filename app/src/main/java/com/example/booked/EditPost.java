@@ -114,6 +114,11 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

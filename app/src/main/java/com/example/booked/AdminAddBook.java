@@ -136,12 +136,6 @@ public class AdminAddBook extends AppCompatActivity {
                                     if (Booked.updateBookProfileInDatabase(newBook.getId(), bookProfile))
                                         Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
 
-                                    /**db.collection("bookProfileObj").document(newBook.getId()).set(bookProfile).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
-                                        }
-                                    });*/
 
                                 }
                             });

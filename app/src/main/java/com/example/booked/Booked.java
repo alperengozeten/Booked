@@ -33,7 +33,7 @@ public class Booked extends Application {
     private static User currentUser;
     private static Post currentPost;
     static BookProfile currentBookProfile; // = new BookProfile(currentBook);
-    static Book currentBook;// = new Book("Example Book","picbook");
+    static Book currentBook;
     private static User currentSeller;
 
     public static final String CHANNEL_ID = "post_notifications";
@@ -158,24 +158,6 @@ public class Booked extends Application {
 
     }
 
-   /** public static ArrayList<Message> getMessagesBetweenThem(String userId1, String userId2)
-    {
-        ArrayList<Message> allMessages = new ArrayList<Message>();
 
-        FirebaseFirestore db = FirebaseFirestore.getInstance();
-
-        db.collection("messageRooms").document(findTheirMessageRoom(userId1,userId2)).collection("messages").get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-            @Override
-            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(QueryDocumentSnapshot document: queryDocumentSnapshots)
-                {
-                    allMessages.add(document.toObject(Message.class));
-                }
-            }
-        });
-
-        return allMessages;
-    }*/
 
 }

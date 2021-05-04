@@ -256,7 +256,11 @@ public class OtherUsersProfile extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    //
+    /***
+     * After clicking on send message button, this method creates a message room in database, if there is no message room for these two user
+     * and opens message room activity page
+     * @param messageRoomExists
+     */
     public void createMessageRoom(boolean messageRoomExists) {
         if ( !messageRoomExists ) {
             MessageRoom newMessageRoom = new MessageRoom(currentSeller.getDocumentId(), currentUser.getDocumentId());

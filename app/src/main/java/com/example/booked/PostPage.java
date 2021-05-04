@@ -28,7 +28,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * This is the class of postpage
+ * */
 public class PostPage extends AppCompatActivity implements ReportDialog.ReportypeListener {
 
     TextView title, sellerName, course, features, price;
@@ -42,6 +44,11 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     private FirebaseFirestore db;
 
+    /**
+     * This method sets the activity on create by overriding AppCompatActivity's onCreate method.
+     *
+     * @param savedInstanceState - Bundle
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,13 +67,17 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     }
 
-
+    /**
+     * Gets current post from global class
+     * */
     public void setCurrentPost()
     {
-
         currentPost = Booked.getCurrentPost();
     }
 
+    /**Sets all text views according to properties of the post.
+     *
+     * */
     @SuppressLint("SetTextI18n")
     public void setViews()
     {
@@ -90,9 +101,15 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     }
 
+    /**
+     * Sets all the buttons and add on click listener for them.
+     *
+     * */
     public void setButtons()
     {
         visitSeller = (Button) findViewById(R.id.GoSeller);
+
+        //open seller page by taking its information from database
         visitSeller.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,6 +132,8 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         });
 
         profilePageButton = (Button) findViewById(R.id.GoProfilePage);
+
+        //open book profile page by matching currentpost's book object and book profile object's book objcet in database
         profilePageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +162,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
             }
         });
 
+        //open new report dialog
         report = (ImageButton) findViewById(R.id.reportPost);
         report.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -156,15 +176,22 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     }
 
+    /**
+     * This method is called when user click on submit button in report dialog
+     * */
     @Override
     public void positiveClicked(String[] reportTypes, int position) {
-        //en fazla 1 kere reportlama ekle
+
+        //users can only report every post just once, so as to prevent spamming
         if (reportedBefore)
         {
             Toast.makeText(PostPage.this, "You have already reported this post", Toast.LENGTH_LONG).show();
         }
         else {
+            // add report to current post
             currentPost.report(reportTypes[position], position, Booked.getCurrentUser());
+
+            //and save it to database
             db.collection("postsObj").document(currentPost.getId()).update("reports", currentPost.getReports());
             Toast.makeText(PostPage.this, "Your report is saved", Toast.LENGTH_LONG).show();
             reportedBefore = true;
@@ -172,6 +199,9 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     }
 
+    /**This method checks whether user is already reported this post before
+     * @return
+     * */
     private boolean isReportedBefore()
     {
         for(Report r : currentPost.getReports())
@@ -189,6 +219,11 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
 
     }
 
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -196,6 +231,11 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

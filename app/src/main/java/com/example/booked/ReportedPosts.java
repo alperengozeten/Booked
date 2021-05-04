@@ -30,7 +30,10 @@ public class ReportedPosts extends AppCompatActivity {
     ReportedListAdapter reportedAdapter;
     private FirebaseFirestore db;
 
-
+    /**
+     * First method that is called when this activity is open
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,8 +45,6 @@ public class ReportedPosts extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
         reportedPostList = new ArrayList<Post>();
 
-
-        //resim eklenmesi lazım
 
         pullFromDateBase();
 
@@ -90,7 +91,11 @@ public class ReportedPosts extends AppCompatActivity {
         reportedAdapter.notifyDataSetChanged();
     }
 
-
+    /**
+     * This method is in all pages which creates the top menu
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -98,6 +103,11 @@ public class ReportedPosts extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * This method is in all pages which creates the functionality of the top menu
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {

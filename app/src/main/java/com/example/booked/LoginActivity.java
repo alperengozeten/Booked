@@ -182,18 +182,8 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             @Override
                             public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                /**String newUserName = documentSnapshot.getString("username");
-                                String newUserEmail = documentSnapshot.getString("email");
-                                String newUserAvatar = documentSnapshot.getString("avatar");
-                                String newUserUniversity = documentSnapshot.getString("university");
-                                String newUserPhoneNumber = documentSnapshot.getString("phonenumber");
-                                boolean newUserIsBanned = documentSnapshot.getBoolean("isbanned");
-                                boolean newUserNotifications = documentSnapshot.getBoolean("notifications");
-                                ArrayList<Book> newUserWishList = (ArrayList<Book>) documentSnapshot.get("wishlist");
-                                ArrayList<String> newUserSocialMedia = (ArrayList<String>) documentSnapshot.get("socialmedia");
-                                */
-                                //currentUser = new User(newUserName, newUserEmail, newUserAvatar, newUserSocialMedia, newUserPhoneNumber, newUserUniversity, newUserNotifications, newUserIsBanned, newUserWishList);
-                                //current user çıkartılabilir benje
+
+                                // pull the user from database
                                 currentUser = documentSnapshot.toObject(User.class);
                                 Booked.setCurrentUser(currentUser);
                                 Toast.makeText(LoginActivity.this, "User Pulled", Toast.LENGTH_LONG).show();

@@ -24,11 +24,6 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 public class SettingsActivity extends AppCompatActivity {
 
-     ImageButton logOutImageBtn;
-     ImageButton feedbackImageBtn;
-     ImageButton changePasswordImageBtn;
-     ImageButton notificationImageBtn;
-
 
      Button logOutBtn;
      Button feedbackBtn;
