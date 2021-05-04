@@ -22,7 +22,10 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**This class shows admins reported posts and how many time they are reported.
- * */
+ *
+ * @author NoException
+ * @version 2021 Spring
+ */
 public class ReportedPosts extends AppCompatActivity {
 
     ArrayList<Post> reportedPostList;

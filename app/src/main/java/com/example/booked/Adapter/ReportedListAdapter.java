@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import static androidx.core.content.ContextCompat.startActivity;
 
 /**
- * Adapter for reportedposts page's rcylerview
- * */
+ * Adapter for reportedposts page's recyclerview
+ */
 public class ReportedListAdapter extends RecyclerView.Adapter<ReportedListAdapter.ReportHolder> {
 
     ArrayList<Post> reportedPosts;

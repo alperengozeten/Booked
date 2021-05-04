@@ -12,7 +12,10 @@ import androidx.fragment.app.DialogFragment;
 
 /**
  * This class refers to report dialog when user click on report post button.
- * */
+ *
+ * @author NoException
+ * @version 2021 Spring
+ */
 public class ReportDialog extends DialogFragment {
 
 

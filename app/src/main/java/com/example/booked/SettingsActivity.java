@@ -21,6 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 
 /**
  * This is the class of the Settings page
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class SettingsActivity extends AppCompatActivity {
 

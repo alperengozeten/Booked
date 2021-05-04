@@ -30,9 +30,10 @@ import java.util.ArrayList;
 
 /**This class stores necessary and temporary information while app is running.
  * Global class.
+ *
  * @author NoExpection
  * @version 2021 Spring
- * */
+ */
 public class Booked extends Application {
 
     private static User currentUser;

@@ -5,7 +5,6 @@ import java.util.Collections;
 
 /**
  * This is the model class of BookProfile
- *  delete methodu commentli
  */
 
 public class BookProfile implements Sortable{
@@ -77,11 +76,6 @@ public class BookProfile implements Sortable{
         this.offers = offers;
     }
 
-    /**void deleteEvalution(int index)
-     {
-     evalutions.remove(index);
-     this.getMeanRate();
-     }*/
 
     /**
      * This method gets the mean rate of ratings on a book profile

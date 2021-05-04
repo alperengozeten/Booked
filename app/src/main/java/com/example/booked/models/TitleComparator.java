@@ -4,9 +4,10 @@ import java.util.Comparator;
 
 /**
  * This class is for posts to be sorted accordingly their titles.
- * */
+ */
 public class TitleComparator implements Comparator<Post> {
 
+    //Methods
     /** This method compares titles of two post alphabetically.
      * @param p1 first post to compare
      * @param p2 second post to compare

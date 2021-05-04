@@ -14,6 +14,9 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 /**
  * This dialog class pops up when one of the contact buttons is clicked in the my profile page
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class SocialMediaDialog extends AppCompatDialogFragment {
 

@@ -30,7 +30,10 @@ import com.squareup.picasso.Picasso;
 
 /**
  * This is the class of postpage
- * */
+ *
+ * @author NoException
+ * @version 2021 Spring
+ */
 public class PostPage extends AppCompatActivity implements ReportDialog.ReportypeListener {
 
     TextView title, sellerName, course, features, price;

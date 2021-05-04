@@ -34,6 +34,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * This class is the chatting part of the Messaging utility
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class MessageRoomActivity extends AppCompatActivity {
 

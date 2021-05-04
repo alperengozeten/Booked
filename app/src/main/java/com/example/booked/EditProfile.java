@@ -22,7 +22,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 /**
  * This page helps user to change his*her profile information.
- * */
+ *
+ * @author NoException
+ * @version 2021 Spring
+ */
 public class EditProfile extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     User currentUser;

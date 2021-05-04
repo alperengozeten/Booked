@@ -32,7 +32,10 @@ import java.util.ArrayList;
 
 /**
  * This page shows users, their list of message friends.
- * */
+ *
+ * @author NoException
+ * @version 2021 Spring
+ */
 public class MyMessages extends AppCompatActivity {
 
     RecyclerView myMessageFriendsRcycler;

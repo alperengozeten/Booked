@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class User{
 
+    //Properties
     String documentId;
     String userName;
     String email;
@@ -20,8 +21,8 @@ public class User{
     ArrayList<Book> wishlist;
     boolean admin;
 
-
-    //this for fireabse
+    //Constructors
+    //this for firebase
     public User() {
     }
 
@@ -111,6 +112,7 @@ public class User{
         admin = false;
     }
 
+    //Methods
     // Accessor Methods
     public String getDocumentId() {
         return documentId;

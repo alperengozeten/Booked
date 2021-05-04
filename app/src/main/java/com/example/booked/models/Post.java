@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Post implements Reportable, Comparable<Post> {
 
+    //Properties
     String title;
     String description;
     String university;
@@ -20,7 +21,7 @@ public class Post implements Reportable, Comparable<Post> {
     Boolean isSold;
     Book theBook;
 
-
+    //Constructors
     /**This is for firebase
      * */
     public Post() { // important do not delete this
@@ -58,7 +59,7 @@ public class Post implements Reportable, Comparable<Post> {
         this.id = id;
     }
 
-
+    //Methods
     public void deletePicture( String aPicture) {
         this.picture = "";
     }
@@ -162,6 +163,11 @@ public class Post implements Reportable, Comparable<Post> {
         this.theBook = theBook;
     }
 
+    /**
+     * This method compares id's of two posts
+     * @param o
+     * @return true if ids are same
+     */
     @Override
     public boolean equals(Object o) {
 
@@ -177,12 +183,22 @@ public class Post implements Reportable, Comparable<Post> {
         }
     }
 
+    /**
+     * toString method for post
+     * @return description, price, seller name and name of the book
+     */
     @Override
     public String toString() {
         return this.description + " for " +  this.price + " TL " + " by " + this.seller.getName() +
                 "\n name of the book: " + this.theBook +"\n";
     }
 
+    /**
+     * This method is used to create a report about the post
+     * @param description
+     * @param catagory
+     * @param owner
+     */
    @Override
     public void report(String description, int catagory, User owner) {
 
@@ -190,6 +206,11 @@ public class Post implements Reportable, Comparable<Post> {
 
     }
 
+    /**
+     * This method compares prices of two posts
+     * @param post
+     * @return
+     */
     @Override
     public int compareTo(Post post) {
 

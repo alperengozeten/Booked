@@ -7,10 +7,12 @@ import java.util.ArrayList;
  */
 public class MessageRoom {
 
+    //Properties
     private String senderId;
     private String receiverId;
     private ArrayList<Message> messages;
 
+    //Constructors
     /**
      * for firebase
      */
@@ -28,6 +30,7 @@ public class MessageRoom {
         messages = new ArrayList<Message>();
     }
 
+    //Methods
     /** This method adds a new message.
      * @param m
      * */

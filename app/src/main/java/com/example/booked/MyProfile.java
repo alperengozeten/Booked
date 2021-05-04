@@ -30,6 +30,9 @@ import com.squareup.picasso.Picasso;
 
 /**
  * MyProfile Page class
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class MyProfile extends AppCompatActivity {
 

@@ -14,7 +14,7 @@ import com.example.booked.models.BookProfile;
 
 /**
  * This class is adapter of recyclerview in the Book Profile comments
- * */
+ */
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.CommentViewHolder> {
 
     BookProfile myBookProfile;

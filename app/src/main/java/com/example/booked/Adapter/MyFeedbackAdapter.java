@@ -26,7 +26,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 /**
- * This is an adapter class for the recycler view in the feedbacks activity
+ * This is an adapter class for the recycler view in the feedback activity
  */
 public class MyFeedbackAdapter extends RecyclerView.Adapter<MyFeedbackAdapter.FeedbackViewHolder> {
 

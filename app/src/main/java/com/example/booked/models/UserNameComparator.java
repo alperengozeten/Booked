@@ -7,6 +7,7 @@ import java.util.Comparator;
  * */
 public class UserNameComparator implements Comparator<Post> {
 
+    //Methods
     /** This method compares seller names of two post alphabetically.
      * @param p1 first post to compare
      * @param p2 second post to compare

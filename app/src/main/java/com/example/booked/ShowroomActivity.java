@@ -30,6 +30,9 @@ import java.util.ArrayList;
 
 /**
  * ShowroomActivity page Class
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuDialog.ShowroomMenuDialogListener {
 

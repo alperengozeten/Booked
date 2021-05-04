@@ -27,6 +27,9 @@ import java.util.ArrayList;
 
 /**
  * This is the class of the MyPosts activity
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class MyPosts extends AppCompatActivity {
 

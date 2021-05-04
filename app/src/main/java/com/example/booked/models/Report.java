@@ -5,10 +5,12 @@ package com.example.booked.models;
  */
 public class Report {
 
+    //Properties
     private String description;
     private int category;
     private User owner;
 
+    //Constructors
     //for firebase
     public Report() {
     }
@@ -24,7 +26,7 @@ public class Report {
         this.owner = owner;
     }
 
-
+    //Methods
     // accessor methods
     public int getCategory() {
         return category;

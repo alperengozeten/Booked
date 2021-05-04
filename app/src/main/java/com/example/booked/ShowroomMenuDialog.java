@@ -23,6 +23,9 @@ import com.example.booked.models.Showroom;
 
 /**
  * This class represents a dialog box that pops up when menu icon in the showroom is clicked
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class ShowroomMenuDialog extends AppCompatDialogFragment implements AdapterView.OnItemSelectedListener{
 

@@ -9,8 +9,10 @@ import java.util.Collections;
  */
 public class Showroom implements Filterable, Sortable{
 
+    //Properties
     ArrayList<Post> posts;
 
+    //Constructors
     /**
      * Constructor that initializes posts as empty list
      * */
@@ -28,6 +30,7 @@ public class Showroom implements Filterable, Sortable{
         this.posts = posts;
     }
 
+    //Methods
     /**
      * Accessor method of posts.
      * */

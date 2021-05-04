@@ -34,8 +34,9 @@ public class MessageFriendsAdapter extends RecyclerView.Adapter<MessageFriendsAd
     ArrayList<User> users;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
-    /**Constructor to initialize myMessagefriends
-     * */
+    /**
+     * Constructor to initialize myMessagefriends
+     */
     public MessageFriendsAdapter(ArrayList<String> myMessageFriends) {
         this.myMessageFriends = myMessageFriends;
 

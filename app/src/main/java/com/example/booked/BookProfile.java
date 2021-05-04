@@ -31,6 +31,8 @@ import com.squareup.picasso.Picasso;
 /**
  * This is the class of BookProfile
  *
+ * @author NoException
+ * @version 2021 Spring
  */
 
 public class BookProfile extends AppCompatActivity implements AddEvaluationDialog.CommentListener {

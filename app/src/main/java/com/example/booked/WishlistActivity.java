@@ -16,6 +16,9 @@ import com.example.booked.models.User;
 
 /**
  * This class represents the wishlist activity page
+ *
+ * @author NoException
+ * @version 2021 Spring
  */
 public class WishlistActivity extends AppCompatActivity {
 
