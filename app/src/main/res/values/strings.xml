@@ -19,16 +19,26 @@
 
     <string-array name="courses">
         <item>Math-101</item>
-        <item>Math-102</item>
-        <item>Math-132</item>
+        <item>Turk-101</item>
+        <item>Eng-101</item>
+        <item>Cs-101</item>
         <item>Phys-101</item>
         <item>Phys-102</item>
-        <item>Eng-101</item>
+        <item>Math-102</item>
         <item>Eng-102</item>
-        <item>Cs-115</item>
-        <item>Cs-101</item>
         <item>Cs-102</item>
+        <item>Turk-102</item>
+        <item>Cs-115</item>
+        <item>Math-132</item>
         <item>MBG-110</item>
         <item>Math-225</item>
+        <item>Cs-201</item>
+        <item>Cs-223</item>
+        <item>Hist-200</item>
+        <item>Hum-111</item>
+        <item>Cs-202</item>
+        <item>Cs-224</item>
+        <item>Hum-112</item>
+        <item>Eng-401</item>
     </string-array>
 </resources>
