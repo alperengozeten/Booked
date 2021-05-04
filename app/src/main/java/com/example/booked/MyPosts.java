@@ -90,7 +90,7 @@ public class MyPosts extends AppCompatActivity {
 
                         posts.add(document.toObject(Post.class));
                     }
-                    Toast.makeText(MyPosts.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MyPosts.this, "Your number of posts: " + String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
 
                     // Set the adapters
                     mAdapter = new MyPostAdapter(posts, MyPosts.this);

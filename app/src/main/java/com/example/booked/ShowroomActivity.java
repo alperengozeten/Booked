@@ -91,7 +91,6 @@ public class ShowroomActivity extends AppCompatActivity implements ShowroomMenuD
                         // Add the post to the posts array
                         posts.add(document.toObject(Post.class));
                     }
-                    Toast.makeText(ShowroomActivity.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
 
                     // Create the adapters
                     showroom = new Showroom(posts);
