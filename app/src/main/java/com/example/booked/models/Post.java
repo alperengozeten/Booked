@@ -1,9 +1,9 @@
 package com.example.booked.models;
 
-import com.google.firebase.firestore.FirebaseFirestore;
+
 
 import java.util.ArrayList;
-import java.util.Comparator;
+
 
 public class Post implements Reportable, Comparable<Post> {
 
@@ -20,25 +20,12 @@ public class Post implements Reportable, Comparable<Post> {
     Book theBook;
 
 
+    /**This is for firebase
+     * */
     public Post() { // important do not delete this
     }
 
-/**
-    public Post (String title, String description,  String course, int price, String aPicture, Book aBook, User seller) {
-        this.seller = seller;
-        this.title = title;
-        this.description = description;
-        this.university = seller.getUniversity();
-        this.course = course;
-        this.price = price;
-        //this.id = id;
-        picture = aPicture;
-        reports = new ArrayList<>();
-        this.isSold = false;
-        this.theBook = aBook;
-        //randomKeyGenerator(11);
 
-    }*/
 
     public Post (String title, String description, String university, String course, int price, String aPicture, Book aBook, User seller, String id) {
         this.seller = seller;

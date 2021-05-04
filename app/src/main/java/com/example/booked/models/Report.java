@@ -6,9 +6,36 @@ public class Report {
     private int category;
     private User owner;
 
+    //for firebase
     public Report() {
     }
 
+    /**Constructor to initialize description, category and owner.
+     * @param description
+     * @param category
+     * @param owner
+     * */
+    public Report(String description, int category, User owner) {
+        this.description = description;
+        this.category = category;
+        this.owner = owner;
+    }
+
+
+    // accessor methods
+    public int getCategory() {
+        return category;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public User getOwner() {
+        return owner;
+    }
+
+    //mutator methods
     public void setDescription(String description) {
         this.description = description;
     }
@@ -21,22 +48,7 @@ public class Report {
         this.owner = owner;
     }
 
-    public Report(String description, int category, User owner) {
-        this.description = description;
-        this.category = category;
-        this.owner = owner;
-    }
 
-    public int getCategory() {
-        return category;
-    }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public User getOwner() {
-        return owner;
-    }
 }
 

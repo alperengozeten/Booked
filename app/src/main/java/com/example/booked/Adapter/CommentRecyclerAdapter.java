@@ -12,17 +12,26 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.booked.R;
 import com.example.booked.models.BookProfile;
 
-
+/**
+ * This class is adapter of rcycview in the Book Profile comments
+ * */
 public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecyclerAdapter.CommentViewHolder> {
 
     BookProfile myBookProfile;
 
+    /**This constructor initializes myBookProfile.
+     * @param profile
+     *
+     * */
     public CommentRecyclerAdapter(BookProfile profile)
     {
         myBookProfile = profile;
     }
 
 
+    /**
+     * This View Holder holds fragments of the rcyclerview.
+     * */
     public class CommentViewHolder extends RecyclerView.ViewHolder{
 
         TextView commentOwner,commentDescription;
@@ -65,6 +74,10 @@ public class CommentRecyclerAdapter extends RecyclerView.Adapter<CommentRecycler
 
     }
 
+    /**
+     * This method returns the number of elements(rows)
+     * @return
+     */
     @Override
     public int getItemCount() {
         return myBookProfile.getEvalutions().size();
