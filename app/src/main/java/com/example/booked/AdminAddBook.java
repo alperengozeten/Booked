@@ -114,7 +114,7 @@ public class AdminAddBook extends AppCompatActivity {
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(AdminAddBook.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(AdminAddBook.this, "Upload succesful!", Toast.LENGTH_SHORT).show();
                             fileReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                                 @Override
                                 public void onSuccess(Uri uri) {
@@ -125,7 +125,7 @@ public class AdminAddBook extends AppCompatActivity {
                                     db.collection("booksObj").document(newBook.getId()).set(newBook).addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
-                                            Toast.makeText(AdminAddBook.this,"The Book uploaded to database!", Toast.LENGTH_LONG).show();
+                                            Toast.makeText(AdminAddBook.this,"Book uploaded to database!", Toast.LENGTH_LONG).show();
                                         }
                                     });
 
@@ -133,8 +133,7 @@ public class AdminAddBook extends AppCompatActivity {
                                     BookProfile bookProfile = new BookProfile(newBook);
 
                                     // Call the updateBookProfile() method of the Booked class which updates the database
-                                    if (Booked.updateBookProfileInDatabase(newBook.getId(), bookProfile))
-                                        Toast.makeText(AdminAddBook.this,"The BookProfile uploaded to database!", Toast.LENGTH_LONG).show();
+                                    Booked.updateBookProfileInDatabase(newBook.getId(), bookProfile);
 
 
                                 }
