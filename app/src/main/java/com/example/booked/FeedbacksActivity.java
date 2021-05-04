@@ -75,7 +75,7 @@ public class FeedbacksActivity extends AppCompatActivity {
                         feedbacks.add(documentSnapshot.getString("feedback"));
                         names.add(documentSnapshot.getString("username"));
                     }
-                    Toast.makeText(FeedbacksActivity.this,String.valueOf(names.size()), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(FeedbacksActivity.this,"Number of feedbacks: " + String.valueOf(names.size()), Toast.LENGTH_SHORT).show();
                     mAdapter = new MyFeedbackAdapter(names, feedbacks, FeedbacksActivity.this);
                     recyclerView.setAdapter(mAdapter);
                 }
