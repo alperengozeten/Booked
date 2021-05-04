@@ -373,7 +373,6 @@ public class AddPost extends AppCompatActivity implements AdapterView.OnItemSele
 
                 @Override
                 public void onSuccess(DocumentSnapshot documentSnapshot) {
-                    Toast.makeText(AddPost.this,"Current profile setlendi", Toast.LENGTH_LONG).show();
                     Booked.setCurrentBookProfile(documentSnapshot.toObject(BookProfile.class));
                     //Booked.getCurrentBookProfile().addPost(newPost);
                 }
