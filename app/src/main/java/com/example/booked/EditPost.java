@@ -162,7 +162,6 @@ public class EditPost extends AppCompatActivity implements AdapterView.OnItemSel
                     }
 
                     // Set the adapter and listener
-                    Toast.makeText(EditPost.this,String.valueOf(allBookNames.size()) + ", " + String.valueOf(allBooks.size()),Toast.LENGTH_LONG).show();
                     ArrayAdapter<String> bookAdapter = new ArrayAdapter<>(EditPost.this,android.R.layout.simple_spinner_item, allBookNames);
                     bookAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
