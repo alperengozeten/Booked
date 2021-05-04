@@ -6,7 +6,10 @@ Title: Booked
 
 Description: A mobile trading application between university students 
 
-Status: Working, but needs a few visual and systematic improvements
+How to Run: One needs only Android Studio to run our program. We've uploaded our work with libraries (dependencies) included to make it possible to run directly and that made it a large program. If it doesn't run (probably won't happen), try File --> Sync Project with Gradle Files.
+Also, our app only accepts e-mails with "edu.tr" domain.
+
+Github Page: https://github.com/alperengozeten/Booked
 
 So Far: Firstly, the user enters the app using their "edu.tr" mails. We used Firebase Auth to send verification mails and check the credentials of the user. We also allowed the 
 user to reset their passwords, sign up, and sign in. After logging in the user is in the Main Page We have implemented the Showroom where we list all the posts in our app and also we can make detailed searchs, filterings, and sortings in there. We also have user profiles (shows
