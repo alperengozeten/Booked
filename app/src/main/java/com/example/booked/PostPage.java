@@ -123,7 +123,7 @@ public class PostPage extends AppCompatActivity implements ReportDialog.Reportyp
                         for (DocumentSnapshot documentSnapshot : task.getResult() ) {
 
                             currentSeller = documentSnapshot.toObject(User.class);
-                            Toast.makeText(PostPage.this, "User Pulled", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(PostPage.this, "User Pulled", Toast.LENGTH_LONG).show();
 
                             Booked.setCurrentSeller(currentSeller);
                             Intent sellerPage = new Intent(getApplicationContext(), OtherUsersProfile.class);

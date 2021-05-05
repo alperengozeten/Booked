@@ -123,7 +123,7 @@ public class OtherUsersProfile extends AppCompatActivity {
 
                         posts.add(document.toObject(Post.class));
                     }
-                    Toast.makeText(OtherUsersProfile.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(OtherUsersProfile.this, String.valueOf(posts.size()), Toast.LENGTH_SHORT).show();
                     mAdapter = new OtherUsersPostAdapter(posts, OtherUsersProfile.this);
                     recyclerView.setAdapter(mAdapter);
                 }
