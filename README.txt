@@ -6,8 +6,23 @@ Title: Booked
 
 Description: A mobile trading application between university students 
 
-How to Run: One needs only Android Studio to run our program. We've uploaded our work with libraries (dependencies) included to make it possible to run directly and that made it a large program. If it doesn't run (probably won't happen), try File --> Sync Project with Gradle Files.
-Also, our app only accepts e-mails with "edu.tr" domain.
+How to Run: One needs only Android Studio (we used version 4.1.3 which is the latest) to run our program. The suggested emulator device for our app is Pixel 4 XL API 30, you need to create a new
+virtual device before running the app (this is just next to the run icon). We've uploaded our work with libraries (dependencies) included to make it possible to run directly and that made it a large program. If it doesn't run (probably won't happen), try File --> Sync Project with Gradle Files.
+Also, our app only accepts e-mails with "edu.tr" domain. To run the program click the green arrow at the top. When the emulator is currently
+running, the run icon is changed. If you click these new run icons the program will restart.
+
+Code Organisation: Layout files are the design files of the pages and also other elements such as dialogs, recycler views and etc.
+                   We've put our model classes in a model package. Also, the adapters used in the recycler views are also in a package
+                   called adapters. The other classes in the booked package are the activities and also dialog box classes (only two of them).
+
+Dependencies :      'com.squareup.picasso:picasso:2.71828'  (Picasso Library)
+                    'de.hdodenhof:circleimageview:3.1.0'    (CircleImageView Library)
+                    "androidx.recyclerview:recyclerview:1.2.0" (RecyclerView Library which is in the Android Studio)
+                    'com.google.firebase:firebase-auth:20.0.4' (Firebase Authentication Library)
+                    'com.google.firebase:firebase-database:19.7.0' (Firebase Database Library)
+                    'com.google.firebase:firebase-storage:19.2.2'  (Firebase Storage Library)
+                    'com.google.firebase:firebase-firestore:22.1.2' (Firebase Firestore Library)
+                    'com.google.firebase:firebase-messaging:21.1.0' (Firebase Messaging Library)
 
 Github Page: https://github.com/alperengozeten/Booked
 

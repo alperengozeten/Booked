@@ -175,11 +175,11 @@ public class SignUpActivity extends AppCompatActivity  {
                                     @Override
                                     public void onSuccess(Void aVoid) {
 
-                                        Toast.makeText(SignUpActivity.this,"Information uploaded to database!", Toast.LENGTH_SHORT).show();
+//                                        Toast.makeText(SignUpActivity.this,"Information uploaded to database!", Toast.LENGTH_SHORT).show();
 
                                     }
                                 });
-                                Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(com.example.booked.SignUpActivity.this, "Registered successfully! Please check your email for verification", Toast.LENGTH_SHORT).show();
                                 Intent i =  new Intent( getApplicationContext(), EmailVerificationCheckActivity.class);
                                 i.putExtra("email",email);
                                 i.putExtra("password", password);
