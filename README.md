@@ -1,4 +1,4 @@
-## Booked
+# Booked
 
 ### Group: G2G
 
@@ -34,19 +34,19 @@ Lastly, we have implemented a Settings page, which allows the user various actio
 Evaluations and all the posts can be seen about a book profile. The admin can now manage all the feedback and all the reported posts and can also create a new book through the Admin Panel. My Profile and Other Users Profile are now also fully functional with social media dialog boxes. Other User's posts can be seen in their profile. Also, now the user can manage all the information about the profile in Edit Profile page.
 Settings are now also fully functional, including the change password utility. Also, general visual improvement is done for all pages.
 
-Final Status: In our last few days, we managed to add the Messaging utility to allow more enhanced communication for the users of the app. Besides that, we also added notifications
+***Final Status: In our last few days, we managed to add the Messaging utility to allow more enhanced communication for the users of the app. Besides that, we also added notifications
 for our app in the last few days so that user gets notified about certain actions in the app. We also made visual improvements in the app at the very last stage, and lastly, we've
-tried all features of our app to ensure it's fully functional.
+tried all features of our app to ensure it's fully functional.***
 
-Halil Alperen Gözeten: Implementation and database connections of the Messaging pages with Safa. XML designs and Activity (Controller) implementations of Showroom, Main Activity, Profile, Other User's Profile, Wishlist, and My Posts pages. Also provided Recycler Views and adapters for Showroom, My Posts, Wishlist, and Other Users Profile Pages. Contributed to Model Classes also.
-Firebase Storage implementation for all THE app and also helped on Firebase Firestore with Safa to manage all the data. Created Wishlist and Admin Feedback Pages and connected these pages with the database. Create a Book page for Admin and its connection with databases.
+*Halil Alperen Gözeten: Implementation and database connections of the Messaging pages with Safa. XML designs and Activity (Controller) implementations of Showroom, Main Activity, Profile, Other User's Profile, Wishlist, and My Posts pages. Also provided Recycler Views and adapters for Showroom, My Posts, Wishlist, and Other Users Profile Pages. Contributed to Model Classes also.
+Firebase Storage implementation for all THE app and also helped on Firebase Firestore with Safa to manage all the data. Created Wishlist and Admin Feedback Pages and connected these pages with the database. Create a Book page for Admin and its connection with databases.*
 
-Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword, and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates, has implemented notification channel and specified notification for activities.
+*Berkay Akkuş: Berkay has implemented model classes with Safa, LoginActivity, SignUpActivity, EmailVerificationCheckActivity, ForgotPassword, and ChangePassword controller classes, has integrated Firebase Authentication, has customized email templates, has implemented notification channel and specified notification for activities.*
 
-Ömer Asım Doğan: XML classes of Login Page, Sign Up Page, Verification Pages. Finding icons and drawables for the app. Also, general management of all XML files of the application, including activities, dialog boxes, recycler views etc.
+*Ömer Asım Doğan: XML classes of Login Page, Sign Up Page, Verification Pages. Finding icons and drawables for the app. Also, general management of all XML files of the application, including activities, dialog boxes, recycler views etc.*
 
-Safa Eren Kuday:  Activities: Book Profile page (including evaluations, comments, offers and offer filters); post page and report post dialog, edit profile page, admin panel (and its visibility), reported posts, myMessages, rcyclerview adapters of mymessage , comments, offers and reportedPost
+*Safa Eren Kuday:  Activities: Book Profile page (including evaluations, comments, offers and offer filters); post page and report post dialog, edit profile page, admin panel (and its visibility), reported posts, myMessages, rcyclerview adapters of mymessage , comments, offers and reportedPost
                   Firebase Firestore: saving and retrieving of book, book Profile, user, post objects, and message rooms;
-                  also implementation of model classes, comparators and global class
+                  also implementation of model classes, comparators and global class*
 
-Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts. Also added comments to classes. Helped with visuals of the app and debugging
+*Hasan Yarkın Kurt: Implemented AddPost page, EditPost page, Settings page, ChangePassword page controller classes and their respective layouts. Also added comments to classes. Helped with visuals of the app and debugging*
